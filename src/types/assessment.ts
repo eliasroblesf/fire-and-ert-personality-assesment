@@ -3,7 +3,8 @@ import { RoleScores, CompetencyScores } from '../data/assessmentQuestions';
 export interface StudentProfile {
   name: string;
   studentId: string;
-  cohort: string;
+  courseDate: string; // DD/MM/YY format
+  cohort?: string;    // Fallback/backward compatibility
   email?: string;
   assessorName?: string;
 }
@@ -16,6 +17,8 @@ export interface AssessmentResult {
   primaryRoleScore: number;
   secondaryRole: keyof RoleScores;
   secondaryRoleScore: number;
+  tertiaryRole: keyof RoleScores;
+  tertiaryRoleScore: number;
   allRoleScores: Record<keyof RoleScores, { raw: number; percentage: number }>;
   competencies: Record<keyof CompetencyScores, { raw: number; percentage: number }>;
   totalAnswered: number;

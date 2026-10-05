@@ -14,7 +14,6 @@
  */
 
 export interface RoleScores {
-  teamLeader: number;
   suppressionLead: number;
   casualtyCareLead: number;
   evacuationSupportLead: number;
@@ -33,7 +32,7 @@ export interface AssessmentOption {
   id: 'A' | 'B' | 'C' | 'D';
   text: string;
   arabicText?: string;
-  roleWeights: Partial<RoleScores>;
+  roleWeights: Partial<RoleScores & { teamLeader?: number }>;
   competencies: Partial<CompetencyScores>;
   learningInsight: string;
 }
@@ -64,35 +63,6 @@ export interface RoleDefinition {
 }
 
 export const BRIGADE_ROLES: Record<keyof RoleScores, RoleDefinition> = {
-  teamLeader: {
-    id: 'teamLeader',
-    name: 'Team Leader (Incident Commander)',
-    arabicName: 'قائد الفريق (قيادة الحوادث)',
-    tagline: 'Leadership, Big-Picture Strategy & Fast Decisions',
-    badgeColor: 'amber',
-    iconName: 'ShieldAlert',
-    standards: ['NFPA 1561 (Incident Management)', 'FEMA ICS-200', 'ICAO Command Level'],
-    keyTraits: [
-      'Stays calm when things are confusing',
-      'Good at delegating tasks to others',
-      'Focuses on the big picture instead of doing small tasks',
-      'Makes firm decisions without second-guessing',
-      'Inspires trust and confidence in the team'
-    ],
-    operationalDuties: [
-      'Take overall command of the emergency scene',
-      'Assign responsibilities to each functional lead',
-      'Make the final call to evacuate or withdraw teams',
-      'Ensure the safety of all team members',
-      'Hand over formal control to Civil Defense officers'
-    ],
-    idealPersonality: 'Natural coordinators who prefer guiding people, making clear plans, and managing emergencies from a strategic command post.',
-    recommendedTrainingPath: [
-      'FEMA ICS-100 / ICS-200 Incident Command',
-      'Airport Dynamic Risk Assessment & Decision Making',
-      'Crisis Team Leadership & Delegation'
-    ]
-  },
   suppressionLead: {
     id: 'suppressionLead',
     name: 'Fire Suppression & Hazmat Lead',

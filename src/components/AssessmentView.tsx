@@ -151,7 +151,7 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
               <div className="flex items-center gap-2">
                 <span className="text-white font-bold text-base sm:text-lg">{student.name}</span>
                 <span className="text-[10px] bg-slate-800 border border-slate-700 px-2 py-0.5 rounded text-amber-400 font-mono">
-                  Badge: {student.studentId}
+                  Employee ID: {student.studentId}
                 </span>
                 <button
                   onClick={onEditProfile}
@@ -161,7 +161,7 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
                 </button>
               </div>
               <p className="text-xs text-slate-400">
-                Cohort: <span className="text-slate-300 font-medium">{student.cohort}</span> | Plain English with Arabic Helpers
+                Course Date: <span className="text-slate-300 font-medium font-mono">{student.courseDate || student.cohort}</span> | Plain English with Arabic Helpers
               </p>
             </div>
           </div>

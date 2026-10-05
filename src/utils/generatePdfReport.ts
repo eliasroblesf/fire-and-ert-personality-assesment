@@ -16,6 +16,7 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
 
   const primaryDef = BRIGADE_ROLES[result.primaryRole];
   const secondaryDef = BRIGADE_ROLES[result.secondaryRole];
+  const tertiaryDef = BRIGADE_ROLES[result.tertiaryRole];
 
   // Helper colors
   const gold = [196, 155, 109]; // #C49B6D
@@ -97,15 +98,15 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.text(result.student.name || 'KSIA Recruit', margin + 35, metaY);
 
   doc.setFont('helvetica', 'bold');
-  doc.text('STUDENT / BADGE ID:', margin + 95, metaY);
+  doc.text('EMPLOYEE ID NUMBER:', margin + 95, metaY);
   doc.setFont('helvetica', 'normal');
-  doc.text(result.student.studentId || 'N/A', margin + 130, metaY);
+  doc.text(result.student.studentId || 'N/A', margin + 136, metaY);
 
   const metaY2 = y + 13;
   doc.setFont('helvetica', 'bold');
-  doc.text('COHORT / CELL:', margin + 4, metaY2);
+  doc.text('COURSE DATE:', margin + 4, metaY2);
   doc.setFont('helvetica', 'normal');
-  doc.text(result.student.cohort || 'Airside Brigade Beta', margin + 35, metaY2);
+  doc.text(result.student.courseDate || result.student.cohort || 'DD/MM/YY', margin + 35, metaY2);
 
   doc.setFont('helvetica', 'bold');
   doc.text('EVALUATION TIME:', margin + 95, metaY2);
@@ -124,126 +125,176 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setTextColor(emerald[0], emerald[1], emerald[2]);
   doc.text('CERTIFIED FOR BRIGADE DEPLOYMENT', margin + 135, metaY3);
 
-  y += 30;
+  y += 28;
 
   // PRIMARY ROLE HERO CARD
   doc.setFillColor(254, 252, 246); // Warm gold tint
   doc.setDrawColor(gold[0], gold[1], gold[2]);
   doc.setLineWidth(1);
-  doc.roundedRect(margin, y, contentWidth, 54, 2, 2, 'FD');
+  doc.roundedRect(margin, y, contentWidth, 48, 2, 2, 'FD');
 
   // Badge Tag
   doc.setFillColor(gold[0], gold[1], gold[2]);
-  doc.roundedRect(margin + 4, y + 4, 46, 6, 1, 1, 'F');
+  doc.roundedRect(margin + 4, y + 4, 46, 5.5, 1, 1, 'F');
   doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('PRIMARY RECOMMENDED FIT', margin + 6, y + 8.2);
+  doc.text('PRIMARY RECOMMENDED FIT', margin + 6, y + 8);
 
   // Score Pill on Right
   doc.setFillColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.roundedRect(pageWidth - margin - 38, y + 4, 34, 7, 1, 1, 'F');
+  doc.roundedRect(pageWidth - margin - 38, y + 4, 34, 6.5, 1, 1, 'F');
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text(`MATCH: ${result.primaryRoleScore}%`, pageWidth - margin - 21, y + 8.8, { align: 'center' });
+  doc.text(`MATCH: ${result.primaryRoleScore}%`, pageWidth - margin - 21, y + 8.5, { align: 'center' });
 
   // Role Name
-  doc.setFontSize(13);
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text(primaryDef.name, margin + 4, y + 17);
+  doc.text(primaryDef.name, margin + 4, y + 16);
 
   // Tagline
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text(primaryDef.tagline, margin + 4, y + 22);
+  doc.text(primaryDef.tagline, margin + 4, y + 21);
 
   // Profile text
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.2);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
   const primaryBio = doc.splitTextToSize(primaryDef.idealPersonality, contentWidth - 8);
-  doc.text(primaryBio, margin + 4, y + 28);
+  doc.text(primaryBio, margin + 4, y + 26);
 
   // Key Responsibilities bulleted
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.2);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text('Core Brigade Responsibilities:', margin + 4, y + 37);
+  doc.text('Core Brigade Responsibilities:', margin + 4, y + 34);
   
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
+  doc.setFontSize(6.8);
   primaryDef.operationalDuties.slice(0, 3).forEach((duty, idx) => {
-    doc.text(`• ${duty}`, margin + 6, y + 42 + idx * 4);
+    doc.text(`• ${duty}`, margin + 6, y + 38.5 + idx * 3.6);
   });
 
-  y += 60;
+  y += 53;
 
-  // SECONDARY ROLE HERO CARD
+  // SECONDARY ROLE CARD
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
   doc.setLineWidth(0.7);
-  doc.roundedRect(margin, y, contentWidth, 42, 2, 2, 'FD');
+  doc.roundedRect(margin, y, contentWidth, 34, 2, 2, 'FD');
 
   // Badge Tag
   doc.setFillColor(71, 85, 105);
-  doc.roundedRect(margin + 4, y + 4, 52, 6, 1, 1, 'F');
-  doc.setFontSize(7);
+  doc.roundedRect(margin + 4, y + 3.5, 52, 5.5, 1, 1, 'F');
+  doc.setFontSize(6.8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('SECONDARY / CROSS-TRAIN FIT', margin + 6, y + 8.2);
+  doc.text('SECONDARY / CROSS-TRAIN FIT', margin + 6, y + 7.4);
 
   // Score Pill on Right
   doc.setFillColor(226, 232, 240);
-  doc.roundedRect(pageWidth - margin - 38, y + 4, 34, 7, 1, 1, 'F');
-  doc.setFontSize(8);
+  doc.roundedRect(pageWidth - margin - 38, y + 3.5, 34, 6.5, 1, 1, 'F');
+  doc.setFontSize(7.5);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text(`MATCH: ${result.secondaryRoleScore}%`, pageWidth - margin - 21, y + 8.8, { align: 'center' });
+  doc.text(`MATCH: ${result.secondaryRoleScore}%`, pageWidth - margin - 21, y + 8, { align: 'center' });
 
   // Secondary Role Name
-  doc.setFontSize(11);
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text(secondaryDef.name, margin + 4, y + 16);
+  doc.text(secondaryDef.name, margin + 4, y + 15);
 
   // Tagline
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text(secondaryDef.tagline, margin + 4, y + 21);
+  doc.text(secondaryDef.tagline, margin + 4, y + 19.5);
 
   // Secondary summary
-  doc.setFontSize(7.2);
+  doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
   const secondaryBio = doc.splitTextToSize(secondaryDef.idealPersonality, contentWidth - 8);
-  doc.text(secondaryBio, margin + 4, y + 26);
+  doc.text(secondaryBio, margin + 4, y + 24.5);
 
   // Cross functional benefit
-  doc.setFontSize(7.2);
+  doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
-  doc.text('Operational Redundancy Value:', margin + 4, y + 34);
+  doc.text('Operational Redundancy Value:', margin + 4, y + 30.5);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Provides emergency backup coverage when primary ${secondaryDef.name} is engaged or sector demands surge capacity.`, margin + 45, y + 34);
+  doc.text(`Provides emergency backup coverage when primary ${secondaryDef.name} is deployed in adjacent sectors.`, margin + 46, y + 30.5);
 
-  y += 48;
+  y += 38;
+
+  // THIRD ROLE CAPABILITY CARD
+  doc.setFillColor(248, 250, 252);
+  doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
+  doc.setLineWidth(0.7);
+  doc.roundedRect(margin, y, contentWidth, 34, 2, 2, 'FD');
+
+  // Badge Tag
+  doc.setFillColor(30, 58, 138); // Blue
+  doc.roundedRect(margin + 4, y + 3.5, 48, 5.5, 1, 1, 'F');
+  doc.setFontSize(6.8);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('THIRD ROLE CAPABILITY', margin + 6, y + 7.4);
+
+  // Score Pill on Right
+  doc.setFillColor(226, 232, 240);
+  doc.roundedRect(pageWidth - margin - 38, y + 3.5, 34, 6.5, 1, 1, 'F');
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+  doc.text(`MATCH: ${result.tertiaryRoleScore}%`, pageWidth - margin - 21, y + 8, { align: 'center' });
+
+  // Tertiary Role Name
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+  doc.text(tertiaryDef.name, margin + 4, y + 15);
+
+  // Tagline
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
+  doc.text(tertiaryDef.tagline, margin + 4, y + 19.5);
+
+  // Tertiary summary
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(slateText[0], slateText[1], slateText[2]);
+  const tertiaryBio = doc.splitTextToSize(tertiaryDef.idealPersonality, contentWidth - 8);
+  doc.text(tertiaryBio, margin + 4, y + 24.5);
+
+  // Reserve adaptability benefit
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Reserve Adaptability:', margin + 4, y + 30.5);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Ready to reinforce ${tertiaryDef.name} operations during surge rotations or prolonged airport incident response.`, margin + 37, y + 30.5);
+
+  y += 38;
 
   // SYNERGY & BRIGADE INTEGRATION ANALYSIS
   doc.setFillColor(241, 245, 249);
-  doc.roundedRect(margin, y, contentWidth, 24, 2, 2, 'F');
+  doc.roundedRect(margin, y, contentWidth, 22, 2, 2, 'F');
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
   doc.text('SYNERGY & SQUAD DEPLOYMENT RECOMMENDATION', margin + 4, y + 5);
 
-  doc.setFontSize(7.2);
+  doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
   const synergyLines = doc.splitTextToSize(result.synergyAnalysis, contentWidth - 8);
-  doc.text(synergyLines, margin + 4, y + 10);
+  doc.text(synergyLines, margin + 4, y + 9.5);
 
   // ==========================================
   // PAGE 2: Dimensional Breakdown & Competencies
@@ -255,18 +306,17 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text('FULL 5-ROLE BRIGADE COMPATIBILITY MATRIX', margin, y);
+  doc.text('FULL 4-ROLE BRIGADE COMPATIBILITY MATRIX', margin, y);
   y += 5;
 
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Comparative percentage scores across all functional King Salman International Airport ERT positions:', margin, y);
+  doc.text('Comparative percentage scores across all 4 operational King Salman International Airport ERT positions:', margin, y);
   y += 8;
 
-  // 5 Roles Bar Chart
+  // 4 Roles Bar Chart
   const roleKeys: (keyof typeof BRIGADE_ROLES)[] = [
-    'teamLeader',
     'suppressionLead',
     'casualtyCareLead',
     'evacuationSupportLead',
@@ -279,9 +329,10 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
     const pct = scoreData.percentage;
     const isPrimary = key === result.primaryRole;
     const isSecondary = key === result.secondaryRole;
+    const isTertiary = key === result.tertiaryRole;
 
     // Role row container
-    doc.setFillColor(isPrimary ? 254 : (isSecondary ? 248 : 255), isPrimary ? 250 : 250, isPrimary ? 240 : 252);
+    doc.setFillColor(isPrimary ? 254 : (isSecondary ? 248 : (isTertiary ? 245 : 255)), isPrimary ? 250 : 250, isPrimary ? 240 : 252);
     doc.setDrawColor(isPrimary ? gold[0] : borderGrey[0], isPrimary ? gold[1] : borderGrey[1], isPrimary ? gold[2] : borderGrey[2]);
     doc.roundedRect(margin, y, contentWidth, 12, 1, 1, 'FD');
 
@@ -305,6 +356,13 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(255, 255, 255);
       doc.text('SECONDARY FIT', margin + 77, y + 5);
+    } else if (isTertiary) {
+      doc.setFillColor(30, 58, 138);
+      doc.roundedRect(margin + 75, y + 1.8, 26, 4.5, 1, 1, 'F');
+      doc.setFontSize(6);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text('3RD CAPABILITY', margin + 76.5, y + 5);
     }
 
     // Bar background
@@ -317,6 +375,7 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
     if (pct > 0) {
       if (isPrimary) doc.setFillColor(gold[0], gold[1], gold[2]);
       else if (isSecondary) doc.setFillColor(71, 85, 105);
+      else if (isTertiary) doc.setFillColor(37, 99, 235);
       else doc.setFillColor(148, 163, 184);
 
       doc.roundedRect(barX, y + 4, (barWidth * pct) / 100, 4, 1, 1, 'F');

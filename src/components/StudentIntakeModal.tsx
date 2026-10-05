@@ -13,12 +13,21 @@ export const StudentIntakeModal: React.FC<StudentIntakeModalProps> = ({
   onStart,
   initialProfile,
 }) => {
+  const now = new Date();
+  const defaultDay = String(now.getDate()).padStart(2, '0');
+  const defaultMonth = String(now.getMonth() + 1).padStart(2, '0');
+  const defaultYear = String(now.getFullYear()).slice(-2);
+
   const [name, setName] = useState(initialProfile?.name || '');
   const [studentId, setStudentId] = useState(initialProfile?.studentId || '');
-  const [cohort, setCohort] = useState(initialProfile?.cohort || 'KSIA Airside Syndicate 1');
+  const [day, setDay] = useState(defaultDay);
+  const [month, setMonth] = useState(defaultMonth);
+  const [year, setYear] = useState(defaultYear);
   const [assessorName, setAssessorName] = useState(initialProfile?.assessorName || 'Capt. Tariq Al-Ghamdi (Lead Instructor)');
 
   if (!isOpen) return null;
+
+  const courseDate = `${day}/${month}/${year}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,18 +35,45 @@ export const StudentIntakeModal: React.FC<StudentIntakeModalProps> = ({
 
     onStart({
       name: name.trim(),
-      studentId: studentId.trim() || `CADET-${Math.floor(1000 + Math.random() * 9000)}`,
-      cohort: cohort.trim(),
+      studentId: studentId.trim() || `EMP-${Math.floor(1000 + Math.random() * 9000)}`,
+      courseDate,
+      cohort: courseDate,
       assessorName: assessorName.trim(),
     });
   };
 
   const handleQuickFill = () => {
     setName('Faisal Al-Otaibi');
-    setStudentId('KSIA-ERT-7419');
-    setCohort('Alpha Syndicate - Terminal 1');
+    setStudentId('KSIA-7419');
+    setDay(defaultDay);
+    setMonth(defaultMonth);
+    setYear(defaultYear);
     setAssessorName('Capt. Tariq Al-Ghamdi (Lead Instructor)');
   };
+
+  const DAY_OPTIONS = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'));
+  const MONTH_OPTIONS = [
+    { value: '01', label: '01 - Jan' },
+    { value: '02', label: '02 - Feb' },
+    { value: '03', label: '03 - Mar' },
+    { value: '04', label: '04 - Apr' },
+    { value: '05', label: '05 - May' },
+    { value: '06', label: '06 - Jun' },
+    { value: '07', label: '07 - Jul' },
+    { value: '08', label: '08 - Aug' },
+    { value: '09', label: '09 - Sep' },
+    { value: '10', label: '10 - Oct' },
+    { value: '11', label: '11 - Nov' },
+    { value: '12', label: '12 - Dec' },
+  ];
+  const YEAR_OPTIONS = [
+    { value: '25', label: "'25 (2025)" },
+    { value: '26', label: "'26 (2026)" },
+    { value: '27', label: "'27 (2027)" },
+    { value: '28', label: "'28 (2028)" },
+    { value: '29', label: "'29 (2029)" },
+    { value: '30', label: "'30 (2030)" },
+  ];
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -80,28 +116,61 @@ export const StudentIntakeModal: React.FC<StudentIntakeModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5 flex items-center gap-2">
-                <Award className="w-3.5 h-3.5 text-amber-400" /> Student / Badge ID
+                <Award className="w-3.5 h-3.5 text-amber-400" /> Employee ID number
               </label>
               <input
                 type="text"
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
-                placeholder="e.g. KSIA-ERT-7419"
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                placeholder="e.g. KSIA-7419"
+                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 font-mono"
               />
             </div>
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5 flex items-center gap-2">
-                <Users className="w-3.5 h-3.5 text-amber-400" /> Cohort / Syndicate Cell
+                <Award className="w-3.5 h-3.5 text-amber-400" /> Course date <span className="text-amber-400/80 font-mono text-[10px]">({courseDate})</span>
               </label>
-              <input
-                type="text"
-                value={cohort}
-                onChange={(e) => setCohort(e.target.value)}
-                placeholder="e.g. Alpha Syndicate"
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
-              />
+              <div className="grid grid-cols-3 gap-1.5">
+                <select
+                  value={day}
+                  onChange={(e) => setDay(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-amber-500 font-mono cursor-pointer"
+                  title="Day"
+                >
+                  {DAY_OPTIONS.map((d) => (
+                    <option key={d} value={d} className="bg-slate-900 text-white">
+                      {d}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={month}
+                  onChange={(e) => setMonth(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-amber-500 font-mono cursor-pointer"
+                  title="Month"
+                >
+                  {MONTH_OPTIONS.map((m) => (
+                    <option key={m.value} value={m.value} className="bg-slate-900 text-white">
+                      {m.label}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={year}
+                  onChange={(e) => setYear(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-amber-500 font-mono cursor-pointer"
+                  title="Year"
+                >
+                  {YEAR_OPTIONS.map((y) => (
+                    <option key={y.value} value={y.value} className="bg-slate-900 text-white">
+                      {y.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 

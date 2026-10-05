@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  ShieldAlert, 
   Award, 
   User, 
   ArrowRight, 
@@ -12,7 +11,8 @@ import {
   FileCheck, 
   KeyRound,
   ShieldCheck,
-  Building2
+  Building2,
+  Calendar
 } from 'lucide-react';
 import { StudentProfile } from '../types/assessment';
 import { PasscodeModal } from './PasscodeModal';
@@ -22,13 +22,47 @@ interface SplashScreenProps {
   onQuickFillDemo: (profile: StudentProfile) => void;
 }
 
+const DAY_OPTIONS = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'));
+
+const MONTH_OPTIONS = [
+  { value: '01', label: '01 - Jan' },
+  { value: '02', label: '02 - Feb' },
+  { value: '03', label: '03 - Mar' },
+  { value: '04', label: '04 - Apr' },
+  { value: '05', label: '05 - May' },
+  { value: '06', label: '06 - Jun' },
+  { value: '07', label: '07 - Jul' },
+  { value: '08', label: '08 - Aug' },
+  { value: '09', label: '09 - Sep' },
+  { value: '10', label: '10 - Oct' },
+  { value: '11', label: '11 - Nov' },
+  { value: '12', label: '12 - Dec' },
+];
+
+const YEAR_OPTIONS = [
+  { value: '25', label: "'25 (2025)" },
+  { value: '26', label: "'26 (2026)" },
+  { value: '27', label: "'27 (2027)" },
+  { value: '28', label: "'28 (2028)" },
+  { value: '29', label: "'29 (2029)" },
+  { value: '30', label: "'30 (2030)" },
+];
+
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFillDemo }) => {
+  const now = new Date();
+  const defaultDay = String(now.getDate()).padStart(2, '0');
+  const defaultMonth = String(now.getMonth() + 1).padStart(2, '0');
+  const defaultYear = String(now.getFullYear()).slice(-2);
+
   const [fullName, setFullName] = useState('');
-  const [badgeNumber, setBadgeNumber] = useState('');
-  const [cohort, setCohort] = useState('Airside Syndicate Alpha - Terminal 1');
+  const [employeeId, setEmployeeId] = useState('');
+  const [courseDay, setCourseDay] = useState(defaultDay);
+  const [courseMonth, setCourseMonth] = useState(defaultMonth);
+  const [courseYear, setCourseYear] = useState(defaultYear);
   const [isPasscodeOpen, setIsPasscodeOpen] = useState(false);
 
-  const isFormValid = fullName.trim().length > 0 && badgeNumber.trim().length > 0;
+  const courseDate = `${courseDay}/${courseMonth}/${courseYear}`;
+  const isFormValid = fullName.trim().length > 0 && employeeId.trim().length > 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,8 +70,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
 
     onStart({
       name: fullName.trim(),
-      studentId: badgeNumber.trim(),
-      cohort: cohort.trim() || 'Airside Syndicate Alpha - Terminal 1',
+      studentId: employeeId.trim(),
+      courseDate,
+      cohort: courseDate,
       assessorName: 'KSIA ERT Lead Evaluator',
     });
   };
@@ -46,8 +81,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
     setIsPasscodeOpen(false);
     const demoProfile: StudentProfile = {
       name: fullName.trim() || 'Faisal Al-Otaibi',
-      studentId: badgeNumber.trim() || 'KSIA-ERT-7419',
-      cohort: cohort.trim() || 'Alpha Syndicate - Terminal 1',
+      studentId: employeeId.trim() || 'KSIA-7419',
+      courseDate,
+      cohort: courseDate,
       assessorName: 'Capt. Tariq Al-Ghamdi (Lead Instructor)',
     };
     onQuickFillDemo(demoProfile);
@@ -80,16 +116,11 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
           </div>
 
           <p className="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed mb-8">
-            A 40-question personality, experience, and preference test designed for fast, intuitive completion (estimated time: 15–20 minutes). Discover whether your natural strengths match <strong className="text-white">Incident Leadership</strong>, <strong className="text-white">Fire Fighting</strong>, <strong className="text-white">First Aid</strong>, <strong className="text-white">Crowd Evacuation</strong>, or <strong className="text-white">Radio Communications</strong>.
+            A 40-question personality, experience, and preference test designed for fast, intuitive completion (estimated time: 15–20 minutes). Discover whether your natural strengths match <strong className="text-white">Fire Fighting</strong>, <strong className="text-white">Casualty Care</strong>, <strong className="text-white">Crowd Evacuation</strong>, or <strong className="text-white">Radio Communications</strong>. You will receive your Primary Role, Secondary Role, and Third Role Capability.
           </p>
 
-          {/* 5 Roles Showcase Pills */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 max-w-3xl mx-auto mb-8 text-left">
-            <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-              <ShieldAlert className="w-4 h-4 text-amber-400 mb-1.5" />
-              <div className="text-[11px] font-bold text-white leading-tight">Team Leader</div>
-              <div className="text-[9px] text-amber-300 font-arabic">قائد الفريق</div>
-            </div>
+          {/* 4 Roles Showcase Pills (Team Leader removed) */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-3xl mx-auto mb-8 text-left">
             <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
               <Flame className="w-4 h-4 text-rose-400 mb-1.5" />
               <div className="text-[11px] font-bold text-white leading-tight">Fire Suppression</div>
@@ -105,7 +136,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
               <div className="text-[11px] font-bold text-white leading-tight">Evacuation Support</div>
               <div className="text-[9px] text-blue-300 font-arabic">إدارة الحشود</div>
             </div>
-            <div className="col-span-2 sm:col-span-1 bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
+            <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
               <Radio className="w-4 h-4 text-purple-400 mb-1.5" />
               <div className="text-[11px] font-bold text-white leading-tight">External Liaison</div>
               <div className="text-[9px] text-purple-300 font-arabic">الاتصال والتنسيق</div>
@@ -142,29 +173,72 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5 flex items-center gap-1.5">
                     <Award className="w-3.5 h-3.5 text-amber-400" />
-                    Badge / Cadet Number <span className="text-rose-400">*</span>
+                    Employee ID number <span className="text-rose-400">*</span>
                   </label>
                   <input
                     type="text"
                     required
-                    value={badgeNumber}
-                    onChange={(e) => setBadgeNumber(e.target.value)}
-                    placeholder="e.g. KSIA-ERT-7419"
+                    value={employeeId}
+                    onChange={(e) => setEmployeeId(e.target.value)}
+                    placeholder="e.g. KSIA-7419"
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-                    Syndicate / Cohort
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                    Course date <span className="text-amber-400/80 font-mono text-[10px]">({courseDate})</span>
                   </label>
-                  <input
-                    type="text"
-                    value={cohort}
-                    onChange={(e) => setCohort(e.target.value)}
-                    placeholder="e.g. Airside Syndicate 1"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
-                  />
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <div>
+                      <select
+                        value={courseDay}
+                        onChange={(e) => setCourseDay(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-3 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 font-mono cursor-pointer"
+                        title="Day"
+                      >
+                        {DAY_OPTIONS.map((d) => (
+                          <option key={d} value={d} className="bg-slate-900 text-white">
+                            {d}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="block text-[9px] uppercase font-mono text-slate-500 text-center mt-1">Day</span>
+                    </div>
+
+                    <div>
+                      <select
+                        value={courseMonth}
+                        onChange={(e) => setCourseMonth(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-3 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 font-mono cursor-pointer"
+                        title="Month"
+                      >
+                        {MONTH_OPTIONS.map((m) => (
+                          <option key={m.value} value={m.value} className="bg-slate-900 text-white">
+                            {m.label}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="block text-[9px] uppercase font-mono text-slate-500 text-center mt-1">Month</span>
+                    </div>
+
+                    <div>
+                      <select
+                        value={courseYear}
+                        onChange={(e) => setCourseYear(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-3 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 font-mono cursor-pointer"
+                        title="Year"
+                      >
+                        {YEAR_OPTIONS.map((y) => (
+                          <option key={y.value} value={y.value} className="bg-slate-900 text-white">
+                            {y.label}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="block text-[9px] uppercase font-mono text-slate-500 text-center mt-1">Year</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 

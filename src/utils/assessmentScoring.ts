@@ -11,7 +11,6 @@ export function calculateAssessmentResult(
   answers: Record<number, 'A' | 'B' | 'C' | 'D'>
 ): AssessmentResult {
   const roleRaw: RoleScores = {
-    teamLeader: 0,
     suppressionLead: 0,
     casualtyCareLead: 0,
     evacuationSupportLead: 0,
@@ -39,8 +38,10 @@ export function calculateAssessmentResult(
     // Accumulate role points
     if (chosenOption.roleWeights) {
       Object.entries(chosenOption.roleWeights).forEach(([role, weight]) => {
-        const key = role as keyof RoleScores;
-        roleRaw[key] = (roleRaw[key] || 0) + (weight || 0);
+        if (role in roleRaw) {
+          const key = role as keyof RoleScores;
+          roleRaw[key] = (roleRaw[key] || 0) + (weight || 0);
+        }
       });
     }
 
@@ -56,7 +57,6 @@ export function calculateAssessmentResult(
   // Calculate maximum potential raw points to normalize percentages
   // Find highest possible raw score for each role across all questions
   const maxPossibleRole: RoleScores = {
-    teamLeader: 0,
     suppressionLead: 0,
     casualtyCareLead: 0,
     evacuationSupportLead: 0,
@@ -112,8 +112,12 @@ export function calculateAssessmentResult(
   const secondaryRole = sortedRoles[1];
   const secondaryRoleScore = allRoleScores[secondaryRole].percentage;
 
+  const tertiaryRole = sortedRoles[2];
+  const tertiaryRoleScore = allRoleScores[tertiaryRole].percentage;
+
   const primaryDef = BRIGADE_ROLES[primaryRole];
   const secondaryDef = BRIGADE_ROLES[secondaryRole];
+  const tertiaryDef = BRIGADE_ROLES[tertiaryRole];
 
   // Determine tactical strengths based on highest-scoring competencies and primary role profile
   const strengths: string[] = [];
@@ -152,11 +156,9 @@ export function calculateAssessmentResult(
 
   let synergyAnalysis = `Primary aptitude strongly aligns with ${primaryDef.name} (${primaryRoleScore}%), demonstrating ${primaryDef.tagline.toLowerCase()}.`;
 
-  if (secondaryRoleScore >= 50) {
-    synergyAnalysis += ` As a complementary secondary profile, candidate shows notable capability in ${secondaryDef.name} (${secondaryRoleScore}%). In a deployed KSIA 5-person brigade, this candidate can effectively serve as the primary ${primaryDef.name} while providing critical cross-functional redundancy for ${secondaryDef.name} during multi-casualty or high-intensity sector breaches.`;
-  } else {
-    synergyAnalysis += ` Secondary compatibility indicates potential in ${secondaryDef.name} (${secondaryRoleScore}%), which can be enhanced through targeted field cross-training in the KSIA drill modules.`;
-  }
+  synergyAnalysis += ` As a complementary secondary profile, candidate demonstrates notable capability in ${secondaryDef.name} (${secondaryRoleScore}%), providing crucial operational redundancy.`;
+
+  synergyAnalysis += ` Furthermore, candidate demonstrates strong Third Role Capability in ${tertiaryDef.name} (${tertiaryRoleScore}%), ensuring versatile tactical flexibility and cross-functional support during high-demand airport incidents.`;
 
   return {
     student,
@@ -166,6 +168,8 @@ export function calculateAssessmentResult(
     primaryRoleScore,
     secondaryRole,
     secondaryRoleScore,
+    tertiaryRole,
+    tertiaryRoleScore,
     allRoleScores,
     competencies,
     totalAnswered,

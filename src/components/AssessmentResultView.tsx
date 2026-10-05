@@ -39,11 +39,10 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
 
   const primaryDef = BRIGADE_ROLES[result.primaryRole];
   const secondaryDef = BRIGADE_ROLES[result.secondaryRole];
+  const tertiaryDef = BRIGADE_ROLES[result.tertiaryRole];
 
   const getRoleIcon = (roleKey: string) => {
     switch (roleKey) {
-      case 'teamLeader':
-        return <ShieldAlert className="w-6 h-6 text-amber-400" />;
       case 'suppressionLead':
         return <Flame className="w-6 h-6 text-rose-400" />;
       case 'casualtyCareLead':
@@ -88,7 +87,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           ERT Candidate Role Classification
         </h1>
         <p className="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto mb-6">
-          Official psychometric and tactical placement for candidate <strong className="text-white">{result.student.name}</strong> (Badge: <span className="font-mono text-amber-400">{result.student.studentId}</span>), certified for King Salman International Airport emergency response brigade deployment.
+          Official psychometric and tactical placement for candidate <strong className="text-white">{result.student.name}</strong> (Employee ID: <span className="font-mono text-amber-400">{result.student.studentId}</span> | Course Date: <span className="font-mono text-slate-300">{result.student.courseDate || result.student.cohort}</span>), certified for King Salman International Airport emergency response brigade deployment.
         </p>
 
         {/* Action Buttons */}
@@ -120,51 +119,47 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         </div>
       </div>
 
-      {/* Primary & Secondary Role Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        {/* PRIMARY ROLE (Hero Card - 7 cols) */}
-        <div className="md:col-span-7 bg-[#0a0f1a] border-2 border-amber-500/50 rounded-2xl p-6 sm:p-7 relative shadow-xl shadow-amber-500/5 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-3 mb-4">
-              <span className="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-full uppercase tracking-wider font-mono">
-                Primary Recommended Role
-              </span>
-              <div className="text-right">
-                <span className="text-2xl sm:text-3xl font-mono font-extrabold text-amber-400">
-                  {result.primaryRoleScore}%
-                </span>
-                <span className="text-[10px] text-slate-400 uppercase tracking-widest block font-mono">
-                  Aptitude Fit
-                </span>
-              </div>
+      {/* Primary Role (Hero Card) */}
+      <div className="bg-[#0a0f1a] border-2 border-amber-500/50 rounded-2xl p-6 sm:p-8 relative shadow-xl shadow-amber-500/5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-full uppercase tracking-wider font-mono">
+            <Award className="w-3.5 h-3.5" />
+            Primary Recommended Fit
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] text-slate-400 uppercase tracking-widest font-mono">Compatibility Score:</span>
+            <span className="text-3xl font-mono font-extrabold text-amber-400">{result.primaryRoleScore}%</span>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-5">
+          <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+            {getRoleIcon(result.primaryRole)}
+          </div>
+          <div className="flex-1">
+            <h2 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
+              {primaryDef.name}
+            </h2>
+            <div className="text-sm font-arabic text-amber-300 font-medium mt-0.5">
+              {primaryDef.arabicName}
             </div>
-
-            <div className="flex items-start gap-4 mb-4">
-              <div className="p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-xl">
-                {getRoleIcon(result.primaryRole)}
-              </div>
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  {primaryDef.name}
-                </h2>
-                <div className="text-sm font-arabic text-amber-300/90 font-medium">
-                  {primaryDef.arabicName}
-                </div>
-                <div className="text-xs text-amber-400/80 font-medium italic mt-0.5">
-                  {primaryDef.tagline}
-                </div>
-              </div>
+            <div className="text-xs sm:text-sm text-amber-400/90 font-medium italic mt-1">
+              {primaryDef.tagline}
             </div>
+          </div>
+        </div>
 
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
-              {primaryDef.idealPersonality}
-            </p>
+        <p className="text-slate-300 text-sm leading-relaxed mb-6">
+          {primaryDef.idealPersonality}
+        </p>
 
-            <div className="space-y-2 mb-6">
-              <span className="text-xs uppercase font-mono font-bold tracking-wider text-slate-400 block">
-                Key Brigade Responsibilities:
-              </span>
-              {primaryDef.operationalDuties.map((duty, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-slate-900/80 rounded-xl p-4 border border-slate-800">
+            <span className="text-xs uppercase font-mono font-bold tracking-wider text-slate-400 block mb-2.5">
+              Core Operational Duties:
+            </span>
+            <div className="space-y-2">
+              {primaryDef.operationalDuties.slice(0, 4).map((duty, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
                   <span>{duty}</span>
@@ -173,14 +168,31 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Aligned Standards:</span>
-            <span className="text-slate-300">{primaryDef.standards.join(' | ')}</span>
+          <div className="bg-slate-900/80 rounded-xl p-4 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span className="text-xs uppercase font-mono font-bold tracking-wider text-slate-400 block mb-2.5">
+                Key Behavioral Attributes:
+              </span>
+              <div className="space-y-1.5">
+                {primaryDef.keyTraits.slice(0, 3).map((trait, idx) => (
+                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                    <span className="text-amber-400 font-bold">•</span>
+                    <span>{trait}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-400 font-mono mt-3">
+              Standards: <span className="text-slate-300">{primaryDef.standards.join(' | ')}</span>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* SECONDARY ROLE (Complementary Card - 5 cols) */}
-        <div className="md:col-span-5 bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6 relative flex flex-col justify-between">
+      {/* Secondary Role and Third Role Capability (2-Column Grid) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* SECONDARY ROLE CARD */}
+        <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-lg">
           <div>
             <div className="flex items-center justify-between gap-3 mb-4">
               <span className="px-3 py-1 bg-slate-800 text-slate-300 font-bold text-xs rounded-full uppercase tracking-wider font-mono border border-slate-700">
@@ -219,7 +231,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
 
             <div className="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed mb-4">
               <strong className="text-white block mb-1">Squad Redundancy Value:</strong>
-              During complex multi-agency emergencies, this candidate serves as a qualified second-in-command for {secondaryDef.name}, preventing single-point failure in high-load sectors.
+              Provides high-fidelity cross-functional backup for {secondaryDef.name}, preventing single-point team bottlenecks during multi-sector alerts.
             </div>
           </div>
 
@@ -227,15 +239,64 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
             Secondary Standard: {secondaryDef.standards[0]}
           </div>
         </div>
+
+        {/* THIRD ROLE CAPABILITY CARD */}
+        <div className="bg-[#0a0f1a] border border-slate-800/90 rounded-2xl p-6 flex flex-col justify-between shadow-lg">
+          <div>
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <span className="px-3 py-1 bg-blue-950/50 text-blue-300 font-bold text-xs rounded-full uppercase tracking-wider font-mono border border-blue-800/50">
+                Third Role Capability
+              </span>
+              <div className="text-right">
+                <span className="text-2xl font-mono font-extrabold text-blue-200">
+                  {result.tertiaryRoleScore}%
+                </span>
+                <span className="text-[10px] text-slate-500 uppercase tracking-widest block font-mono">
+                  3rd Capability
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 mb-4">
+              <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl">
+                {getRoleIcon(result.tertiaryRole)}
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white tracking-tight">
+                  {tertiaryDef.name}
+                </h3>
+                <div className="text-xs font-arabic text-slate-400">
+                  {tertiaryDef.arabicName}
+                </div>
+                <div className="text-[11px] text-slate-400 italic">
+                  {tertiaryDef.tagline}
+                </div>
+              </div>
+            </div>
+
+            <p className="text-slate-400 text-xs leading-relaxed mb-4">
+              {tertiaryDef.idealPersonality}
+            </p>
+
+            <div className="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed mb-4">
+              <strong className="text-white block mb-1">Reserve Adaptability:</strong>
+              Candidate displays practical readiness to support {tertiaryDef.name} operations during surge rotations or prolonged airfield containment.
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
+            Reserve Standard: {tertiaryDef.standards[0]}
+          </div>
+        </div>
       </div>
 
-      {/* 5-Role Compatibility Bars & 5-Competency Grid */}
+      {/* 4-Role Compatibility Bars & 5-Competency Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* 5 Roles Breakdown */}
+        {/* 4 Roles Breakdown */}
         <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6">
           <h3 className="text-sm font-bold uppercase tracking-wider font-mono text-slate-300 mb-4 flex items-center gap-2">
             <Shield className="w-4 h-4 text-amber-400" />
-            Complete 5-Role Brigade Compatibility
+            Complete 4-Role Brigade Compatibility
           </h3>
 
           <div className="space-y-4">
@@ -244,6 +305,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
               const score = result.allRoleScores[key];
               const isPrimary = key === result.primaryRole;
               const isSecondary = key === result.secondaryRole;
+              const isTertiary = key === result.tertiaryRole;
 
               return (
                 <div key={key} className="space-y-1">
@@ -256,8 +318,13 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
                         </span>
                       )}
                       {isSecondary && (
-                        <span className="text-[9px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded border border-slate-700">
+                        <span className="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.2 rounded border border-slate-700">
                           Secondary
+                        </span>
+                      )}
+                      {isTertiary && (
+                        <span className="text-[9px] bg-blue-950/60 text-blue-300 px-1.5 py-0.2 rounded border border-blue-800/60">
+                          3rd Capability
                         </span>
                       )}
                     </span>
@@ -271,6 +338,8 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
                           ? 'bg-amber-500'
                           : isSecondary
                           ? 'bg-slate-400'
+                          : isTertiary
+                          ? 'bg-blue-400'
                           : 'bg-slate-700'
                       }`}
                       style={{ width: `${score.percentage}%` }}
