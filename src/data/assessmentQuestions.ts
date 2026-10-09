@@ -2,17 +2,18 @@
  * KSIA ERT (King Salman International Airport Emergency Response Team)
  * 25-Question Psychometric & Aptitude Assessment
  * 
- * Designed for untrained candidates to discover their natural abilities, personality,
- * stress-response instincts, and operational temperament.
+ * Specifically calibrated for KSIA Administrative Personnel (non-trained candidates,
+ * office and department staff) to discover their natural abilities, personality,
+ * stress-response instincts, and ideal volunteer brigade fit.
  * 
- * Evaluates candidates for 4 Brigade Roles (Team Leader excluded):
- * 1. Fire Suppression & Hazmat Lead
- * 2. Casualty Care & Medical Lead
- * 3. Evacuation & Crowd Dynamics Lead
- * 4. External Agency Liaison & Communications
+ * Evaluates candidates for 4 Volunteer Brigade Paths (Team Leader excluded):
+ * 1. Safety & Hazard Volunteer Brigade (Practical Action, Hazard Isolation & Physical Courage)
+ * 2. First Aid & Medical Support Volunteer Brigade (Compassionate Care, Calm around Injury & Basic Aid)
+ * 3. Evacuation & Floor Guidance Volunteer Brigade (Vocal Guidance, Orderly Movement & Floor Sweeps)
+ * 4. Communications & Coordination Volunteer Brigade (Clear Reporting, Headcounts & Liaison Support)
  * 
- * Psychometric non-obvious design: Questions and options avoid giveaway jargon
- * or obvious role signaling, focusing on real behavioral choices under pressure.
+ * Non-obvious psychometric design: Questions avoid giveaway cues, specialized gear assumptions,
+ * or operational airport jargon, focusing on natural human choices when stepping up without prior training.
  */
 
 export interface RoleScores {
@@ -67,299 +68,295 @@ export interface RoleDefinition {
 export const BRIGADE_ROLES: Record<keyof RoleScores, RoleDefinition> = {
   suppressionLead: {
     id: 'suppressionLead',
-    name: 'Fire Suppression & Hazmat Lead',
-    arabicName: 'مسؤول الإطفاء والمواد الخطرة',
-    tagline: 'Physical Action, Equipment Mastery & Hazard Abatement',
+    name: 'Safety & Hazard Volunteer Brigade',
+    arabicName: 'فريق السلامة والتعامل مع المخاطر (متطوع)',
+    tagline: 'Practical Action, Hazard Isolation & Physical Courage',
     badgeColor: 'rose',
     iconName: 'Flame',
-    standards: ['NFPA 1081 (Fire Brigade)', 'NFPA 10 (Extinguishers)', 'ICAO Doc 9137'],
+    standards: ['Introductory Workplace Safety', 'Basic Fire Prevention', 'Workplace Hazard Recognition'],
     keyTraits: [
-      'High courage and comfort tackling tangible, physical hazards',
-      'Intuitive mechanical dexterity and hands-on tool problem solving',
-      'High endurance and resilience under heat, gear, and physical load',
-      'Decisive action orientation: prefers direct intervention over delay',
-      'Strict adherence to physical safety zones and equipment protocols'
+      'Natural courage and willingness to tackle practical, physical workplace issues',
+      'Hands-on problem solving and intuitive mechanical common sense',
+      'Readiness to take decisive physical action rather than hesitate',
+      'Comfort handling safety equipment (fire blankets, extinguishers) after introductory training',
+      'Keen alertness to physical workplace hazards, electrical faults, and safety risks'
     ],
     operationalDuties: [
-      'Perform rapid electrical isolation and gas valve shut-offs',
-      'Select and operate appropriate portable extinguishers and hose lines',
-      'Attack hazard origin safely using tactical suppression techniques',
-      'Check structural walls and doors for thermal transfer and flashover risks',
-      'Contain hazardous chemical and fuel spills before environmental spread'
+      'Step up to isolate immediate physical hazards (unplugging devices, closing fire doors)',
+      'Assist with basic portable extinguishers or safety blankets on small office fires if safe',
+      'Report and mark structural or environmental hazards to arriving responders',
+      'Help clear physical pathways and secure safety barriers around hazard areas'
     ],
-    idealPersonality: 'Energetic, practical, and hands-on individuals who stay focused while executing physical, equipment-driven tasks under intense conditions.',
+    idealPersonality: 'Practical, proactive individuals who stay calm when physical action is needed and enjoy solving tangible problems with common sense and courage.',
     recommendedTrainingPath: [
-      'NFPA 1081 Practical Fire Fighting Techniques',
-      'Electrical Isolation & Hazmat First Responder',
-      'Thermal Imaging & Breathing Apparatus (SCBA) Training'
+      'Basic Fire Awareness & Extinguisher Practical Use',
+      'Workplace Electrical & Hazard Isolation Basics',
+      'Emergency Safety Perimeter & Practical Hazard Control'
     ]
   },
   casualtyCareLead: {
     id: 'casualtyCareLead',
-    name: 'Casualty Care & Medical Lead',
-    arabicName: 'مسؤول الرعاية الطبية والإسعاف',
-    tagline: 'First Aid, Calm around Injuries & Patient Care',
+    name: 'First Aid & Medical Support Volunteer Brigade',
+    arabicName: 'فريق الإسعافات الأولية والدعم الصحي (متطوع)',
+    tagline: 'Compassionate Care, Calm around Injury & Basic Aid',
     badgeColor: 'emerald',
     iconName: 'Stethoscope',
-    standards: ['AHA / ILCOR BLS Guidelines', 'START Triage', 'ATMIST Medical Handover'],
+    standards: ['Standard First Aid', 'Basic CPR & AED Awareness', 'Workplace Well-being'],
     keyTraits: [
-      'Remains calm, steady, and focused when seeing blood or physical injury',
-      'Deep interpersonal empathy and sensitivity to human suffering',
-      'Methodical discipline in applying sequential first-aid and CPR protocols',
-      'Exceptional ability to emotionally de-escalate terrified, wounded individuals',
-      'Meticulous attentiveness to vital signs, bleeding control, and physical changes'
+      'Remains composed and empathetic when a colleague is hurt or unwell',
+      'Natural instinct to provide comfort, calm breathing, and emotional reassurance',
+      'Careful and attentive to subtle physical signs of distress or shock in others',
+      'Patient, steady hands and willingness to learn life-saving first-aid skills',
+      'Genuine dedication to human well-being and supporting vulnerable colleagues'
     ],
     operationalDuties: [
-      'Rapidly check unresponsive casualties for breathing and carotid pulse',
-      'Administer high-quality 30:2 CPR and operate automated external defibrillators (AED)',
-      'Control massive arterial hemorrhage using combat tourniquets and pressure dressings',
-      'Conduct rapid START triage categorization (Red, Yellow, Green, Black)',
-      'Deliver structured ATMIST medical handovers to Red Crescent ambulance crews'
+      'Step up to comfort and assist colleagues who faint, fall, or suffer cuts/burns',
+      'Apply basic first-aid supplies (dressings, ice packs, direct pressure) calmly',
+      'Stay beside injured persons until professional medical responders arrive',
+      'Provide clear, calm descriptions of the person’s condition to arriving paramedics'
     ],
-    idealPersonality: 'Compassionate, emotionally steady individuals who remain grounded in the presence of physical trauma, dedicated to saving lives with methodical care.',
+    idealPersonality: 'Empathetic, steady individuals who remain grounded when others are in pain, instinctively offering comfort and practical physical care.',
     recommendedTrainingPath: [
-      'AHA Basic Life Support (BLS) & First Aid Certification',
-      'Stop The Bleed & Traumatic Hemorrhage Control',
-      'Mass-Casualty Triage & Pre-Hospital Care'
+      'Workplace First Aid & CPR/AED Foundation',
+      'Bleeding Control & Wound Care Basics',
+      'Psychological First Aid & Calming People in Crisis'
     ]
   },
   evacuationSupportLead: {
     id: 'evacuationSupportLead',
-    name: 'Evacuation & Crowd Dynamics Lead',
-    arabicName: 'مسؤول الإخلاء وإدارة الحشود',
-    tagline: 'Crowd Leadership, Safe Corridors & Systematic Sweeps',
+    name: 'Evacuation & Floor Guidance Volunteer Brigade',
+    arabicName: 'فريق الإخلاء وإرشاد الموظفين (متطوع)',
+    tagline: 'Vocal Leadership, Orderly Movement & Floor Sweeps',
     badgeColor: 'blue',
     iconName: 'DoorOpen',
-    standards: ['NFPA 101 (Life Safety Code)', 'ICAO Terminal Evacuation Guidelines'],
+    standards: ['Workplace Life Safety', 'Orderly Evacuation Planning', 'Floor Marshal Guidelines'],
     keyTraits: [
-      'Confident, vocal, and commanding presence in crowded environments',
-      'Intuitive awareness of human stampedes, choke points, and herd behavior',
-      'Patient yet unwavering authority when passengers hesitate or resist direction',
-      'Systematic spatial diligence in checking every corridor, room, and restroom',
-      'Active vigilance for restricted mobility passengers and vulnerable groups'
+      'Confident, clear voice that can guide coworkers without creating panic',
+      'Keeps a calm overview of hallway flow, exits, and potential bottlenecks',
+      'Patient yet firm authority when colleagues hesitate or try to retrieve items',
+      'Systematic diligence in checking offices, meeting rooms, and restrooms',
+      'Special attentiveness to assisting coworkers with reduced mobility or visitors'
     ],
     operationalDuties: [
-      'Unlock emergency egress doors and direct occupant flow along primary corridors',
-      'Prevent catastrophic crowd crushes at bottlenecks, escalators, and turnstiles',
-      'Perform rapid sweeps of concourse zones, retail spaces, and airport lounges',
-      'Assist passengers with wheelchairs, strollers, and reduced physical mobility',
-      'Prevent evacuees from reversing flow to retrieve personal luggage or belongings'
+      'Step up to guide colleagues along designated emergency stairwells and exits',
+      'Conduct a swift, organized check of your floor to ensure no one remains behind',
+      'Keep movement steady and prevent crowding or rushing at doorway bottlenecks',
+      'Direct everyone to the designated outdoor assembly point and prevent re-entry'
     ],
-    idealPersonality: 'Authoritative, vocal, and socially assertive organizers who can direct large assemblies of people with confidence, clear posture, and firm guidance.',
+    idealPersonality: 'Assertive, socially confident organizers who can project clear guidance, reassure groups, and lead orderly evacuations with confidence.',
     recommendedTrainingPath: [
-      'Airport Crowd Dynamics & Panic Management',
-      'Life Safety Codes & Evacuation Route Planning',
-      'De-escalation & Managing Difficult Passenger Behaviors'
+      'Floor Marshal & Evacuation Guidance Techniques',
+      'Crowd Movement & Bottleneck Prevention',
+      'Assisting Persons with Restricted Mobility in Evacuations'
     ]
   },
   externalLiaison: {
     id: 'externalLiaison',
-    name: 'External Agency Liaison & Comms',
-    arabicName: 'مسؤول الاتصال والتنسيق الخارجي',
-    tagline: 'Clear Communications, Radio Discipline & Coordination',
+    name: 'Communications & Coordination Volunteer Brigade',
+    arabicName: 'فريق الاتصال والتنسيق والتوثيق (متطوع)',
+    tagline: 'Clear Reporting, Accurate Headcounts & Liaison Support',
     badgeColor: 'purple',
     iconName: 'Radio',
-    standards: ['GACA Crisis Communication Standards', 'ICAO Annex 11', 'FEMA NIMS'],
+    standards: ['Workplace Emergency Logging', 'Inter-Department Communication', 'Liaison Support'],
     keyTraits: [
-      'Exceptionally clear, concise verbal articulation over radio and telephone',
-      'Meticulous timestamping and disciplined operational record-keeping',
-      'Diplomatic and respectful coordination with outside government agencies',
-      'Strict adherence to plain-language protocols without confusing jargon',
-      'Steadfast mental composure in high-noise, multi-channel control centers'
+      'Clear, articulate spoken and written communication under stressful conditions',
+      'Methodical note-taking and structured recording of names, times, and events',
+      'Calm presence when speaking with building security, emergency dispatch, or management',
+      'Filters out rumors and focuses strictly on verified, actionable facts',
+      'High organizational discipline in tracking headcounts and missing persons lists'
     ],
     operationalDuties: [
-      'Transmit structured crisis updates (L-N-N-H format) to Airport Operations (AOCC)',
-      'Meet and brief incoming Civil Defense, Police, and Medical units at staging gates',
-      'Manage secondary and backup radio talk-groups during primary channel congestion',
-      'Maintain an unbroken chronological log of all orders, movements, and decisions',
-      'Act as the central communications bridge between ERT leads and airport leadership'
+      'Contact emergency services and building security with accurate, concise details',
+      'Maintain an organized log of event times, floor evacuations, and reported issues',
+      'Assist floor marshals by consolidating headcounts at the outdoor assembly point',
+      'Serve as the helpful contact point between your administrative department and emergency responders'
     ],
-    idealPersonality: 'Structured, analytical, and articulate communicators who excel at filtering critical information, maintaining accurate records, and coordinating inter-agency resources.',
+    idealPersonality: 'Structured, analytical, and articulate communicators who excel at gathering verified information, keeping accurate records, and coordinating smoothly with external teams.',
     recommendedTrainingPath: [
-      'Aviation VHF/UHF Emergency Radio Procedures',
-      'Inter-Agency Disaster Coordination & Protocol',
-      'Crisis Incident Logging & Technical Reporting'
+      'Emergency Communication & Dispatch Briefing Skills',
+      'Assembly Point Headcount & Incident Logging',
+      'Inter-Agency Liaison & Coordination Essentials'
     ]
   }
 };
 
 export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
-  // 1. Initial sensory and situational trigger
+  // 1. Initial reflex upon sudden workplace disruption
   {
     id: 1,
-    module: 'Situational Judgment & Instinct',
-    arabicModule: 'التقدير الميداني والاستجابة التلقائية',
+    module: 'Situational Instinct & Initial Reflex',
+    arabicModule: 'الاستجابة التلقائية ورد الفعل الأولي',
     category: 'situational',
-    question: 'When arriving at an unfamiliar facility where sudden disruption is occurring, what naturally catches your attention first?',
-    arabicQuestion: 'عند وصولك إلى مكان غير مألوف تحدث فيه حالة طوارئ مفاجئة، ما الذي يلفت انتباهك تلقائياً في المقام الأول؟',
-    contextNote: 'Measures natural perceptual focus under initial disorientation.',
+    question: 'When an unexpected emergency alarm suddenly rings across your administrative floor and routine work stops, what is your immediate reflex?',
+    arabicQuestion: 'عند انطلاق جرس إنذار طارئ ومفاجئ في طابقك الإداري وتوقف العمل فجأة، ما هو رد فعلك التلقائي الأول؟',
+    contextNote: 'Measures natural perceptual focus under initial workplace disorientation.',
     options: [
       {
         id: 'A',
-        text: 'The physical machinery, utility switches, or environmental sources that might be driving the disruption.',
-        arabicText: 'المعدات الميكانيكية أو مصادر الطاقة التي قد تكون سبباً مباشراً في استمرار الخطر.',
+        text: 'Look around for the physical source of trouble—checking for strange smoke, burning smells, or malfunctioning electrical equipment.',
+        arabicText: 'البحث عن المصدر المادي للمشكلة—ملاحظة أي دخان غريب، أو رائحة احتراق، أو عطل في الأجهزة الكهربائية.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3, decisiveness: 2 },
-        learningInsight: 'Demonstrates an instinctive drive to isolate physical causes directly.'
+        learningInsight: 'Demonstrates an instinctive drive to identify and address physical hazards directly.'
       },
       {
         id: 'B',
-        text: 'Individuals who look stunned, unsteady, or in visible emotional distress.',
-        arabicText: 'الأشخاص الذين يبدو عليهم الذهول أو عدم الاتزان أو علامات الألم والصدمة.',
+        text: 'Turn to the nearest colleague to check how they are reacting, ensuring no one is in distress, freezing, or feeling faint.',
+        arabicText: 'الالتفات فوراً لأقرب زميل لملاحظة رد فعله والتأكد من عدم شعوره بالهلع أو الإغماء أو العجز عن الحركة.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3, decisiveness: 1 },
-        learningInsight: 'Reflects immediate empathetic observation focused on human stabilization.'
+        learningInsight: 'Reflects immediate empathetic observation focused on personal human well-being.'
       },
       {
         id: 'C',
-        text: 'The movement of the crowd and whether people are heading toward blocked choke points.',
-        arabicText: 'حركة تدفق الناس وما إذا كان هناك تزاحم نحو ممرات ضيقة أو أبواب مسدودة.',
+        text: 'Stand up to look down the corridor to see which exit routes are clear and whether people are heading toward the stairs.',
+        arabicText: 'الوقوف واستطلاع الممر الرئيسي لمعرفة أي مسارات الخروج سالكة وما إذا كان الزملاء يتجهون للسلالم.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 2 },
-        learningInsight: 'Highlights spatial crowd awareness and egress route perception.'
+        learningInsight: 'Highlights spatial corridor awareness and immediate evacuation route perception.'
       },
       {
         id: 'D',
-        text: 'Confirming verified facts and establishing a reliable channel to send structured updates.',
-        arabicText: 'التحقق من حقيقة ما حدث بدقة وفتح قناة تواصل موثوقة لإرسال المعلومات المؤكدة.',
+        text: 'Check the office intercom or internal message channels to find out what official information is being announced.',
+        arabicText: 'متابعة قنوات التواصل الإداري أو الشاشات لمعرفة ما إذا كانت هناك توجيهات أو بلاغات رسمية مؤكدة.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3, decisiveness: 1 },
-        learningInsight: 'Indicates a focus on verifiable information architecture and communications.'
+        learningInsight: 'Indicates a focus on verifiable communication channels and official information flow.'
       }
     ]
   },
 
-  // 2. High-stress group task preference
+  // 2. Stepping up during an unplanned building problem
   {
     id: 2,
-    module: 'Operational Role & Team Alignment',
-    arabicModule: 'الدور الميداني والتناغم مع الفريق',
+    module: 'Team Alignment & Practical Contribution',
+    arabicModule: 'المساهمة الميدانية والتناغم مع الزملاء',
     category: 'behavioral',
-    question: 'During a demanding team operation under tight time pressure, which responsibility feels most natural to you?',
-    arabicQuestion: 'خلال مهمة جماعية صعبة تحت ضغط زمني حرج، أي مسؤولية تشعر أنها الأقرب لطبيعتك وقدراتك؟',
-    contextNote: 'Measures work-style alignment in high-tempo collective efforts.',
+    question: 'If power cuts off across your administrative department alongside an unfamiliar alert sound, which task feels most natural for you to step up and handle?',
+    arabicQuestion: 'إذا انقطعت الكهرباء فجأة في إدارتك مصحوبة بصوت تنبيه غير مألوف، أي مهمة تشعر أنها الأقرب لطبيعتك لتتولى المبادرة فيها؟',
+    contextNote: 'Measures natural contribution style in sudden departmental disruption.',
     options: [
       {
         id: 'A',
-        text: 'Taking on the most physically demanding, hands-on mechanical tasks with protective equipment.',
-        arabicText: 'تولي المهام اليدوية والميكانيكية الأكثر جهداً بدنياً باستخدام معدات الحماية.',
+        text: 'Safely unplugging high-voltage office appliances, coffee stations, or computer power strips to prevent short-circuits.',
+        arabicText: 'فصل الأجهزة الكهربائية الكبيرة أو سخانات القهوة بأمان لمنع أي التماس كهربائي أو اشتعال.',
         roleWeights: { suppressionLead: 4 },
-        competencies: { physicalReadiness: 3 },
-        learningInsight: 'Natural affinity for tangible, physical execution and heavy operational effort.'
+        competencies: { physicalReadiness: 3, decisiveness: 2 },
+        learningInsight: 'Practical affinity for direct hazard mitigation and physical safety measures.'
       },
       {
         id: 'B',
-        text: 'Monitoring team members and victims closely to ensure nobody collapses or suffers undetected injury.',
-        arabicText: 'متابعة الزملاء والمصابين للتأكد من عدم تعرض أي شخص لانهيار صحي أو إصابة غير ملحوظة.',
+        text: 'Offering reassurance and assisting an anxious coworker or visitor who feels disoriented in the sudden disruption.',
+        arabicText: 'تقديم الدعم والاطمئنان لزميل أو زائر يشعر بالقلق أو الارتباك بسبب هذا الانقطاع المفاجئ.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Strong dedication to somatic observation, human welfare, and physiological support.'
+        learningInsight: 'Natural dedication to interpersonal comfort, empathy, and personal emotional stabilization.'
       },
       {
         id: 'C',
-        text: 'Positioning yourself prominently to guide, direct, and keep everyone moving in an orderly direction.',
-        arabicText: 'التواجد في موقع بارز لتوجيه وإرشاد الجميع بصوت واضح للحفاظ على الحركة المنظمة.',
+        text: 'Encouraging everyone in your section to gather their essentials calmly and head together toward the designated exit.',
+        arabicText: 'حث الجميع في قسمك على جمع متعلقاتهم الأساسية بهدوء وبدء التحرك المنظم نحو مخرج الطابق.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 2 },
-        learningInsight: 'Commanding interpersonal presence and leadership in group flow management.'
+        learningInsight: 'Proactive group guidance and orderly movement leadership.'
       },
       {
         id: 'D',
-        text: 'Keeping accurate chronological records of every action taken and briefing external teams.',
-        arabicText: 'تدوين سجل زمني دقيق لكل إجراء تم اتخاذه وإحاطة الفرق الخارجية بالمستجدات أولاً بأول.',
+        text: 'Calling the building management or facilities desk to report the outage and record the exact time it occurred.',
+        arabicText: 'الاتصال فوراً بإدارة المبنى أو مكتب الصيانة للإبلاغ وتدوين وقت الحادثة والتفاصيل الدقيقة.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3 },
-        learningInsight: 'High discipline in structured documentation and inter-agency coordination.'
+        learningInsight: 'High discipline in structured notification, logging, and administrative liaison.'
       }
     ]
   },
 
-  // 3. Response to sensory shock & sudden chaos
+  // 3. Reaction to sudden smoke in the hallway
   {
     id: 3,
-    module: 'Stress Response & Sensory Processing',
-    arabicModule: 'الاستجابة للضغوط والتعامل مع المفاجآت',
+    module: 'Stress Response & Immediate Safety Reflex',
+    arabicModule: 'الاستجابة للضغط وسرعة التصرف',
     category: 'stress',
-    question: 'If sudden alarms, shouting, and smoke begin in your section, what is your immediate behavioral instinct?',
-    arabicQuestion: 'إذا انطلقت صفارات الإنذار وحدث صراخ ودخان مفاجئ في منطقتك، ما هو رد فعلك السلوكي التلقائي؟',
-    contextNote: 'Measures visceral response to abrupt sensory overload.',
+    question: 'While walking down the main office corridor, you spot light smoke drifting from an unoccupied printing or utility room. What is your immediate instinct?',
+    arabicQuestion: 'أثناء مرورك في ممر المكاتب، لاحظت دخاناً خفيفاً يتصاعد من غرفة طباعة أو خدمات غير مأهولة. ما هو تصرفك التلقائي الفوري؟',
+    contextNote: 'Measures instinct when first encountering a localized physical hazard.',
     options: [
       {
         id: 'A',
-        text: 'Move directly toward the hazard perimeter to locate isolation valves or suppression tools.',
-        arabicText: 'التحرك مباشرة نحو محيط الخطر لتحديد محابس العزل أو أدوات الإخماد اليدوية.',
+        text: 'Carefully approach the closed door, check if the handle feels hot, and make sure it is shut to keep the smoke contained.',
+        arabicText: 'الاقتراب بحذر من الباب، والتأكد من حرارة المقبض، وإغلاقه بإحكام لحصر الدخان ومنع انتشاره.',
         roleWeights: { suppressionLead: 4 },
         competencies: { decisiveness: 3, physicalReadiness: 2 },
-        learningInsight: 'Direct proactive movement toward the source of physical disruption.'
+        learningInsight: 'Direct proactive containment of physical hazards without unnecessary exposure.'
       },
       {
         id: 'B',
-        text: 'Kneel down beside the nearest panicked or fallen person to stabilize them and check their vitals.',
-        arabicText: 'الانحناء فوراً بجانب أقرب شخص سقط أو أصيب بالهلع لتهدئته وفحص تنفسه ونبضه.',
+        text: 'Check if anyone inside or nearby inhaled smoke or is coughing, escorting them to fresh air right away.',
+        arabicText: 'التأكد مما إذا كان أي شخص قريب قد استنشق الدخان أو يسعل، واصطحابه فوراً إلى منطقة جيدة التهوية.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3, decisiveness: 1 },
-        learningInsight: 'Inherent compassionate instinct to provide immediate stabilization to victims.'
+        learningInsight: 'Instant focus on human respiratory safety and personal assistance.'
       },
       {
         id: 'C',
-        text: 'Step to the center of the hall, point clearly with your arms, and instruct people on which exit to use.',
-        arabicText: 'الوقوف في منتصف الممر والإشارة بحزم لتوجيه الحشود نحو المخارج الآمنة وتجنب التدافع.',
+        text: 'Alert everyone on that side of the hallway with a clear voice and guide them toward the opposite stairwell.',
+        arabicText: 'تنبيه جميع الموظفين في ذلك الجزء من الممر بصوت واضح وتوجيههم نحو الدرج البعيد عن الدخان.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 2 },
-        learningInsight: 'Assertive, visible leadership to channel public movement and reduce stampedes.'
+        learningInsight: 'Assertive vocal direction to channel coworkers away from potential danger.'
       },
       {
         id: 'D',
-        text: 'Immediately access the communications console to broadcast verified situation markers to central control.',
-        arabicText: 'التوجه إلى وسيلة الاتصال اللاسلكية لإرسال إحداثيات الموقف بدقة إلى غرفة العمليات المركزية.',
+        text: 'Pull the nearest manual alarm pull station and call internal emergency dispatch to state the exact room number.',
+        arabicText: 'تفعيل أقرب كاسر إنذار والاتصال فوراً بالرقم الداخلي للطوارئ لتحديد رقم الغرفة بدقة.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3, decisiveness: 2 },
-        learningInsight: 'Focus on rapid dissemination of operational clarity to broader command.'
+        learningInsight: 'Focus on triggering standard alarm systems and transmitting exact coordinates.'
       }
     ]
   },
 
-  // 4. Intrinsic problem-solving motivation
+  // 4. Intrinsic satisfaction in everyday work
   {
     id: 4,
-    module: 'Cognitive Preference & Temperament',
-    arabicModule: 'النمط الذهني وأسلوب حل المشكلات',
+    module: 'Cognitive Preference & Work Temperament',
+    arabicModule: 'النمط الذهني وأسلوب العمل التلقائي',
     category: 'temperament',
-    question: 'In your everyday work, what kind of challenge provides you the highest sense of personal accomplishment?',
-    arabicQuestion: 'في بيئة عملك اليومية، أي نوع من التحديات يمنحك أكبر شعور بالإنجاز والرضا الشخصي؟',
+    question: 'In your regular administrative role, which type of outcome gives you the greatest personal sense of accomplishment?',
+    arabicQuestion: 'في عملك الإداري اليومي، أي نوع من النتائج يمنحك أكبر شعور بالإنجاز والرضا الشخصي؟',
     contextNote: 'Identifies deep intrinsic motivators and problem-solving styles.',
     options: [
       {
         id: 'A',
-        text: 'Fixing a tangible physical mechanism, handling technical gear, or overcoming a heavy physical obstacle.',
-        arabicText: 'إصلاح عطل ميكانيكي ملموس، أو التعامل مع معدات فنية، أو التغلب على عائق بدني كبير.',
+        text: 'Rolling up your sleeves to fix a physical office problem, rearrange heavy items, or troubleshoot broken equipment.',
+        arabicText: 'المبادرة العملية لحل مشكلة مادية بالمكتب، أو ترتيب أغراض ثقيلة، أو معالجة عطل ملموس.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3 },
-        learningInsight: 'Motivation driven by tangible, physical problem solving and mechanical competence.'
+        learningInsight: 'Motivation driven by tangible, physical problem solving and hands-on initiative.'
       },
       {
         id: 'B',
-        text: 'Helping an injured or vulnerable person recover their composure and physical comfort.',
-        arabicText: 'مساعدة شخص مصاب أو متألم حتى يستعيد هدوءه وسلامته البدنية.',
+        text: 'Offering personal support, active listening, and comfort to a coworker undergoing personal stress or sudden illness.',
+        arabicText: 'تقديم الدعم الإنساني والإنصات والاطمئنان لزميل يمر بظرف صحي مفاجئ أو توتر نفسي.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Motivation driven by human restoration, empathy, and patient recovery.'
+        learningInsight: 'Motivation driven by empathy, personal recovery, and human well-being.'
       },
       {
         id: 'C',
-        text: 'Organizing a disorganized, anxious group of people into a smooth, coordinated flow.',
-        arabicText: 'تنظيم مجموعة قلقة أو مشتتة من الناس وتحويلها إلى حركة انسيابية ومنظمة.',
+        text: 'Bringing order to a confused group meeting, keeping everyone aligned, and guiding a smooth, coordinated workflow.',
+        arabicText: 'تنظيم اجتماع عمل مشتت، وإعادة ترتيب أولويات المجموعة وتوجيه الجميع نحو مسار منظم.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3 },
-        learningInsight: 'Motivation driven by social structure, group leadership, and public safety.'
+        learningInsight: 'Motivation driven by social structure, group leadership, and smooth collective movement.'
       },
       {
         id: 'D',
-        text: 'Delivering an impeccably clear summary that bridges misunderstandings between different departments.',
-        arabicText: 'تقديم تقرير موجز ودقيق يزيل اللبس وينسق العمل بين عدة إدارات مختلفة.',
+        text: 'Organizing complex records, writing precise summary notes, and ensuring accurate communication between separate teams.',
+        arabicText: 'ترتيب السجلات بدقة، وصياغة تقارير واضحة وموجزة تزيل أي لبس بين الإدارات المختلفة.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3 },
-        learningInsight: 'Motivation driven by clear communication, diplomatic bridging, and accurate data.'
+        learningInsight: 'Motivation driven by clear documentation, diplomatic bridging, and reliable information.'
       }
     ]
   },
@@ -368,40 +365,40 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
   {
     id: 5,
     module: 'Interpersonal Dynamics Under Pressure',
-    arabicModule: 'التعامل مع سلوكيات الآخرين تحت الضغط',
+    arabicModule: 'التعامل مع سلوكيات الزملاء تحت الضغط',
     category: 'behavioral',
-    question: 'You encounter a person who is hyperventilating and freezing in place while an alarm blares. How do you approach them?',
-    arabicQuestion: 'واجهت شخصاً يتنفس بسرعة ويتجمد في مكانه من الخوف بينما صوت الإنذار يدوي. كيف تتعامل معه؟',
-    contextNote: 'Assesses interpersonal intervention style in acute stress situations.',
+    question: 'During a sudden building evacuation alert, a colleague near your desk begins trembling, hyperventilating, and sits down unable to move. How do you respond?',
+    arabicQuestion: 'أثناء تنبيه إخلاء طارئ، بدأ زميل بجوار مكتبك بالارتجاف والتنفس السريع وجلس عاجزاً عن الحركة من الخوف. كيف تتصرف معه؟',
+    contextNote: 'Assesses interpersonal intervention style in acute coworker stress.',
     options: [
       {
         id: 'A',
-        text: 'Quickly remove any physical hazards surrounding them so the space remains physically safe.',
-        arabicText: 'إبعاد أي مصادر خطر مادية من حوله فوراً لضمان أمان المنطقة المحيطة به فيزيائياً.',
+        text: 'Quickly move heavy chairs and bags out of the walkway around them so the area remains completely unobstructed and safe.',
+        arabicText: 'إبعاد الكراسي والحقائب الثقيلة من حوله فوراً لضمان خلو الممر وأمان المساحة المحيطة به.',
         roleWeights: { suppressionLead: 3 },
         competencies: { physicalReadiness: 2, decisiveness: 2 },
-        learningInsight: 'Pragmatic focus on environmental safety and hazard clearance.'
+        learningInsight: 'Pragmatic focus on environmental safety and clearing physical obstructions.'
       },
       {
         id: 'B',
-        text: 'Maintain eye contact at eye level, check their breathing, and guide them through steady physical breaths.',
-        arabicText: 'التواصل البصري المباشر معه بمستواه، وفحص تنفسه، ومساعدته على استعادة اتزانه خطوة بخطوة.',
+        text: 'Sit down beside them at eye level, speak in a gentle steady voice, take their hand, and breathe together until they regain composure.',
+        arabicText: 'الجلوس بمستواه والتحدث بهدوء وأخذ بيده ومساعدته على أخذ أنفاس منتظمة حتى يستعيد اتزانه.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Somatic first-aid empathy and physiological stabilization of trauma.'
+        learningInsight: 'Natural empathetic presence and personal emotional stabilization.'
       },
       {
         id: 'C',
-        text: 'Firmly take them by the arm and integrate them into the moving flow of people heading toward the exit.',
-        arabicText: 'الإمساك بيده بحزم وإدخاله ضمن مسار تدفق الأشخاص المتجهين نحو المخرج لمواصلة الحركة.',
+        text: 'Speak firmly and encouragingly, help them up by the arm, and keep them moving steadily forward in the line of coworkers.',
+        arabicText: 'مخاطبته بحزم وتشجيع، ومساعدته على الوقوف وإبقائه يتحرك بهدوء ضمن صف الزملاء المتجهين للخروج.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 2 },
-        learningInsight: 'Decisive directive guidance to maintain movement momentum.'
+        learningInsight: 'Directive, supportive guidance to maintain movement momentum.'
       },
       {
         id: 'D',
-        text: 'Identify a designated support zone and report their location so specialized care can be routed to them.',
-        arabicText: 'تحديد نقطة الدعم المناسبة والإبلاغ عن موقعه بدقة لتوجيه الرعاية المخصصة إليه.',
+        text: 'Note their exact desk location and notify a floor marshal or safety coordinator so additional assistance is directed to them.',
+        arabicText: 'تحديد موقع مكتبه بدقة وإشعار منسق السلامة أو المشرف لتوجيه المساعدة المناسبة له.',
         roleWeights: { externalLiaison: 3 },
         competencies: { communicationProtocol: 2, decisiveness: 2 },
         learningInsight: 'Resource coordination and systematic routing through proper communication.'
@@ -409,47 +406,47 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     ]
   },
 
-  // 6. Navigation in unfamiliar environments
+  // 6. Orientation in an unfamiliar office building
   {
     id: 6,
     module: 'Environmental & Spatial Awareness',
-    arabicModule: 'الوعي المكاني والبيئي',
+    arabicModule: 'الوعي المكاني والمحيطي',
     category: 'situational',
-    question: 'When walking through a complex multi-terminal terminal for the first time, what features do you naturally register?',
-    arabicQuestion: 'عند مرورك بمبنى ركاب كبير ومعقد للمرة الأولى، ما هي العناصر التي تنتبه إليها ذاكرتك تلقائياً؟',
-    contextNote: 'Measures spatial filtering and subconscious environmental mapping.',
+    question: 'When visiting an unfamiliar administrative building or new company floor for the first time, what do your eyes naturally scan for?',
+    arabicQuestion: 'عند زيارتك لمبنى إداري غير مألوف أو طابق جديد للمرة الأولى، ما الذي تبحث عنه عيناك وتلاحظه تلقائياً؟',
+    contextNote: 'Measures spatial filtering and subconscious environmental mapping in workplaces.',
     options: [
       {
         id: 'A',
-        text: 'Heavy doors, utility risers, fire hose cabinets, and electrical breaker panels.',
-        arabicText: 'الأبواب الثقيلة، محابس الإطفاء، خزائن الخراطيم، ولوحات القواطع الكهربائية.',
+        text: 'The location of physical utility closets, electrical breakers, fire blankets, or wall-mounted extinguishers.',
+        arabicText: 'مواقع غرف الخدمات، القواطع الكهربائية، بطانيات الحريق، أو طفايات الحريق المعلقة.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3 },
-        learningInsight: 'Technical and structural asset mapping.'
+        learningInsight: 'Safety assets and physical infrastructure mapping.'
       },
       {
         id: 'B',
-        text: 'Locations of automated external defibrillators (AEDs), first-aid points, and quiet recovery rooms.',
-        arabicText: 'مواقع أجهزة إزالة الرجفان (AED)، ونقاط الإسعافات الأولية، وأماكن الاستراحة الطبية.',
+        text: 'Where the first-aid box, resting area, or employee wellness clinic is located in case someone feels unwell.',
+        arabicText: 'موقع صندوق الإسعافات الأولية، أو غرفة الاستراحة الطبية، في حال احتاج أحد لرعاية صحية.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Life-safety and medical resource awareness.'
+        learningInsight: 'Human-welfare and basic first-aid resource awareness.'
       },
       {
         id: 'C',
-        text: 'Emergency egress corridors, stairwell dimensions, and potential crowd congestion areas.',
-        arabicText: 'ممرات الطوارئ، سعة السلالم، ونقاط التجمع والمواقع المعرضة للاختناق البشري.',
+        text: 'The main stairwells, emergency exit signs, and wide corridors versus narrow bottleneck passages.',
+        arabicText: 'السلالم الرئيسية، ومخارج الطوارئ المضيئة، والممرات الواسعة مقارنة بالنقاط الضيقة.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3 },
-        learningInsight: 'Crowd movement corridors and egress capacity awareness.'
+        learningInsight: 'Movement pathways and egress capacity awareness.'
       },
       {
         id: 'D',
-        text: 'Information desks, radio repeater coverage markers, intercom stations, and signage clarity.',
-        arabicText: 'مكاتب المعلومات، محطات الاتصال الداخلي، تغطية أجهزة اللاسلكي، ودقة اللوحات الإرشادية.',
+        text: 'The security reception counter, official announcement boards, evacuation maps, and emergency phone numbers.',
+        arabicText: 'مكتب الاستقبال الأمني، ولوحات الإعلانات الرسمية، ومخطط الإخلاء، وأرقام الطوارئ الداخلية.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3 },
-        learningInsight: 'Communications and coordination infrastructure awareness.'
+        learningInsight: 'Communications and institutional coordination infrastructure awareness.'
       }
     ]
   },
@@ -460,41 +457,41 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     module: 'Trauma Composure & Distress Tolerance',
     arabicModule: 'الهدوء أمام الإصابات والتعامل مع الطوارئ الصحية',
     category: 'stress',
-    question: 'If you suddenly see someone with a deep, actively bleeding wound, what is your initial internal reaction?',
-    arabicQuestion: 'إذا رأيت فجأة شخصاً يعاني من جرح عميق ونزيف حاد، ما هو شعورك ورد فعلك الداخلي الأول؟',
-    contextNote: 'Measures physiological and psychological composure around acute trauma.',
+    question: 'An office worker accidentally shatters glass in the breakroom and gets a deep, bleeding cut on their hand. What is your initial reaction?',
+    arabicQuestion: 'كسر أحد الموظفين لوحاً زجاجياً في غرفة الاستراحة بالخطأ وأصيب بجرح عميق ينزف في يده. ما هو رد فعلك الداخلي الأول؟',
+    contextNote: 'Measures composure and natural reflex around sudden bleeding or injury.',
     options: [
       {
         id: 'A',
-        text: 'I focus on clearing away broken glass or jagged metal that caused the injury so no one else gets cut.',
-        arabicText: 'التركيز على إزالة مصدر الخطر (كالزجاج أو المعدن الحاد) حتى لا يصاب أي شخص آخر.',
+        text: 'Grab a broom or cloth to quickly clear away the broken glass fragments so no one else steps on them or gets cut.',
+        arabicText: 'المبادرة فوراً لكنس وإبعاد شظايا الزجاج المكسور حتى لا يتعثر بها أو يجرح نفسه أي شخص آخر.',
         roleWeights: { suppressionLead: 3 },
         competencies: { physicalReadiness: 2, decisiveness: 2 },
-        learningInsight: 'Hazard elimination focus to prevent compounding casualties.'
+        learningInsight: 'Hazard elimination focus to prevent compounding injuries.'
       },
       {
         id: 'B',
-        text: 'I remain steady, step in immediately, and prepare to apply direct physical pressure with available cloth or dressing.',
-        arabicText: 'الحفاظ على الهدوء التام والاقتراب الفوري للضغط المباشر على الجرح بضمادة أو قماش نظيف.',
+        text: 'Stay calm, grab a clean paper towel or cloth immediately, and apply steady direct pressure on the wound while reassuring them.',
+        arabicText: 'الحفاظ على الهدوء والضغط المباشر على الجرح بضمادة أو قماش نظيف والتحدث معه لبث الطمأنينة.',
         roleWeights: { casualtyCareLead: 5 },
         competencies: { traumaComposure: 4, decisiveness: 2 },
-        learningInsight: 'Direct somatic composure and instinct for traumatic hemorrhage control.'
+        learningInsight: 'Direct composure and natural instinct for basic bleeding control.'
       },
       {
         id: 'C',
-        text: 'I direct onlookers to step back immediately to provide breathing room and keep the corridor clear.',
-        arabicText: 'إبعاد الفضوليين والمتفرجين فوراً لإتاحة المجال وتأمين ممر وصول مفتوح للمسعفين.',
+        text: 'Politely ask curious coworkers to step back out of the breakroom doorway so there is plenty of space and fresh air.',
+        arabicText: 'الطلب بلطف وحزم من الزملاء الفضوليين التراجع عن باب الغرفة لإتاحة المجال وتوفير هواء نقي للمصاب.',
         roleWeights: { evacuationSupportLead: 3 },
         competencies: { crowdControl: 3, decisiveness: 2 },
-        learningInsight: 'Perimeter control and crowd dispersion around an incident.'
+        learningInsight: 'Crowd management and securing open space around an incident.'
       },
       {
         id: 'D',
-        text: 'I quickly note the exact severity, location, and consciousness level to dispatch paramedics with precise details.',
-        arabicText: 'تسجيل درجة خطورة النزيف ومستوى وعي المصاب بدقة لطلب الإسعاف ببيانات محددة وسريعة.',
+        text: 'Quickly call the building nurse or local emergency number to report the injury and request first-aid supplies.',
+        arabicText: 'الاتصال السريع بعيادة المبنى أو الإسعاف والإبلاغ عن طبيعة الإصابة لطلب الدعم المناسب.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3, decisiveness: 2 },
-        learningInsight: 'Rapid critical information synthesis for advanced medical mobilization.'
+        learningInsight: 'Rapid critical notification for professional medical dispatch.'
       }
     ]
   },
@@ -502,809 +499,809 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
   // 8. Communication style under noisy disruption
   {
     id: 8,
-    module: 'Verbal Precision & Protocol Discipline',
-    arabicModule: 'وضوح الخطاب ودقة التواصل الصوتي',
+    module: 'Verbal Precision & Communication Style',
+    arabicModule: 'وضوح التعبير وأسلوب التخاطب في الزحام',
     category: 'communication',
-    question: 'When communicating in a loud, echoing environment where people are talking over one another, how do you transmit your message?',
-    arabicQuestion: 'عندما تحتاج للتحدث في بيئة مليئة بالضجيج والصدى والحديث المتداخل، كيف توصل رسالتك بفعالية؟',
-    contextNote: 'Measures vocal technique and communication efficiency under acoustic interference.',
+    question: 'When trying to communicate with colleagues in a loud, bustling hallway where multiple people are talking at once, what is your natural communication style?',
+    arabicQuestion: 'عندما تحاول التواصل مع زملائك في ممر صاخب يتحدث فيه الجميع في وقت واحد، ما هو أسلوبك الطبيعي في التحدث؟',
+    contextNote: 'Measures communication efficiency under acoustic interference.',
     options: [
       {
         id: 'A',
-        text: 'I demonstrate with physical actions and gestures so my team can see exactly what to do without talking.',
-        arabicText: 'أوضح الإجراء بحركات بدنية وإشارات عملية مباشرة ليرى فريقي ما يجب فعله دون الحاجة للكلام.',
+        text: 'I use physical gestures and lead by demonstration—showing coworkers what to do with hand signals rather than shouting.',
+        arabicText: 'استخدام الإشارات الحركية والتقدم لإظهار المطلوب عملياً بدلاً من الصراخ وسط الضجيج.',
         roleWeights: { suppressionLead: 3 },
         competencies: { physicalReadiness: 2, decisiveness: 2 },
-        learningInsight: 'Non-verbal, action-based physical synchronization.'
+        learningInsight: 'Non-verbal, action-based physical demonstration.'
       },
       {
         id: 'B',
-        text: 'I speak closely and calmly to one individual at a time so they feel personally protected and understood.',
-        arabicText: 'أتحدث بهدوء وقرب من الشخص بشكل فردي ليشعر بالاطمئنان والأمان النفسي.',
+        text: 'I speak softly and closely to one person at a time, making sure they feel personally heard and supported.',
+        arabicText: 'التحدث بهدوء وقرب من كل شخص على حدة، لضمان شعوره بالأمان النفسي والفهم التام.',
         roleWeights: { casualtyCareLead: 3 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Personalized, calming acoustic connection.'
+        learningInsight: 'Personalized, calming acoustic connection and reassurance.'
       },
       {
         id: 'C',
-        text: 'I use a loud, projected, commanding voice with short commands: "Stop! Look here! Move forward!"',
-        arabicText: 'أستخدم نبرة صوت جهورية وحازمة بأوامر قصيرة ومباشرة: "توقفوا! انظروا هنا! تقدموا للأمام!"',
+        text: 'I raise my voice firmly and project clear, concise instructions: "Please listen, keep moving, follow the stairs!"',
+        arabicText: 'رفع نبرة الصوت بحزم وإطلاق توجيهات واضحة ومختصرة: "انتبهوا جميعاً، نواصل الحركة بهدوء نحو السلم!"',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 3 },
-        learningInsight: 'Projected, authoritative vocal command for mass direction.'
+        learningInsight: 'Projected, authoritative vocal command for group guidance.'
       },
       {
         id: 'D',
-        text: 'I wait for a pause on the channel, then speak strictly in concise, standardized plain sentences.',
-        arabicText: 'أنتظر ثانية هدوء على القناة اللاسلكية ثم أرسل جملة محددة وموجزة وفق الأسلوب المعتمد دون إطالة.',
+        text: 'I wait for a brief lull, then state verified facts plainly and accurately without repeating unconfirmed rumors.',
+        arabicText: 'انتظار لحظة هدوء ونقل المعلومات المؤكدة بدقة واختصار دون تكرار أي شائعات.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4, decisiveness: 1 },
-        learningInsight: 'Disciplined radio protocol and concise channel utilization.'
+        learningInsight: 'Disciplined, factual communication without clutter.'
       }
     ]
   },
 
-  // 9. Physical endurance & discomfort tolerance
+  // 9. Energy and perseverance under disruption
   {
     id: 9,
-    module: 'Physical Readiness & Stamina Orientation',
-    arabicModule: 'اللياقة والجاهزية البدنية وتحمل المشاق',
+    module: 'Endurance & Stamina Orientation',
+    arabicModule: 'التحمل والدافعية أثناء الطوارئ',
     category: 'behavioral',
-    question: 'When faced with prolonged, exhausting physical labor in hot or enclosed spaces, what keeps you going?',
-    arabicQuestion: 'عند العمل في ظروف مرهقة بدنياً تتطلب مجهوداً شاقاً في أماكن حارة أو مغلقة، ما الذي يدفعك للاستمرار؟',
-    contextNote: 'Assesses psychological endurance during high physical exertion.',
+    question: 'When an unexpected event disrupts the workday and requires everyone to stay late on their feet, what keeps your energy high?',
+    arabicQuestion: 'عندما يطرأ ظرف طارئ يعطل يوم العمل ويتطلب من الجميع البقاء واقفين لوقت إضافي، ما الذي يحافظ على نشاطك وعزيمتك؟',
+    contextNote: 'Assesses psychological perseverance during an extended disruption.',
     options: [
       {
         id: 'A',
-        text: 'I enjoy physical challenges; pushing through fatigue to finish a demanding mechanical job energizes me.',
-        arabicText: 'أستمتع بالتحدي البدني؛ التغلب على التعب لإنجاز عمل ميكانيكي شاق يمنحني حافزاً وطاقة إضافية.',
+        text: 'The satisfaction of hands-on physical action—helping move tables, carry supplies, or secure the facility.',
+        arabicText: 'الشعور بالإنجاز من العمل البدني الملموس—المساعدة في نقل المستلزمات أو تأمين المكاتب.',
         roleWeights: { suppressionLead: 5 },
         competencies: { physicalReadiness: 4 },
-        learningInsight: 'High innate stamina and satisfaction in kinetic labor.'
+        learningInsight: 'High energy found in tangible physical exertion and practical assistance.'
       },
       {
         id: 'B',
-        text: 'Knowing that someone vulnerable depends on my steady hands gives me infinite patience and resolve.',
-        arabicText: 'إدراكي أن هناك شخصاً متألماً يعتمد على ثبات يدي يمنحني صبراً وعزيمة مستمرة.',
+        text: 'Knowing that someone distressed or frail is counting on my personal care and presence to feel safe.',
+        arabicText: 'إدراكي أن هناك زميلاً قلقاً أو متعباً يعتمد على دعمي ووجودي بجانبه ليشعر بالراحة.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Empathy-driven perseverance during crisis care.'
+        learningInsight: 'Empathy-driven perseverance during personal care and comfort.'
       },
       {
         id: 'C',
-        text: 'Seeing a crowd safely guided through danger gives me the adrenaline to keep moving without stopping.',
-        arabicText: 'رؤية الناس يخرجون بسلام وأمان تمنحني الحافز لمواصلة التوجيه والحركة دون توقف.',
+        text: 'Seeing our department move together in an orderly, organized manner without chaos or delay.',
+        arabicText: 'رؤية قسمنا يتحرك بتنظيم وانسجام وسلاسة دون حدوث أي ارتباك أو فوضى.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, physicalReadiness: 2 },
-        learningInsight: 'Social responsibility and movement drive under physical fatigue.'
+        learningInsight: 'Social responsibility and motivation derived from smooth group coordination.'
       },
       {
         id: 'D',
-        text: 'Maintaining complete mental focus so no vital message or coordination update is missed.',
-        arabicText: 'الحفاظ على التركيز الذهني الصارم لضمان عدم تفويت أي رسالة حيوية أو أمر تنسيقي.',
+        text: 'Keeping detailed track of what has been accomplished and ensuring all updates are clearly documented.',
+        arabicText: 'الحفاظ على التدوين المنظم لما تم إنجازه والتأكد من توثيق جميع المستجدات بإتقان.',
         roleWeights: { externalLiaison: 3 },
         competencies: { communicationProtocol: 3, decisiveness: 1 },
-        learningInsight: 'Mental stamina and informational discipline.'
+        learningInsight: 'Mental stamina and organizational informational discipline.'
       }
     ]
   },
 
-  // 10. Rapid bottleneck resolution
+  // 10. A hallway bottleneck during an evacuation
   {
     id: 10,
     module: 'Bottleneck Management & Group Dynamics',
-    arabicModule: 'إدارة الاختناقات وتوجيه الحشود',
+    arabicModule: 'التعامل مع التزاحم وإدارة نقاط الاختناق',
     category: 'situational',
-    question: 'A large group of passengers stops moving because one person dropped their luggage and is blocking an escalator. What is your instinct?',
-    arabicQuestion: 'توقفت مجموعة كبيرة من المسافرين بسبب سقوط حقيبة أحدهم مما أدى لانسداد مدخل السلم الكهربائي. ما هو تصرفك التلقائي؟',
+    question: 'During a building drill, people stop moving in the stairwell landing because someone dropped their laptop and papers, blocking the doorway. What is your instinct?',
+    arabicQuestion: 'خلال تمرين إخلاء، توقفت حركة الموظفين عند مدخل الدرج بسبب سقوط حاسوب وأوراق زميل مما سد الباب. ما هو تصرفك التلقائي؟',
     contextNote: 'Measures decision-making at critical congestion points.',
     options: [
       {
         id: 'A',
-        text: 'Rush over, press the emergency stop button on the escalator, and physically pull the luggage out of the way.',
-        arabicText: 'الركض فوراً للضغط على زر إيقاف السلم في حالات الطوارئ وسحب الحقيبة بيدي لإخلاء المسار.',
+        text: 'Step in immediately, bend down to quickly scoop the items off the floor, and clear the doorway obstruction.',
+        arabicText: 'المبادرة فوراً لرفع الأغراض والحاسوب عن الأرض وإخلاء مدخل الباب لاستئناف الحركة.',
         roleWeights: { suppressionLead: 3 },
         competencies: { physicalReadiness: 3, decisiveness: 3 },
-        learningInsight: 'Physical intervention to stop mechanical movement and eliminate the blockage.'
+        learningInsight: 'Physical intervention to remove the obstruction quickly.'
       },
       {
         id: 'B',
-        text: 'Check if the passenger who dropped it or anyone behind them has twisted an ankle or been injured in the pileup.',
-        arabicText: 'التأكد من سلامة الراكب ومن خلفه والتثبت من عدم تعرض أي شخص لالتواء في القدم أو رضوض.',
+        text: 'Check on the coworker who dropped their belongings to make sure they aren\'t bruised, panicked, or stepped on.',
+        arabicText: 'التأكد من سلامة الزميل الذي سقطت أغراضه والتثبت من عدم تعرضه لأي كدمات أو دهس.',
         roleWeights: { casualtyCareLead: 3 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Injury prevention and immediate casualty assessment.'
+        learningInsight: 'Immediate concern for personal safety and emotional composure.'
       },
       {
         id: 'C',
-        text: 'Stand before the crowd, raise your arms, and steer the incoming flow to the adjacent stairs immediately.',
-        arabicText: 'الوقوف أمام تدفق الحشود ورفع الذراعين لإعادة توجيه الناس فوراً نحو الدرج الثابت المجاور.',
+        text: 'Stand before the approaching crowd, hold up your hands, and direct incoming colleagues to slow down and wait.',
+        arabicText: 'الوقوف أمام القادمين ورفع اليدين بحزم لتوجيههم لتهدئة السرعة والانتظار حتى يفرغ الممر.',
         roleWeights: { evacuationSupportLead: 5 },
         competencies: { crowdControl: 4, decisiveness: 3 },
-        learningInsight: 'Proactive rerouting of human flow to prevent crush hazards.'
+        learningInsight: 'Proactive crowd buffering to prevent crush hazards at doorways.'
       },
       {
         id: 'D',
-        text: 'Call building operations to halt baggage belts and log the temporary choke point timestamp.',
-        arabicText: 'الاتصال بعمليات المبنى لإشعارهم بالاختناق المؤقت وتوثيق وقت الحادثة بدقة.',
+        text: 'Note the stairwell bottleneck location to mention it to safety coordinators so the stairwell protocol can be improved.',
+        arabicText: 'تسجيل موقع الاختناق لرفعه إلى منسقي السلامة لتفادي تكرار الانسداد في التدريبات القادمة.',
         roleWeights: { externalLiaison: 2 },
         competencies: { communicationProtocol: 3, decisiveness: 2 },
-        learningInsight: 'System notification and chronological incident logging.'
+        learningInsight: 'Process observation and reporting for institutional improvement.'
       }
     ]
   },
 
-  // 11. Decision-making under partial information
+  // 11. Dealing with contradictory rumors
   {
     id: 11,
     module: 'Decision-Making in Ambiguity',
-    arabicModule: 'اتخاذ القرارات في ظل نقص المعلومات',
+    arabicModule: 'اتخاذ القرارات في ظل نقص المعلومات والشائعات',
     category: 'situational',
-    question: 'You receive contradictory reports about an incident on the lower level. How do you decide your immediate course of action?',
-    arabicQuestion: 'وردت إليك تقارير متضاربة حول حادث في الطابق السفلي. كيف تقرر خطوتك المباشرة التالية؟',
-    contextNote: 'Assesses cognitive handling of ambiguous, competing data.',
+    question: 'An alarm starts beeping, but coworkers are sharing conflicting rumors—some say it\'s just burnt toast, others say it\'s serious. How do you proceed?',
+    arabicQuestion: 'بدأ جرس الإنذار بالرنين لكن الزملاء يتداولون شائعات متضاربة؛ بعضهم يقول مجرد خبز محترق وآخرون يقولون خطر حقيقي. كيف تتصرف؟',
+    contextNote: 'Assesses cognitive handling of ambiguous workplace rumors.',
     options: [
       {
         id: 'A',
-        text: 'I prepare my personal protective equipment and go directly to physically inspect the physical conditions.',
-        arabicText: 'أرتدي معدات الوقاية المناسبة وأتوجه فوراً للمعاينة الميدانية للتعامل مع الواقع المادي.',
+        text: 'Walk carefully toward the kitchen or utility area to check the physical reality with your own eyes before panicking.',
+        arabicText: 'التوجه بحذر نحو منطقة الخدمات أو المطبخ للتأكد بالعين المجردة من الواقع وتفادي التكهنات.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3, decisiveness: 2 },
-        learningInsight: 'Empirical verification through direct physical assessment.'
+        learningInsight: 'Empirical verification through direct personal inspection.'
       },
       {
         id: 'B',
-        text: 'I prepare medical kits and triage supplies, assuming the worst-case scenario for human injuries.',
-        arabicText: 'أجهز حقائب الإسعاف ومستلزمات الفرز، مفترضاً السيناريو الأسوأ لاحتمال وجود مصابين.',
+        text: 'Check in on nearby colleagues who are looking frightened or uncomfortable, keeping them calm while facts emerge.',
+        arabicText: 'الاطمئنان على الزملاء الذين تظهر عليهم علامات الخوف ومساعدتهم على التهدئة ريثما تتضح الحقيقة.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3, decisiveness: 2 },
-        learningInsight: 'Prudent preparation focused on potential casualty volume.'
+        learningInsight: 'Prioritizing colleague reassurance during periods of confusing information.'
       },
       {
         id: 'C',
-        text: 'I clear people away from the stairwells leading downward until the area below is confirmed safe.',
-        arabicText: 'أمنع نزول الأشخاص عبر السلالم وأحافظ على منطقة آمنة حتى نتأكد من سلامة الطابق السفلي.',
+        text: 'Encourage coworkers not to debate: "Let’s start walking toward the exit now as a precaution, just in case."',
+        arabicText: 'حث الزملاء على تجنب الجدال والبدء بالخروج الاحترازي فوراً كإجراء وقائي آمن.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 3 },
-        learningInsight: 'Precautionary perimeter containment to protect occupants.'
+        learningInsight: 'Precautionary life-safety movement rather than debating uncertain facts.'
       },
       {
         id: 'D',
-        text: 'I contact the central dispatch monitor and verify which report matches CCTV feeds and radio timestamps.',
-        arabicText: 'أتواصل مع مركز العمليات لمقارنة البلاغات بكاميرات المراقبة وسجلات اللاسلكي للتأكد من الحقيقة.',
+        text: 'Call the facilities desk or security extension directly to get the official, verified status from authorized personnel.',
+        arabicText: 'الاتصال المباشر بإدارة المبنى أو الأمن للتأكد من الموقف الرسمي المعتمد وتفادي الشائعات.',
         roleWeights: { externalLiaison: 5 },
         competencies: { communicationProtocol: 4, decisiveness: 2 },
-        learningInsight: 'Methodical verification and cross-referencing of operational intelligence.'
+        learningInsight: 'Authoritative fact-checking through established communication channels.'
       }
     ]
   },
 
-  // 12. Handling difficult emotional reactions from the public
+  // 12. A colleague wants to go back for personal items
   {
     id: 12,
-    module: 'De-escalation & Psychological Composure',
-    arabicModule: 'التهدئة والسيطرة النفسية في الأزمات',
+    module: 'Boundary Enforcement & Interpersonal Tact',
+    arabicModule: 'التعامل مع المواقف الحرجة وإصرار الزملاء',
     category: 'temperament',
-    question: 'A passenger insists on returning inside an evacuated area to search for personal property. How do you respond?',
-    arabicQuestion: 'أصر أحد الركاب على العودة إلى منطقة تم إخلاؤها للبحث عن حقيبته الشخصية. كيف تواجهه؟',
+    question: 'While evacuating down the office stairs, a coworker insists on running back up to their desk to grab their car keys and laptop bag. How do you intervene?',
+    arabicQuestion: 'أثناء النزول عبر درج الطوارئ، أصر أحد الزملاء على العودة للأعلى لجلب مفاتيح سيارته وحقيبة حاسوبه. كيف تتدخل؟',
     contextNote: 'Measures adherence to safety boundaries versus interpersonal friction.',
     options: [
       {
         id: 'A',
-        text: 'Physically position yourself at the door threshold to ensure the hazard boundary cannot be breached.',
-        arabicText: 'الوقوف بجسمك عند مدخل الباب لتأمين خط الخطر ومنع تجاوزه بالقوة.',
+        text: 'Stand firmly in front of the stair access, using your body as a barrier to block anyone from heading back up.',
+        arabicText: 'الوقوف بثبات عند مدخل السلم واستخدام جسدك كحاجز يمنع أي شخص من العودة للأعلى.',
         roleWeights: { suppressionLead: 3 },
         competencies: { physicalReadiness: 2, decisiveness: 3 },
-        learningInsight: 'Physical boundary enforcement and perimeter defense.'
+        learningInsight: 'Physical boundary enforcement to protect colleagues from danger.'
       },
       {
         id: 'B',
-        text: 'Calmly acknowledge their distress, check if their medication was inside, and offer reassuring physical care.',
-        arabicText: 'تفهم قلقه بهدوء، والسؤال عما إذا كانت هناك أدوية ضرورية بالداخل، وتوفير الدعم الإنساني له.',
+        text: 'Empathize with their worry: "I understand, but your safety is worth more than any laptop. Let\'s stay together."',
+        arabicText: 'مخاطبته بتفهم إنساني: "أتفهم قلقك، لكن سلامتك أهم من أي جهاز. دعنا نخرج معاً بسلام."',
         roleWeights: { casualtyCareLead: 3 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Compassionate inquiry into essential personal medical needs.'
+        learningInsight: 'Compassionate reassurance and emotional persuasion.'
       },
       {
         id: 'C',
-        text: 'Deliver a firm, unambiguous command: "No entry is permitted. Life safety comes first. Move to the safe zone now."',
-        arabicText: 'توجيه أمر حازم ومباشر: "الدخول ممنوع تماماً. سلامة الأرواح أولاً. تحرك نحو المنطقة الآمنة الآن."',
+        text: 'Give a firm, authoritative instruction: "No going back. Safety rules require everyone out now. Keep walking down."',
+        arabicText: 'توجيه أمر حازم: "العودة ممنوعة تماماً. قواعد السلامة تقتضي الخروج فوراً. واصل النزول."',
         roleWeights: { evacuationSupportLead: 5 },
         competencies: { crowdControl: 4, decisiveness: 3 },
-        learningInsight: 'Uncompromising, authoritative adherence to life-safety evacuation rules.'
+        learningInsight: 'Uncompromising, authoritative adherence to emergency evacuation rules.'
       },
       {
         id: 'D',
-        text: 'Record the passenger’s details, flight number, and bag description to log with security after containment.',
-        arabicText: 'تسجيل بيانات الراكب ورقم رحلته ووصف حقيبته لتوثيقها ومتابعتها لاحقاً مع أمن المطار.',
+        text: 'Assure them that building security logs all desks and will retrieve items once the building is cleared.',
+        arabicText: 'طمأنته بأن أمن المبنى موثق لديه كل شيء وسيتم استعادة الأغراض بعد انتهاء البلاغ رسمياً.',
         roleWeights: { externalLiaison: 3 },
         competencies: { communicationProtocol: 3 },
-        learningInsight: 'Systematic documentation to satisfy passenger concerns without compromising safety.'
+        learningInsight: 'De-escalation through institutional procedures and factual reassurance.'
       }
     ]
   },
 
-  // 13. Methodical procedure execution vs spontaneous action
+  // 13. What you grasp most easily in safety training
   {
     id: 13,
-    module: 'Procedure Execution & Technical Discipline',
-    arabicModule: 'الانضباط الإجرائي والتطبيق الفني',
+    module: 'Learning Style & Practical Skill Acquisition',
+    arabicModule: 'أسلوب التعلم واستيعاب المهارات الوقائية',
     category: 'behavioral',
-    question: 'When trained on a multi-step emergency checklist, which part of learning comes most naturally to you?',
-    arabicQuestion: 'عند تدريبك على قائمة خطوات طارئة متعددة، أي جانب في التعلم تشعر أنه الأسهل والأسرع استيعاباً لديك؟',
-    contextNote: 'Measures procedural memory style and cognitive execution habits.',
+    question: 'In an introductory workplace safety workshop, which type of practical skill do you absorb and remember most naturally?',
+    arabicQuestion: 'في ورشة عمل تعريفية عن السلامة بالعمل، أي نوع من المهارات العملية تشعر أنك تستوعبه وتتذكره بأسهل شكل؟',
+    contextNote: 'Measures procedural memory style and practical aptitude.',
     options: [
       {
         id: 'A',
-        text: 'The muscle memory of operating tools, nozzles, switches, and valves until it becomes automatic.',
-        arabicText: 'الذاكرة الحركية لتشغيل الأدوات والمحابس والقواطع حتى تصبح استجابة تلقائية وسريعة.',
+        text: 'How to operate physical safety devices—like checking pressure pins on extinguishers or cutting emergency power.',
+        arabicText: 'تشغيل أدوات السلامة المادية—مثل فحص مسمار الأمان بالطفايات أو قفل القواطع الكهربائية.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 4 },
-        learningInsight: 'Kinesthetic learning and tactile tool mastery.'
+        learningInsight: 'Hands-on practical learning and tactile device problem solving.'
       },
       {
         id: 'B',
-        text: 'The clinical sequence of patient assessment: checking airway, breathing, circulation, and vital signs.',
-        arabicText: 'التسلسل الإسعافي لفحص المصاب: مجرى الهواء، التنفس، النبض، ووقف النزيف.',
+        text: 'Basic human care techniques—like positioning someone who fainted, checking breathing, and soothing anxiety.',
+        arabicText: 'مهارات الإسعاف الأولي—مثل وضعية الإفاقة لمن فقد وعيه، وفحص التنفس، وتهدئة المصاب.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Sequential clinical algorithm execution and physiological assessment.'
+        learningInsight: 'Natural grasp of personal physical care and basic life-support skills.'
       },
       {
         id: 'C',
-        text: 'The spatial sweep patterns: systematically checking every doorway, cubicle, and corner without missing one.',
-        arabicText: 'المسح المكاني المنظم: تمشيط الممرات والغرف والتأكد من خلو كل ركن بدقة.',
+        text: 'Floor evacuation logistics—learning the quickest floor escape routes, room checking methods, and assembly points.',
+        arabicText: 'خطة إخلاء الطابق—معرفة أسرع المسارات، وطريقة تمشيط المكاتب، ومواقع التجمع الآمنة.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3 },
-        learningInsight: 'Systematic spatial sweep methodology.'
+        learningInsight: 'Spatial organization and systematic floor sweep methodology.'
       },
       {
         id: 'D',
-        text: 'The standard communication codes, phonetic alphabet, and concise reporting formats.',
-        arabicText: 'رموز النداء الموحدة، والمصطلحات الدقيقة، وصيغ التقارير الموجزة الخالية من الحشو.',
+        text: 'Communication protocols—how to call emergency services, give precise building coordinates, and log incidents.',
+        arabicText: 'إجراءات البلاغات—كيفية الاتصال بغرف الطوارئ، وتحديد الإحداثيات، وتوثيق السجلات.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4 },
-        learningInsight: 'Standardized communication format mastery and radio discipline.'
+        learningInsight: 'Structured reporting mastery and emergency liaison discipline.'
       }
     ]
   },
 
-  // 14. Handling sudden environmental hazards
+  // 14. Unusual burning smell in an office area
   {
     id: 14,
-    module: 'Hazard Recognition & Environmental Safety',
-    arabicModule: 'رصد المخاطر والسلامة البيئية',
+    module: 'Hazard Recognition & Environmental Precaution',
+    arabicModule: 'رصد المخاطر والسلامة الوقائية في بيئة العمل',
     category: 'situational',
-    question: 'You notice a chemical smell and yellowish vapor coming from a maintenance room. What is your immediate priority?',
-    arabicQuestion: 'شممت رائحة كيميائية ولاحظت تصاعد أبخرة صفراء من غرفة صيانة. ما هي أولويتك الفورية؟',
-    contextNote: 'Measures hazard containment versus exposure protection instincts.',
+    question: 'You detect an unusual acrid electrical smell coming from behind an office copier or server cabinet. What is your immediate priority?',
+    arabicQuestion: 'شممت رائحة احتراق كهربائي غير معتادة تنبعث من خلف طابعة مكتبية كبيرة أو خزانة خوادم. ما هي أولويتك الفورية؟',
+    contextNote: 'Measures practical hazard mitigation vs communication instincts in an office setting.',
     options: [
       {
         id: 'A',
-        text: 'Close and seal the heavy door, shut off ventilation damper switches, and isolate the source.',
-        arabicText: 'إغلاق الباب بإحكام، وإيقاف مفاتيح مراوح التهوية لمنع تسرب الأبخرة وانتشارها.',
+        text: 'Carefully switch off the wall power switch or unplug the cable if safe, preventing electrical heat from building up.',
+        arabicText: 'فصل مفتاح الكهرباء الجداري أو نزع القابس بحذر إن كان آمناً لمنع تفاقم الحرارة الكهربائية.',
         roleWeights: { suppressionLead: 5 },
         competencies: { physicalReadiness: 3, decisiveness: 3 },
-        learningInsight: 'Direct physical containment of hazardous materials.'
+        learningInsight: 'Direct, practical isolation of the physical hazard source.'
       },
       {
         id: 'B',
-        text: 'Look for anyone coughing or having difficulty breathing nearby, moving them to fresh air immediately.',
-        arabicText: 'البحث عن أي شخص يسعل أو يعاني من ضيق تنفس ونقله فوراً إلى الهواء النقي.',
+        text: 'Warn colleagues seated right next to the machine to step away to fresh air in case hazardous fumes escape.',
+        arabicText: 'تنبيه الزملاء الجالسين بجوار الجهاز مباشرة للابتعاد واستنشاق هواء نقي منعاً لأي استنشاق ضار.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3, decisiveness: 2 },
-        learningInsight: 'Immediate triage and respiratory care for chemical exposure.'
+        learningInsight: 'Immediate health protection and safeguarding colleagues from fumes.'
       },
       {
         id: 'C',
-        text: 'Clear the entire hallway immediately and establish an exclusion perimeter 50 meters back.',
-        arabicText: 'إخلاء الممر بالكامل فوراً وفرض طوق أمني يمنع الاقتراب لمسافة 50 متراً.',
+        text: 'Instruct everyone in that open-plan office pod to pack up calmly and move into the adjoining conference corridor.',
+        arabicText: 'توجيه الموظفين في تلك المساحة المفتوحة للابتعاد بهدوء والانتقال للممر المجاور مؤقتاً.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 4, decisiveness: 2 },
-        learningInsight: 'Rapid spatial buffer zone establishment to protect the public.'
+        learningInsight: 'Rapid local evacuation to create a safe buffer zone.'
       },
       {
         id: 'D',
-        text: 'Read the placard code on the door and report the exact chemical identifier to Hazmat dispatch.',
-        arabicText: 'قراءة الرمز التحذيري على الباب والإبلاغ الدقيق عن نوع المادة الكيميائية لعمليات الطوارئ.',
+        text: 'Immediately dial building maintenance and report the exact floor number, department, and equipment type.',
+        arabicText: 'الاتصال الفوري بصيانة المبنى والإبلاغ عن رقم الطابق والقسم ونوع الجهاز بدقة لإرسال فني.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4, decisiveness: 2 },
-        learningInsight: 'Accurate technical identification and hazardous materials data relay.'
+        learningInsight: 'Accurate technical notification and facilities coordination.'
       }
     ]
   },
 
-  // 15. Multitasking under cognitive overload
+  // 15. Balancing multiple immediate needs
   {
     id: 15,
-    module: 'Cognitive Bandwidth & Focus Management',
-    arabicModule: 'التركيز الذهني وإدارة تعدد المهام',
+    module: 'Cognitive Bandwidth & Priority Setting',
+    arabicModule: 'ترتيب الأولويات الذهنية أثناء تعدد المهام',
     category: 'temperament',
-    question: 'When five different demands occur simultaneously during a crisis, how does your mind prioritize?',
-    arabicQuestion: 'عندما تتزاحم عليك خمسة متطلبات مختلفة في نفس اللحظة أثناء الأزمة، كيف يرتب ذهنك الأولويات؟',
+    question: 'During a sudden building alert, several things happen at once. What does your mind naturally prioritize first?',
+    arabicQuestion: 'أثناء إنذار مبنى مفاجئ، حدثت عدة أمور في نفس اللحظة. ما الذي يضعه ذهنك كأولوية أولى بشكل طبيعي؟',
     contextNote: 'Assesses mental filtering strategy during simultaneous urgent stimuli.',
     options: [
       {
         id: 'A',
-        text: 'I eliminate the biggest immediate physical danger first, because fixing that stops everything else from worsening.',
-        arabicText: 'أقضي على الخطر المادي الأكبر أولاً، لأن إيقافه يمنع تدهور بقية الأمور.',
+        text: 'Neutralizing any direct physical hazards in the immediate room (sparks, blocked exits, fallen items).',
+        arabicText: 'القضاء على الخطر المادي المباشر في الغرفة (شرر كهربائي، باب مغلق، عائق سد الطريق).',
         roleWeights: { suppressionLead: 4 },
         competencies: { decisiveness: 3, physicalReadiness: 2 },
-        learningInsight: 'Root-cause physical threat elimination priority.'
+        learningInsight: 'Focus on eliminating physical hazards that could compound the crisis.'
       },
       {
         id: 'B',
-        text: 'I look for the most vulnerable human being whose life is on the line right now and treat them first.',
-        arabicText: 'أبحث عن الإنسان الأكثر ضعفاً والمعرضة حياته للخطر الآن وأبدأ بإسعافه.',
+        text: 'Tending to any colleague who is dizzy, injured, or having an acute panic reaction.',
+        arabicText: 'الاعتناء الفوري بأي زميل يعاني من إغماء، أو جرح، أو نوبة هلع حادة.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3, decisiveness: 2 },
-        learningInsight: 'Immediate life-threat medical triage priority.'
+        learningInsight: 'Prioritizing immediate personal human assistance and stabilization.'
       },
       {
         id: 'C',
-        text: 'I ensure the escape corridor remains wide open so thousands of people do not get trapped.',
-        arabicText: 'أضمن بقاء مسارات النجاة مفتوحة بالكامل حتى لا يُحاصر آلاف الأشخاص في مكان ضيق.',
+        text: 'Ensuring the main escape hallway stays clear and that everyone is moving in an orderly direction.',
+        arabicText: 'التأكد من أن ممر الخروج الرئيسي سالك وأن الجميع يتحركون باتجاه منظم دون تدافع.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 3 },
-        learningInsight: 'Mass egress preservation priority.'
+        learningInsight: 'Focus on collective evacuation flow and maintaining clear exit routes.'
       },
       {
         id: 'D',
-        text: 'I categorize incoming signals into verified vs unverified, briefing command so the right teams are dispatched.',
-        arabicText: 'أصنف البلاغات الواردة إلى مؤكدة وغير مؤكدة وأبلغ القيادة لتوجيه الفرق المناسبة فوراً.',
+        text: 'Gathering the exact facts from building management and transmitting clear instructions to the team.',
+        arabicText: 'استقاء المعلومات الدقيقة من إدارة المبنى ونقل التوجيهات المؤكدة للزملاء فوراً.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3, decisiveness: 2 },
-        learningInsight: 'Strategic situational awareness and resource routing priority.'
+        learningInsight: 'Focus on informational accuracy and relaying reliable instructions.'
       }
     ]
   },
 
-  // 16. Working with specialized gear & tools
+  // 16. Natural personal strength during disruptions
   {
     id: 16,
-    module: 'Tool Interaction & Mechanical Affinity',
-    arabicModule: 'التعامل مع الأدوات والتجهيزات الفنية',
+    module: 'Natural Personal Strength & Peer Reliance',
+    arabicModule: 'نقاط القوة الشخصية واعتماد الزملاء عليك',
     category: 'behavioral',
-    question: 'When inspecting safety gear at the start of your shift, what gives you the highest confidence?',
-    arabicQuestion: 'عند فحصك لتجهيزات السلامة في بداية نوبتك، ما الذي يمنحك أكبر قدر من الاطمئنان والثقة؟',
-    contextNote: 'Measures readiness through technical, clinical, spatial, or communication gear.',
+    question: 'When an unexpected disruption occurs at the office (like a sudden power cut or loud alarm), what personal trait do your coworkers rely on you for?',
+    arabicQuestion: 'عندما يحدث ظرف طارئ غير متوقع في المكتب (مثل انقطاع مفاجئ للكهرباء أو صوت إنذار قوي)، ما الصفة التي يعتمد عليها زملاؤك فيك؟',
+    contextNote: 'Measures self-perception of natural interpersonal and functional contribution.',
     options: [
       {
         id: 'A',
-        text: 'Checking gauges, pressure cylinders, physical latch mechanisms, and personal protective suits.',
-        arabicText: 'فحص مقاييس الضغط، والأسطوانات، والقواطع الميكانيكية، وبدلات الحماية الشخصية.',
+        text: 'Practical, hands-on initiative—stepping in to check physical switches, secure equipment, or clear heavy obstacles.',
+        arabicText: 'المبادرة العملية—التدخل لفحص المفاتيح وتأمين الأجهزة وإبعاد أي عوائق مادية فوراً.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 4 },
-        learningInsight: 'High confidence through physical gear integrity and pressure telemetry.'
+        learningInsight: 'Reputation for practical action and hands-on resourcefulness.'
       },
       {
         id: 'B',
-        text: 'Checking expiration dates on bandages, AED battery status, oxygen flow valves, and sterile packs.',
-        arabicText: 'التأكد من تواريخ الضمادات، وشحن جهاز الصدمات، وصمامات الأكسجين، وعبوات التعقيم.',
+        text: 'Emotional warmth and reassurance—staying gentle, calming frightened colleagues, and offering physical comfort.',
+        arabicText: 'الهدوء النفسي والاحتواء—البقاء لطيفاً وبث الطمأنينة وتقديم الرعاية لمن يحتاجها.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Rigorous medical equipment verification and patient readiness.'
+        learningInsight: 'Reputation for compassionate presence and emotional stabilization.'
       },
       {
         id: 'C',
-        text: 'Testing megaphones, directional light wands, floor plan maps, and emergency door push-bars.',
-        arabicText: 'اختبار مكبرات الصوت اليدوية، وعصي الإضاءة التوجيهية، وخرائط المخارج، ومقابض أبواب الطوارئ.',
+        text: 'Clear vocal presence and guidance—stepping up to direct the group and keep everyone organized.',
+        arabicText: 'الصوت الواضح والحضور التوجيهي—المبادرة لتنظيم المجموعة وتوجيه الجميع بوضوح.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3 },
-        learningInsight: 'Evacuation equipment readiness and egress pathway validation.'
+        learningInsight: 'Reputation for confident vocal leadership and group coordination.'
       },
       {
         id: 'D',
-        text: 'Testing primary and secondary radio frequencies, battery spares, and communication log sheets.',
-        arabicText: 'تجربة ترددات اللاسلكي الأساسية والاحتياطية، والبطاريات البديلة، وسجلات توثيق البلاغات.',
+        text: 'Systematic thinking—finding out what is actually happening, taking notes, and keeping everyone accurately informed.',
+        arabicText: 'التفكير المنظم—استقصاء الحقيقة، وتدوين الملاحظات، وإطلاع الجميع بالمعلومات السليمة.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4 },
-        learningInsight: 'Communications telemetry and channel redundancy assurance.'
+        learningInsight: 'Reputation for objective analysis and clear, reliable communication.'
       }
     ]
   },
 
-  // 17. Resilience after emotionally intense situations
+  // 17. How you decompress after a high-stress exercise
   {
     id: 17,
-    module: 'Emotional Resilience & Post-Crisis Processing',
-    arabicModule: 'المرونة النفسية والتعافي بعد الأزمات',
+    module: 'Stress Recovery & Post-Event Processing',
+    arabicModule: 'استعادة الهدوء والتعافي بعد التمارين الضاغطة',
     category: 'stress',
-    question: 'After an intense emergency drill is over, how do you naturally decompress and review your performance?',
-    arabicQuestion: 'بعد انتهاء تمرين طوارئ مكثف ومرهق، كيف تستعيد طاقتك وتراجع أداءك بشكل طبيعي؟',
-    contextNote: 'Measures debriefing style and cognitive restoration.',
+    question: 'After completing an intensive office evacuation drill or emergency exercise, how do you naturally wind down?',
+    arabicQuestion: 'بعد انتهاء تمرين إخلاء مكثف أو تدريب طوارئ في المبنى، كيف تستعيد هدوءك وطاقتك بشكل طبيعي؟',
+    contextNote: 'Measures debriefing style and cognitive restoration after tension.',
     options: [
       {
         id: 'A',
-        text: 'Cleaning, maintaining, and neatly restowing the tools and physical gear helps me relax.',
-        arabicText: 'تنظيف المعدات وصيانتها وإعادة ترتيب الأدوات بعناية يساعدني على استعادة الهدوء.',
+        text: 'Helping physically tidy up the office, put safety gear away, and return tables and chairs to their proper places.',
+        arabicText: 'المساعدة في إعادة ترتيب المكاتب، وإرجاع الكراسي لأماكنها، وتأمين التجهيزات عملياً.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3 },
-        learningInsight: 'Tactile grounding through equipment care and maintenance.'
+        learningInsight: 'Tactile restoration through practical order and physical tidying.'
       },
       {
         id: 'B',
-        text: 'Reflecting on the individuals we helped and verifying that everyone treated is stable and recovering.',
-        arabicText: 'التفكير في الأشخاص الذين تمت مساعدتهم والاطمئنان على استقرار حالتهم وسلامتهم.',
+        text: 'Checking in with colleagues to ask how they felt, ensuring no one is lingering with stress or unease.',
+        arabicText: 'الاطمئنان على الزملاء والحديث معهم للتأكد من زوال أي توتر نفسي أو إرهاق خلفه التمرين.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Empathetic reflection and personal connection to patient outcomes.'
+        learningInsight: 'Empathetic debriefing and human connection to colleague well-being.'
       },
       {
         id: 'C',
-        text: 'Reviewing how the crowd moved, analyzing bottlenecks, and thinking of smoother exit routes.',
-        arabicText: 'مراجعة حركة الحشود وتحليل نقاط الاختناق والتفكير في مسارات خروج أسرع وأكثر سلاسة.',
+        text: 'Reflecting on the evacuation path we took, thinking about how stairwell movement could be faster next time.',
+        arabicText: 'مراجعة مسار الخروج الذي سلكناه، والتفكير في كيفية جعل حركة السلالم أسرع وأسلس لاحقاً.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3 },
-        learningInsight: 'Spatial analysis and egress route optimization.'
+        learningInsight: 'Spatial analysis and route flow optimization.'
       },
       {
         id: 'D',
-        text: 'Reviewing the written communication logs, verifying timestamps, and drafting the after-action report.',
-        arabicText: 'مراجعة سجلات الاتصالات، وتدقيق التوقيتات، وصياغة تقرير ما بعد الحادث باحترافية.',
+        text: 'Reviewing what went well on paper, writing down feedback notes, and submitting observations to management.',
+        arabicText: 'تدوين الملاحظات الإيجابية ونقاط التحسين كتابةً وتقديمها لإدارة السلامة لتوثيقها.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3 },
-        learningInsight: 'Documentation closure and structured post-incident reporting.'
+        learningInsight: 'Structured documentation and institutional feedback reporting.'
       }
     ]
   },
 
-  // 18. Guiding people who do not speak your language
+  // 18. Helping a non-Arabic / non-English speaker in an emergency
   {
     id: 18,
-    module: 'Cross-Cultural Crisis Communication',
-    arabicModule: 'التواصل في الأزمات مع مختلف الثقافات واللغات',
+    module: 'Cross-Cultural Communication & Practical Empathy',
+    arabicModule: 'التواصل الفعال مع الزوار من مختلف الثقافات واللغات',
     category: 'communication',
-    question: 'In an international hub like KSIA, many travelers do not speak Arabic or English. In a crisis, how do you bridge this barrier?',
-    arabicQuestion: 'في مطار دولي محوري كـ مطار الملك سلمان، لا يتحدث الكثيرون العربية أو الإنجليزية. في الأزمات، كيف تتجاوز حاجز اللغة؟',
-    contextNote: 'Assesses intuitive cross-cultural communication under pressure.',
+    question: 'An international visitor or foreign contractor visiting your administrative department speaks neither Arabic nor English when an alarm rings. How do you help them?',
+    arabicQuestion: 'زائر دولي أو متعاقد خارجي يزور إدارتك لا يتحدث العربية أو الإنجليزية وانطلق الإنذار فجأة. كيف تساعده؟',
+    contextNote: 'Assesses intuitive communication across language barriers under pressure.',
     options: [
       {
         id: 'A',
-        text: 'I demonstrate physical safety actions with clear body demonstrations (e.g., crouching, using tools).',
-        arabicText: 'أوضح الإجراء المطلوب بحركات جسدية واضحة ومباشرة (مثل الانحناء، وتجنب الخطر).',
+        text: 'Use clear physical body actions—point to the exit, walk ahead of them, and physically demonstrate what to do.',
+        arabicText: 'استخدام إشارات جسدية واضحة—الإشارة للمخرج، والمشي أمامه لإظهار المطلوب عملياً.',
         roleWeights: { suppressionLead: 3 },
         competencies: { physicalReadiness: 2, decisiveness: 2 },
-        learningInsight: 'Action-based kinetic demonstration.'
+        learningInsight: 'Action-based kinetic demonstration without verbal reliance.'
       },
       {
         id: 'B',
-        text: 'I use gentle reassurance, eye contact, and universal comforting touch to lower their heart rate.',
-        arabicText: 'أستخدم نظرات مطمئنة ولغة جسد هادئة وإشارات حانية لتهدئة روعهم وخفض توترهم.',
+        text: 'Offer a warm, reassuring smile, make steady eye contact, and gently guide their shoulder so they feel safe and calm.',
+        arabicText: 'الابتسام لطمأنته، والنظر في عينيه بثقة، وتوجيهه برفق من كتفه ليشعر بالأمان والهدوء.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Universal emotional stabilization through non-verbal warmth.'
+        learningInsight: 'Universal emotional stabilization through non-verbal warmth and personal care.'
       },
       {
         id: 'C',
-        text: 'I use bold, unmistakable physical hand waves, lighted wands, and high-visibility directional gestures.',
-        arabicText: 'أستخدم إشارات يد واضحة لا تقبل اللبس، وعصي إضاءة ليلية، لتوجيه الحشود بصرياً.',
+        text: 'Use unmistakable, energetic hand waves and directional gestures to indicate "walk this way toward the exit."',
+        arabicText: 'استخدام إشارات يد واضحة ومباشرة ترشده بحزم: "تحرك في هذا الاتجاه نحو السلم الخارجي."',
         roleWeights: { evacuationSupportLead: 5 },
         competencies: { crowdControl: 4, decisiveness: 2 },
         learningInsight: 'Universal visual crowd signaling and directive posture.'
       },
       {
         id: 'D',
-        text: 'I rely on international pictograms, pre-translated emergency broadcast cards, and concise multi-lingual prompts.',
-        arabicText: 'أعتمد على الرموز المصورة الدولية، وبطاقات النداء المترجمة مسبقاً، والتنبيهات الموحدة.',
+        text: 'Point to universal visual exit signs and floor evacuation pictograms posted on the office wall.',
+        arabicText: 'الإشارة إلى اللوحات الإرشادية المصورة والرموز الدولية المعتمدة للإخلاء المعلقة بالجدار.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4 },
-        learningInsight: 'Standardized symbolic communication and pre-planned multi-lingual templates.'
+        learningInsight: 'Standardized symbolic communication and pre-planned institutional signage.'
       }
     ]
   },
 
-  // 19. Action in complete electrical blackout
+  // 19. Reaction to sudden hallway blackout
   {
     id: 19,
-    module: 'Environmental Degradation & Sensory Deprivation',
-    arabicModule: 'التعامل مع انقطاع الطاقة وضعف الرؤية',
+    module: 'Low-Visibility Awareness & Sensory Anchoring',
+    arabicModule: 'التعامل مع انقطاع الإضاءة وضعف الرؤية',
     category: 'situational',
-    question: 'All main lighting suddenly shuts off, leaving a basement concourse in total darkness with distant emergency hums. What is your immediate action?',
-    arabicQuestion: 'انطفأت جميع الأضواء الرئيسية فجأة في طابق سفلي وساد ظلام دامس مع دوي صفارات بعيدة. ما هو أول تصرف تقوم به؟',
-    contextNote: 'Measures behavioral anchoring in sensory deprivation.',
+    question: 'All lights suddenly go out across your office floor during daytime, plunging interior corridors into dim shadows with alarms beeping. What is your first action?',
+    arabicQuestion: 'انطفأت جميع الأضواء فجأة في طابقك المكتبي وساد الظلام في الممرات الداخلية مع استمرار صفارات الإنذار. ما هو أول تصرف تقوم به؟',
+    contextNote: 'Measures behavioral anchoring during sudden sensory deprivation in the workplace.',
     options: [
       {
         id: 'A',
-        text: 'Turn on tactical lighting, locate backup breaker switches, and check utility feeds for mechanical shorts.',
-        arabicText: 'تشغيل الإضاءة التكتيكية والبحث عن لوحة القواطع الاحتياطية وفحص مصدر العطل الكهربائي.',
+        text: 'Use your phone flashlight to check the nearest electrical switchboard or inspect for tripped breakers.',
+        arabicText: 'استخدام إضاءة الهاتف لفحص لوحة المفاتيح الكهربائية القريبة والتأكد من سبب الانقطاع.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3, decisiveness: 3 },
-        learningInsight: 'Physical investigation and utility restoration drive.'
+        learningInsight: 'Practical investigation and tangible curiosity about the physical system.'
       },
       {
         id: 'B',
-        text: 'Call out softly in the dark to identify anyone who fell, injured themselves, or is having an anxiety attack.',
-        arabicText: 'النداء بصوت هادئ في الظلام للاطمئنان على من قد يكون تعثر أو أصيب بنوبة ذعر لتهدئته.',
+        text: 'Call out in a gentle, clear voice to check if anyone tripped, bumped their head, or feels faint in the darkness.',
+        arabicText: 'النداء بصوت هادئ ومطمئن للتأكد مما إذا كان أحد قد تعثر، أو اصطدم، أو أصيب بدوار في الظلام.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Immediate detection of injury or vulnerable individuals in darkness.'
+        learningInsight: 'Immediate detection of injury or vulnerable colleagues in darkness.'
       },
       {
         id: 'C',
-        text: 'Position yourself along the wall near emergency exit signage, tapping or using a light to guide people along the route.',
-        arabicText: 'الوقوف بجانب الجدار بالقرب من علامة المخرج المضيئة واستخدام الضوء لتوجيه الناس نحو السلم.',
+        text: 'Position yourself by the illuminated green EXIT sign, calling out directionally so colleagues can navigate toward you.',
+        arabicText: 'الوقوف بجوار علامة المخرج المضيئة ومناداة الزملاء لتوجيههم نحو مخرج الطوارئ بالصوت.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 2 },
-        learningInsight: 'Tactile and visual route anchoring for safe group egress.'
+        learningInsight: 'Tactile and acoustic route anchoring for safe group evacuation in the dark.'
       },
       {
         id: 'D',
-        text: 'Transmit your grid coordinate over the radio and confirm whether the outage is localized or facility-wide.',
-        arabicText: 'إرسال إحداثيات موقعك عبر اللاسلكي للتأكد مما إذا كان الانقطاع محلياً أم يشمل المبنى بالكامل.',
+        text: 'Check your mobile phone for official administrative alerts and call facilities to confirm if the outage is building-wide.',
+        arabicText: 'التحقق من رسائل الطوارئ الرسمية والاتصال بالصيانة للتأكد هل الانقطاع عام في المبنى.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4, decisiveness: 2 },
-        learningInsight: 'Positional reporting and situational scope verification.'
+        learningInsight: 'Status verification and checking broader organizational scope.'
       }
     ]
   },
 
-  // 20. Team conflict & friction under extreme pressure
+  // 20. Handling disagreement under tension
   {
     id: 20,
-    module: 'Conflict Resolution & Team Equilibrium',
-    arabicModule: 'إدارة الخلافات وتماسك الفريق تحت الضغط',
+    module: 'Conflict Resolution & Group Harmony',
+    arabicModule: 'فض الخلافات وتماسك الفريق تحت الضغط',
     category: 'temperament',
-    question: 'Two colleagues begin arguing heatedly over which direction to proceed while an alarm is sounding. How do you intervene?',
-    arabicQuestion: 'بدأ اثنان من زملائك بالجدال الحاد حول المسار الصحيح بينما صوت الإنذار يدوي. كيف تتدخل؟',
+    question: 'Two coworkers start arguing loudly in the hallway about which stairwell is faster to exit the building. How do you step in?',
+    arabicQuestion: 'بدأ زميلان بالجدال بصوت عالٍ في الممر حول أي درج هو الأسرع للخروج من المبنى. كيف تتدخل لإنهاء الموقف؟',
     contextNote: 'Measures interpersonal friction management in high-stakes moments.',
     options: [
       {
         id: 'A',
-        text: 'I ignore the debate, pick the most practical physical tool, and start clearing the safest physical path.',
-        arabicText: 'أتجاهل الجدال، وأحمل الأداة الأنسب، وأبدأ فوراً في فتح وتأمين المسار الأكثر أماناً بيدي.',
+        text: 'Walk swiftly past them to open the nearest stairwell door, check it physically, and say "This way is open and clear."',
+        arabicText: 'تجاوز الجدال سريعاً وفتح باب الدرج الأقرب ومعاينته ثم القول: "هذا الباب سالك وآمن، تقدموا."',
         roleWeights: { suppressionLead: 3 },
         competencies: { physicalReadiness: 2, decisiveness: 3 },
-        learningInsight: 'Cutting through debate with concrete physical execution.'
+        learningInsight: 'Cutting through debate with concrete physical verification.'
       },
       {
         id: 'B',
-        text: 'I check on both to make sure their acute stress has not blinded them to their own safety and the victims around them.',
-        arabicText: 'أهدئ روعهما للتأكد من أن التوتر الحاد لم يؤثر على سلامتهما أو سلامة من معهما من مصابين.',
+        text: 'Remind both calmly that arguing increases everyone\'s heart rate: "Take a breath, let\'s stay calm and walk together."',
+        arabicText: 'تذكيرهما بهدوء أن التوتر يرفع دقات القلب: "تنفسوا بعمق، دعونا نحافظ على هدوئنا ونخرج معاً."',
         roleWeights: { casualtyCareLead: 3 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Human-centered de-escalation of peer stress.'
+        learningInsight: 'Human-centered de-escalation of colleague emotional stress.'
       },
       {
         id: 'C',
-        text: 'I step between them decisively and say: "Stop arguing. We follow the primary evacuation plan now. Move!"',
-        arabicText: 'أقف بينهما بحزم وأقول: "توقفا عن الجدال. نتبع خطة الإخلاء المعتمدة فوراً. تحركوا الآن!"',
+        text: 'Step between them with confident authority: "Stop debating. We take the designated East Stairwell now. Let\'s move!"',
+        arabicText: 'الوقوف بينهما بحزم: "توقفا عن الجدال. نتبع الدرج المعتمد شرق المبنى فوراً. تحركوا الآن."',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3, decisiveness: 4 },
-        learningInsight: 'Decisive command presence to halt group hesitation.'
+        learningInsight: 'Decisive command presence to halt group hesitation and keep momentum.'
       },
       {
         id: 'D',
-        text: 'I check the verified floor plan on the communications tablet and state the approved evacuation sector clearly.',
-        arabicText: 'أتحقق سريعاً من المخطط المعتمد على جهاز الاتصال وأحدد المسار النظامي بالأدلة وبكل هدوء.',
+        text: 'Point to the posted evacuation map on the wall that shows the official designated route for our department.',
+        arabicText: 'الإشارة فوراً إلى مخطط الإخلاء المعتمد المعلق على الجدار لإثبات المسار النظامي بالأدلة.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 3, decisiveness: 2 },
-        learningInsight: 'Resolving disputes with authoritative objective data.'
+        learningInsight: 'Resolving disputes with authoritative, objective institutional guidelines.'
       }
     ]
   },
 
-  // 21. Dealing with repetitive, vigilant monitoring
+  // 21. Spending waiting time at the assembly point
   {
     id: 21,
-    module: 'Vigilance & Sustained Attention',
-    arabicModule: 'اليقظة واستدامة الانتباه في فترات الترقب',
+    module: 'Vigilance & Sustained Focus at Assembly Points',
+    arabicModule: 'اليقظة والمتابعة المستمرة في نقاط التجمع',
     category: 'temperament',
-    question: 'When assigned to stand guard during a 2-hour standby watch where nothing seems to be happening, how do you maintain focus?',
-    arabicQuestion: 'عند تكليفك بمراقبة نقطة ثابتة لمدة ساعتين دون وقوع أحداث، كيف تحافظ على يقظتك وتركيزك؟',
-    contextNote: 'Assesses vigilance style and sustained attention under low stimulus.',
+    question: 'Everyone has evacuated to the outdoor assembly courtyard, and you are waiting 30 minutes for the all-clear. How do you naturally spend this time?',
+    arabicQuestion: 'بعد إخلاء المبنى والوصول لساحة التجمع الخارجية، طُلب منكم الانتظار نصف ساعة لحين التأكد من سلامة المبنى. كيف تقضي هذا الوقت بتلقائية؟',
+    contextNote: 'Assesses vigilance style and sustained attention under prolonged standby.',
     options: [
       {
         id: 'A',
-        text: 'I continuously inspect my physical gear, adjust buckles, test tools, and visually check valves.',
-        arabicText: 'أفحص تجهيزاتي باستمرار، وأضبط الأحزمة، وأتأكد من جاهزية الأدوات والمحابس يدوياً.',
+        text: 'Walking around the perimeter of the group to ensure no one wanders near parking traffic or construction areas.',
+        arabicText: 'المشي حول محيط التجمع للتأكد من عدم اقتراب أي زميل من حركة السيارات أو مناطق أعمال الصيانة.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3 },
-        learningInsight: 'Vigilance maintained through kinetic equipment readiness.'
+        learningInsight: 'Perimeter vigilance and preventing physical environmental hazards.'
       },
       {
         id: 'B',
-        text: 'I observe the physical condition of everyone resting nearby, looking for delayed shock or subtle distress.',
-        arabicText: 'أراقب الحالة البدنية للموجودين حولي بحثاً عن أي علامات إعياء خفي أو صدمة متأخرة.',
+        text: 'Circulating among coworkers to offer bottles of water and check on anyone who is breathless, pale, or pregnant.',
+        arabicText: 'التنقل بين الزملاء لتوزيع الماء والاطمئنان على من يشعر بضيق تنفس، أو إعياء، أو الحوامل.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3 },
-        learningInsight: 'Vigilance focused on ongoing human physiological surveillance.'
+        learningInsight: 'Ongoing personal surveillance and human physiological care.'
       },
       {
         id: 'C',
-        text: 'I scan the access corridors continuously to make sure no doors are wedged open or unauthorized people enter.',
-        arabicText: 'أمسح الممرات باستمرار للتأكد من عدم ترك أبواب الطوارئ مفتوحة أو دخول أشخاص للمنطقة.',
+        text: 'Helping maintain our department in a neat, recognizable group so no one wanders off and the crowd stays organized.',
+        arabicText: 'المساعدة في إبقاء قسمنا متجمعاً بشكل واضح ومنظم حتى لا يتفرق الزملاء وتصعب متابعتهم.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 3 },
-        learningInsight: 'Perimeter vigilance and unauthorized access prevention.'
+        learningInsight: 'Group cohesion and orderly assembly management.'
       },
       {
         id: 'D',
-        text: 'I listen closely to radio traffic, keep log timestamps up to date, and monitor channel announcements.',
-        arabicText: 'أستمع بدقة لحركة اللاسلكي، وأحدث سجل الأوقات، وأتابع نداءات الشبكة أولاً بأول.',
+        text: 'Assisting with the department attendance roster, marking down who is present and noting any missing names.',
+        arabicText: 'المساعدة في تدقيق كشف حضور القسم، وحصر المتواجدين وتدوين أسماء من لم يخرجوا بعد.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4 },
-        learningInsight: 'Acoustic radio monitoring and documentation vigilance.'
+        learningInsight: 'Methodical headcount verification and administrative record keeping.'
       }
     ]
   },
 
-  // 22. Adaptability when planned solutions fail
+  // 22. When the primary exit route is blocked
   {
     id: 22,
-    module: 'Adaptive Problem Solving Under Failure',
-    arabicModule: 'المرونة والتكيف عند تعثر الحلول الأولية',
+    module: 'Adaptability When Primary Plans Encounter Obstacles',
+    arabicModule: 'المرونة وسرعة التصرف عند انسداد المسار الأول',
     category: 'situational',
-    question: 'You attempt your primary response action, but it fails completely (e.g. the door is locked or the water is dry). What is your immediate reaction?',
-    arabicQuestion: 'قمت بتنفيذ الإجراء الأساسي لكنه تعثر تماماً (مثل باب مقفل أو انقطاع الماء). ما هو رد فعلك الفوري؟',
-    contextNote: 'Measures tactical flexibility when primary contingency collapses.',
+    question: 'You reach the main floor exit door with colleagues, but find it jammed by a fallen display board. What is your immediate reaction?',
+    arabicQuestion: 'وصلت مع زملائك لباب الخروج الرئيسي في الطابق لكن وجدتموه مغلقاً بسبب سقوط لوحة إعلانية كبيرة أمامه. ما هو رد فعلك الفوري؟',
+    contextNote: 'Measures tactical flexibility when a primary corridor is obstructed.',
     options: [
       {
         id: 'A',
-        text: 'I look for an alternative physical tool or manual override to breach or force the physical obstacle.',
-        arabicText: 'أبحث فوراً عن أداة بديلة أو وسيلة ميكانيكية لكسر العائق أو تجاوزه بالقوة المناسبة.',
+        text: 'Immediately put your shoulder into the board, recruit a coworker to help, and physically push the blockage aside.',
+        arabicText: 'دفع اللوحة بكتفك فوراً والاستعانة بزميل لإزاحتها بالقوة المادية وإخلاء الباب.',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3, decisiveness: 3 },
-        learningInsight: 'Tactical improvisation through physical mechanics.'
+        learningInsight: 'Direct physical problem solving to overcome a tangible obstacle.'
       },
       {
         id: 'B',
-        text: 'I quickly shelter any vulnerable people nearby so the delay does not expose them to secondary harm.',
-        arabicText: 'أؤمن المصابين والضعفاء في مكان محمي حتى لا يعرضهم هذا التأخير لأي ضرر إضافي.',
+        text: 'Make sure none of the colleagues at the front were hit by the fallen board, checking for bruises or cuts.',
+        arabicText: 'التأكد من أن أحداً في مقدمة الصف لم تصبه اللوحة الساقطة، وتفقد أي خدوش أو رضوض.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 3, decisiveness: 2 },
-        learningInsight: 'Patient safety preservation during operational setbacks.'
+        learningInsight: 'Immediate personal safety assessment and care during setbacks.'
       },
       {
         id: 'C',
-        text: 'I immediately pivot 180 degrees and route people toward the secondary designated egress corridor.',
-        arabicText: 'أغير التوجيه فوراً وأرشد الحشود نحو الممر البديل المحدد مسبقاً دون أي تردد.',
+        text: 'Immediately call out to the line behind you: "Door blocked here! Everyone pivot, follow me to Exit B at the other end!"',
+        arabicText: 'النداء بصوت مسموع لمن في الخلف: "المسار مسدود هنا! استديروا فوراً واتبعوني للمخرج البديل (ب)!"',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 4, decisiveness: 3 },
         learningInsight: 'Rapid routing redirection to prevent crowd stalling.'
       },
       {
         id: 'D',
-        text: 'I immediately declare over the radio: "Primary route compromised. Initiating Contingency Plan Bravo."',
-        arabicText: 'أعلن فوراً عبر اللاسلكي: "المسار الأساسي تعطل. جاري تفعيل خطة الطوارئ البديلة (ب)".',
+        text: 'Alert building security on your phone that Exit A is physically obstructed so facility teams can clear it.',
+        arabicText: 'إبلاغ أمن المبنى عبر الهاتف بأن المخرج (أ) مسدود ليتم إرسال فريق لفتحه فوراً.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4, decisiveness: 3 },
-        learningInsight: 'Contingency escalation and rapid situational status broadcast.'
+        learningInsight: 'Rapid escalation through communication channels for coordinated support.'
       }
     ]
   },
 
-  // 23. Personal philosophy on saving lives
+  // 23. Core belief on saving lives
   {
     id: 23,
-    module: 'Core Values & Mission Philosophy',
-    arabicModule: 'الفلسفة الميدانية والقيم الأساسية في الإنقاذ',
+    module: 'Core Values & Safety Philosophy',
+    arabicModule: 'الفلسفة الوقائية والقيم الأساسية في الإنقاذ',
     category: 'temperament',
-    question: 'In an airport disaster, which aspect of emergency response do you believe protects the greatest number of lives?',
-    arabicQuestion: 'في حوادث الطيران والمطارات، أي جانب من جوانب الاستجابة تعتقد أنه يحمي أكبر عدد من الأرواح؟',
-    contextNote: 'Reveals core values and strategic mental model of disaster mitigation.',
+    question: 'In any workplace crisis, which fundamental action do you believe makes the greatest difference in saving lives?',
+    arabicQuestion: 'في أي أزمة تحدث بمكان العمل، أي إجراء جوهري تعتقد أنه يصنع الفارق الأكبر في حماية الأرواح؟',
+    contextNote: 'Reveals core values and strategic mental model of workplace safety.',
     options: [
       {
         id: 'A',
-        text: 'Rapid physical abatement of the hazard before it grows into an unstoppable structural catastrophe.',
-        arabicText: 'القضاء السريع والمباشر على أصل الخطر قبل أن يتحول إلى كارثة مادية لا يمكن السيطرة عليها.',
+        text: 'Rapid, hands-on intervention to stop the physical danger (like unplugging equipment or putting out a spark before it grows).',
+        arabicText: 'التدخل السريع لإيقاف الخطر المادي في مهده (مثل فصل مصدر الكهرباء أو إخماد شرارة قبل انتشارها).',
         roleWeights: { suppressionLead: 4 },
         competencies: { physicalReadiness: 3, decisiveness: 2 },
-        learningInsight: 'Hazard neutralization philosophy: stopping the fire/leak saves the building.'
+        learningInsight: 'Hazard neutralization philosophy: eliminating physical causes stops the escalation.'
       },
       {
         id: 'B',
-        text: 'Immediate on-scene medical triage and bleeding control during the golden first minutes of injury.',
-        arabicText: 'الإسعاف الطبي الفوري والسيطرة على النزيف خلال الدقائق الذهبية الأولى للإصابة.',
+        text: 'Immediate compassionate first aid to soothe shock, stop bleeding, and comfort injured people until doctors arrive.',
+        arabicText: 'الإسعاف الأولي الإنساني الفوري لتهدئة الصدمة ووقف النزيف ودعم المصاب حتى وصول الإسعاف.',
         roleWeights: { casualtyCareLead: 4 },
         competencies: { traumaComposure: 4, decisiveness: 2 },
-        learningInsight: 'Clinical rescue philosophy: stopping bleeding and cardiac arrest directly saves lives.'
+        learningInsight: 'Human care philosophy: preserving individual life and health directly saves people.'
       },
       {
         id: 'C',
-        text: 'Fast, orderly mass evacuation that gets thousands of people away from dangerous zones before smoke spreads.',
-        arabicText: 'الإخلاء الجماعي المنظم والسريع الذي يبعد آلاف الأشخاص عن مناطق الخطر قبل انتشار الدخان.',
+        text: 'Orderly, panic-free group guidance that gets hundreds of employees safely out of the building without stampedes.',
+        arabicText: 'التوجيه الجماعي المنظم الخالي من الهلع الذي يضمن خروج مئات الموظفين دون تدافع أو اختناق.',
         roleWeights: { evacuationSupportLead: 4 },
         competencies: { crowdControl: 4, decisiveness: 2 },
-        learningInsight: 'Egress velocity philosophy: distance and clear corridors save thousands.'
+        learningInsight: 'Mass evacuation philosophy: distance, clear pathways, and orderly movement save everyone.'
       },
       {
         id: 'D',
-        text: 'Flawless coordination between Airport Control, Civil Defense, and Police to bring overwhelming outside help.',
-        arabicText: 'التنسيق المحكم والذكي بين عمليات المطار والدفاع المدني والشرطة لحشد الدعم الخارجي بدقة.',
+        text: 'Fast, accurate communication that connects on-scene staff with emergency responders so help reaches the exact spot.',
+        arabicText: 'التواصل السريع والدقيق الذي يربط الموجودين بفرق الطوارئ لتوجيه الدعم للنقطة الصحيحة مباشرة.',
         roleWeights: { externalLiaison: 4 },
         competencies: { communicationProtocol: 4, decisiveness: 2 },
-        learningInsight: 'Systemic coordination philosophy: information flow mobilizes overwhelming resources.'
+        learningInsight: 'Systemic coordination philosophy: reliable information flow mobilizes the right support.'
       }
     ]
   },
 
-  // 24. Immediate instinctive volunteer choice
+  // 24. Stepping up as an administrative volunteer
   {
     id: 24,
     module: 'Voluntary Deployment Inclination',
-    arabicModule: 'الميول التلقائية لاختيار المهام الميدانية',
+    arabicModule: 'الميول التلقائية للتطوع في مهام السلامة',
     category: 'situational',
-    question: 'The incident commander asks for volunteers for immediate high-tempo deployment. Which assignment do your hands reach for?',
-    arabicQuestion: 'طلب قائد الحادث متطوعين لمهام فورية تتطلب استجابة سريعة. أي مهمة تجد نفسك تتقدم لها بتلقائية؟',
-    contextNote: 'Direct behavioral selection of operational duty.',
+    question: 'Your department head asks for administrative staff to volunteer for basic safety roles during future drills and events. Which role do you instinctively raise your hand for?',
+    arabicQuestion: 'طلب مدير الإدارة متطوعين من الموظفين الإداريين لمهام السلامة خلال التدريبات والفعاليات القادمة. أي مهمة ترفع يدك لها بتلقائية؟',
+    contextNote: 'Direct behavioral selection of volunteer brigade preference without previous training.',
     options: [
       {
         id: 'A',
-        text: 'Donning heavy breathing apparatus to advance toward the hot zone with containment tools.',
-        arabicText: 'ارتداء جهاز التنفس وبدلة التدخل والتقدم نحو منطقة الخطر المباشر بأدوات العزل والإخماد.',
+        text: 'Safety & Hazard Volunteer—learning how to inspect office hazards, isolate power, and use basic safety tools if safe.',
+        arabicText: 'متطوع السلامة والمخاطر—تعلم فحص مخاطر المكاتب، وعزل الكهرباء، واستخدام أدوات الإخماد الأولية.',
         roleWeights: { suppressionLead: 5 },
         competencies: { physicalReadiness: 4, decisiveness: 3 },
-        learningInsight: 'Voluntary frontline hazard mitigation deployment.'
+        learningInsight: 'Voluntary inclination toward physical hazard mitigation and practical safety.'
       },
       {
         id: 'B',
-        text: 'Setting up the trauma stabilization post to receive, tag, and treat incoming casualties.',
-        arabicText: 'تجهيز نقطة الفرز الطبي ورعاية المصابين لاستقبال الجرحى وتضميدهم وتثبيت علاماتهم الحيوية.',
+        text: 'First Aid & Care Volunteer—learning basic first aid, CPR, and how to comfort colleagues who feel sick or faint.',
+        arabicText: 'متطوع الإسعاف الأولي—تعلم مهارات الإسعاف، والإنعاش القلبي، وتهدئة الزملاء في الحالات الصحية المفاجئة.',
         roleWeights: { casualtyCareLead: 5 },
         competencies: { traumaComposure: 4, decisiveness: 2 },
-        learningInsight: 'Voluntary trauma triage and casualty stabilization deployment.'
+        learningInsight: 'Voluntary inclination toward human care, health support, and patient well-being.'
       },
       {
         id: 'C',
-        text: 'Taking charge of the main concourse to marshal hundreds of evacuees safely toward assembly points.',
-        arabicText: 'تولي مسؤولية البهو الرئيسي لتوجيه وحماية مئات الركاب وإيصالهم إلى نقاط التجمع الآمنة.',
+        text: 'Evacuation & Floor Guide—learning how to marshal colleagues down stairwells and ensure all office rooms are cleared.',
+        arabicText: 'مرشد إخلاء الطابق—تعلم توجيه الموظفين في السلالم والتأكد من خلو جميع المكاتب والغرف من الأشخاص.',
         roleWeights: { evacuationSupportLead: 5 },
         competencies: { crowdControl: 4, decisiveness: 3 },
-        learningInsight: 'Voluntary crowd command and evacuation corridor deployment.'
+        learningInsight: 'Voluntary inclination toward crowd guidance and systematic floor sweeps.'
       },
       {
         id: 'D',
-        text: 'Taking the primary command radio to coordinate incoming Civil Defense fire engines and ambulances.',
-        arabicText: 'استلام جهاز اللاسلكي الرئيسي للتنسيق مع آليات الدفاع المدني والإسعاف القادمة من خارج المطار.',
+        text: 'Communications & Attendance Volunteer—keeping the department headcount list and coordinating messages with building management.',
+        arabicText: 'متطوع الاتصال والتوثيق—حصر قوائم الموظفين ونقل البلاغات والتنسيق المباشر مع إدارة المبنى.',
         roleWeights: { externalLiaison: 5 },
         competencies: { communicationProtocol: 4, decisiveness: 2 },
-        learningInsight: 'Voluntary tactical communications and external agency liaison deployment.'
+        learningInsight: 'Voluntary inclination toward structured communications and administrative coordination.'
       }
     ]
   },
 
-  // 25. Vision of future tactical pride
+  // 25. Pride in your volunteer contribution
   {
     id: 25,
-    module: 'Professional Identity & Long-Term Pride',
-    arabicModule: 'الهوية المهنية والاعتزاز بالدور الميداني',
+    module: 'Professional Identity & Volunteer Pride',
+    arabicModule: 'الاعتزاز بالدور التطوعي والهوية الميدانية',
     category: 'temperament',
-    question: 'When you envision your service with the King Salman International Airport ERT, what memory would make you proudest?',
-    arabicQuestion: 'عندما تتخيل مسيرتك في فريق الاستجابة للطوارئ بمطار الملك سلمان، ما الإنجاز الذي ستفخر به أكثر في حياتك؟',
-    contextNote: 'Long-term self-concept alignment and pride projection.',
+    question: 'When you imagine stepping up as a volunteer in KSIA\'s emergency response team, which outcome would make you proudest?',
+    arabicQuestion: 'عندما تتخيل مشاركتك كمتطوع في فريق الاستجابة للطوارئ بمطار الملك سلمان، ما الإنجاز الذي ستشعر بأكبر فخر لتحقيقه؟',
+    contextNote: 'Long-term self-concept alignment and pride projection in a volunteer capacity.',
     options: [
       {
         id: 'A',
-        text: 'Knowing that through physical courage and equipment mastery, I stopped a dangerous hazard in its tracks.',
-        arabicText: 'أنني بشجاعتي الميدانية وإتقاني للأدوات والمعدات، استطعت إيقاف خطر حقيقي وإنقاذ مرافق حيوية.',
+        text: 'Knowing that my practical initiative and courage helped contain a physical danger before it damaged our workplace.',
+        arabicText: 'معرفتي بأن مبادرتي العملية وشجاعتي ساهمت في حصر خطر مادي قبل أن يلحق الضرر بمقر عملنا.',
         roleWeights: { suppressionLead: 5 },
         competencies: { physicalReadiness: 3, decisiveness: 2 },
-        learningInsight: 'Pride in physical hazard defeat and technical courage.'
+        learningInsight: 'Pride in practical courage, physical hazard mitigation, and protecting the facility.'
       },
       {
         id: 'B',
-        text: 'Knowing that in someone’s most terrifying moment, my medical care and calm hands kept them alive.',
-        arabicText: 'أنني في أصعب لحظات شخص متألم، كنت سبباً بيدي الهادئة ورعايتي الطبية في إنقاذ حياته.',
+        text: 'Knowing that in a frightening moment, my calm presence and basic care brought comfort and safety to a hurting colleague.',
+        arabicText: 'معرفتي بأن هدوئي ورعايتي الإنسانية كانت سبباً في بث الطمأنينة وتخفيف الألم عن زميل في لحظة خوف.',
         roleWeights: { casualtyCareLead: 5 },
         competencies: { traumaComposure: 4, decisiveness: 2 },
-        learningInsight: 'Pride in life preservation, medical intervention, and human restoration.'
+        learningInsight: 'Pride in empathy, personal care, and being there for colleagues in physical distress.'
       },
       {
         id: 'C',
-        text: 'Knowing that when panic could have caused a disaster, my voice and leadership brought thousands to safety.',
-        arabicText: 'أنني عندما كاد الهلع أن يسبب كارثة، نجحت بصوتي وقيادتي الميدانية في إيصال الآلاف لبر الأمان.',
+        text: 'Knowing that when confusion could have caused panic, my clear voice and guidance helped all my coworkers evacuate safely.',
+        arabicText: 'معرفتي بأنه عندما كادت الحيرة أن تسبب هلعاً، نجح صوتي الواضح وتوجيهي في إيصال زملائي لبر الأمان.',
         roleWeights: { evacuationSupportLead: 5 },
         competencies: { crowdControl: 4, decisiveness: 3 },
-        learningInsight: 'Pride in crowd leadership, panic prevention, and orderly salvation.'
+        learningInsight: 'Pride in group guidance, clear vocal leadership, and preventing workplace panic.'
       },
       {
         id: 'D',
-        text: 'Knowing that under intense chaos, my clear coordination and discipline connected all forces as one united shield.',
-        arabicText: 'أنني وسط الفوضى والضبابية، نجحت بدقة تواصلي في توحيد جهود جميع الفرق كدرع حماية واحد.',
+        text: 'Knowing that my precise reporting and organized coordination ensured help arrived quickly and everyone was accounted for.',
+        arabicText: 'معرفتي بأن دقة بلاغاتي وتوثيقي المنظم ساعد في سرعة وصول الدعم والتأكد من سلامة جميع الموظفين.',
         roleWeights: { externalLiaison: 5 },
         competencies: { communicationProtocol: 4, decisiveness: 2 },
-        learningInsight: 'Pride in unified crisis communications, clarity, and institutional bridge-building.'
+        learningInsight: 'Pride in structured communications, accurate record keeping, and reliable team coordination.'
       }
     ]
   }

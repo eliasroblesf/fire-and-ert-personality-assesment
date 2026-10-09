@@ -109,37 +109,37 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
           </div>
 
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-2">
-            Brigade Personality &amp; Role Assessment
+            Administrative Personnel Volunteer Brigade Assessment
           </h1>
           <div className="text-sm sm:text-base text-amber-400 font-arabic mb-4" dir="rtl">
-            تقييم سيكومتري مكون من 25 سؤالاً لاكتشاف قدراتك الطبيعية وميولك السلوكية لتحديد دورك الأمثل في فريق الطوارئ (10–15 دقيقة)
+            تقييم سيكومتري تمهيدي مكون من 25 سؤالاً للموظفين الإداريين لاكتشاف القدرات الطبيعية والميول التطوعية في طوارئ العمل (10–15 دقيقة)
           </div>
 
           <p className="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed mb-8">
-            A 25-question psychometric assessment designed for self-discovery (estimated time: 10–15 minutes). Discover how your natural instincts, stress responses, and personal strengths match <strong className="text-white">Fire Fighting</strong>, <strong className="text-white">Casualty Care</strong>, <strong className="text-white">Crowd Evacuation</strong>, or <strong className="text-white">Radio Communications</strong>. You will receive your Primary Role, Secondary Role, and Third Role Capability.
+            An introductory 25-question assessment designed specifically for <strong className="text-white">KSIA Administrative Personnel</strong> without requiring prior response training or specialized gear. Discover your natural instincts and behavioral abilities when stepping up in unexpected workplace disruptions to identify your ideal volunteer brigade fit: <strong className="text-white">Safety &amp; Hazards</strong>, <strong className="text-white">First Aid &amp; Care</strong>, <strong className="text-white">Floor Evacuation Guidance</strong>, or <strong className="text-white">Communications &amp; Coordination</strong>.
           </p>
 
-          {/* 4 Roles Showcase Pills (Team Leader removed) */}
+          {/* 4 Roles Showcase Pills */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-3xl mx-auto mb-8 text-left">
             <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
               <Flame className="w-4 h-4 text-rose-400 mb-1.5" />
-              <div className="text-[11px] font-bold text-white leading-tight">Fire Suppression</div>
-              <div className="text-[9px] text-rose-300 font-arabic">مكافحة الحريق</div>
+              <div className="text-[11px] font-bold text-white leading-tight">Safety &amp; Hazard Volunteer</div>
+              <div className="text-[9px] text-rose-300 font-arabic">السلامة والمخاطر الأولية</div>
             </div>
             <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
               <Stethoscope className="w-4 h-4 text-emerald-400 mb-1.5" />
-              <div className="text-[11px] font-bold text-white leading-tight">Casualty Care</div>
-              <div className="text-[9px] text-emerald-300 font-arabic">الإسعاف والرعاية</div>
+              <div className="text-[11px] font-bold text-white leading-tight">First Aid &amp; Care Volunteer</div>
+              <div className="text-[9px] text-emerald-300 font-arabic">الإسعاف الأولي والرعاية</div>
             </div>
             <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
               <DoorOpen className="w-4 h-4 text-blue-400 mb-1.5" />
-              <div className="text-[11px] font-bold text-white leading-tight">Evacuation Support</div>
-              <div className="text-[9px] text-blue-300 font-arabic">إدارة الحشود</div>
+              <div className="text-[11px] font-bold text-white leading-tight">Evacuation &amp; Floor Guide</div>
+              <div className="text-[9px] text-blue-300 font-arabic">إخلاء وإرشاد الموظفين</div>
             </div>
             <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
               <Radio className="w-4 h-4 text-purple-400 mb-1.5" />
-              <div className="text-[11px] font-bold text-white leading-tight">External Liaison</div>
-              <div className="text-[9px] text-purple-300 font-arabic">الاتصال والتنسيق</div>
+              <div className="text-[11px] font-bold text-white leading-tight">Communications &amp; Liaison</div>
+              <div className="text-[9px] text-purple-300 font-arabic">الاتصال والتنسيق الإداري</div>
             </div>
           </div>
 
@@ -148,7 +148,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
             <div className="flex items-center justify-between mb-5 border-b border-slate-800 pb-3">
               <span className="text-xs uppercase tracking-wider font-mono font-bold text-amber-400 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
-                Cadet Identification Credentials
+                Staff Member Credentials
               </span>
               <span className="text-[10px] text-slate-400 font-mono">STEP 1 OF 2</span>
             </div>
@@ -300,7 +300,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
             </div>
             <h4 className="text-sm font-bold text-white mb-1">Official PDF Dossier</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Mandatory downloadable evaluation dossier for submission to your training cohort WhatsApp group.
+              Mandatory downloadable evaluation dossier with reminder to manually share into your course WhatsApp group.
             </p>
           </div>
         </div>

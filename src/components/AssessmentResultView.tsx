@@ -10,14 +10,11 @@ import {
   ChevronDown, 
   ChevronUp, 
   Award, 
-  UserCheck, 
   Shield, 
   BookOpen, 
   Clock,
   Lock,
   MessageCircle,
-  Share2,
-  ExternalLink,
   AlertTriangle,
   FileCheck2
 } from 'lucide-react';
@@ -71,19 +68,6 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
     }
   };
 
-  // WhatsApp share helper link
-  const whatsAppShareText = encodeURIComponent(
-    `*King Salman International Airport (KSIA) - ERT Assessment Report*\n` +
-    `👤 *Student Name:* ${result.student.name}\n` +
-    `🆔 *Employee ID:* ${result.student.studentId}\n` +
-    `📅 *Course Date:* ${result.student.courseDate || result.student.cohort || 'DD/MM/YY'}\n` +
-    `🥇 *Primary Role:* ${primaryDef.name} (${result.primaryRoleScore}%)\n` +
-    `🥈 *Secondary Role:* ${secondaryDef.name} (${result.secondaryRoleScore}%)\n` +
-    `🥉 *Third Role:* ${tertiaryDef.name} (${result.tertiaryRoleScore}%)\n\n` +
-    `Attached is my official assessment PDF report for brigade assignment.`
-  );
-  const whatsAppLink = `https://wa.me/?text=${whatsAppShareText}`;
-
   return (
     <div className="space-y-8 max-w-5xl mx-auto pb-20">
       {/* Top Banner / Completion Header */}
@@ -101,10 +85,10 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         )}
 
         <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
-          ERT Candidate Role Classification
+          Administrative Personnel Volunteer Fit Dossier
         </h1>
         <p className="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto mb-6">
-          Official psychometric and tactical placement for candidate <strong className="text-white">{result.student.name}</strong> (Employee ID: <span className="font-mono text-amber-400">{result.student.studentId}</span> | Course Date: <span className="font-mono text-slate-300">{result.student.courseDate || result.student.cohort}</span>), certified for King Salman International Airport emergency response brigade deployment.
+          Introductory assessment and natural aptitude classification for <strong className="text-white">{result.student.name}</strong> (Employee ID: <span className="font-mono text-amber-400">{result.student.studentId}</span> | Course Date: <span className="font-mono text-slate-300">{result.student.courseDate || result.student.cohort}</span>) to discover ideal volunteer emergency response brigade placement at King Salman International Airport.
         </p>
 
         {/* Primary Download & Finish Action Buttons */}
@@ -121,7 +105,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
             {hasDownloadedPdf ? (
               <>
                 <FileCheck2 className="w-4 h-4" />
-                {downloading ? 'Compiling Dossier...' : 'Dossier Downloaded (Click to Re-download)'}
+                {downloading ? 'Compiling Dossier...' : 'PDF Downloaded (Click to Re-download)'}
               </>
             ) : (
               <>
@@ -165,7 +149,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         </div>
       </div>
 
-      {/* MANDATORY WHATSAPP SUBMISSION BANNER */}
+      {/* MANDATORY WHATSAPP SUBMISSION BANNER - Download only & Manual Share Reminder */}
       <div className="bg-gradient-to-r from-emerald-950/70 via-[#075e54]/30 to-emerald-950/70 border-2 border-emerald-500/60 rounded-3xl p-6 sm:p-8 shadow-[0_0_35px_rgba(16,185,129,0.15)] relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-600" />
 
@@ -177,8 +161,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
 
             <div className="space-y-1.5">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#25D366]/15 border border-[#25D366]/30 rounded-full text-[#25D366] text-xs font-mono font-bold uppercase tracking-wider">
-                <Share2 className="w-3.5 h-3.5" />
-                Mandatory Class Requirement
+                Mandatory Manual Submission
               </div>
 
               <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
@@ -186,41 +169,45 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
               </h3>
 
               <p className="text-emerald-200/90 text-sm font-arabic font-semibold" dir="rtl">
-                تنبيه إلزامي: يجب إرسال تقرير الـ PDF المُحمّل إلى مجموعة واتساب الخاصة بالدورة التدريبية لتوثيق نتائجك وتوزيع الأدوار الميدانية.
+                تنبيه إلزامي: يرجى إرسال ملف تقرير الـ PDF المُحمّل يدوياً إلى مجموعة واتساب الخاصة بالدورة التدريبية لتوثيق نتائجك وتوزيع الفرق التطوعية.
               </p>
 
               <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed pt-1">
-                To complete your evaluation and receive your official brigade assignment badge, you must share the downloaded PDF report file directly in your cohort WhatsApp group.
+                To complete your evaluation and receive your official volunteer brigade badge, you must download your report using the button below and then manually share the PDF file into your cohort WhatsApp group.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 w-full md:w-auto shrink-0">
-            {!hasDownloadedPdf && (
-              <button
-                onClick={handleDownloadPdf}
-                disabled={downloading}
-                className="w-full sm:w-auto px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-all"
-              >
-                <Download className="w-4 h-4" />
-                Step 1: Download PDF
-              </button>
-            )}
-
-            <a
-              href={whatsAppLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-5 py-3 bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          {/* Download button only (no external WhatsApp link button) */}
+          <div className="flex flex-col gap-2.5 w-full md:w-auto shrink-0">
+            <button
+              onClick={handleDownloadPdf}
+              disabled={downloading}
+              className={`w-full sm:w-auto px-6 py-3.5 font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] ${
+                hasDownloadedPdf
+                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/25'
+                  : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/25'
+              }`}
             >
-              <MessageCircle className="w-4 h-4" />
-              Open Class WhatsApp
-              <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-            </a>
+              {hasDownloadedPdf ? (
+                <>
+                  <FileCheck2 className="w-4 h-4" />
+                  {downloading ? 'Compiling Dossier...' : 'PDF Downloaded (Click to Re-download)'}
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  {downloading ? 'Compiling Dossier...' : 'Download PDF Report'}
+                </>
+              )}
+            </button>
+            <div className="text-[11px] text-center text-emerald-300/80 font-mono">
+              {hasDownloadedPdf ? '✓ Ready to share manually' : 'Download required first'}
+            </div>
           </div>
         </div>
 
-        {/* Instructions Steps */}
+        {/* Instructions Steps - Clear reminder to manually share */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-5 border-t border-emerald-500/20 text-xs text-slate-300">
           <div className="flex items-center gap-2 bg-slate-950/40 p-2.5 rounded-xl border border-emerald-500/20">
             <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-bold flex items-center justify-center text-[11px] shrink-0">
@@ -233,14 +220,14 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
             <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-bold flex items-center justify-center text-[11px] shrink-0">
               2
             </span>
-            <span>Open your training cohort WhatsApp chat group</span>
+            <span>Open your training cohort WhatsApp chat group manually</span>
           </div>
 
           <div className="flex items-center gap-2 bg-slate-950/40 p-2.5 rounded-xl border border-emerald-500/20">
             <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-bold flex items-center justify-center text-[11px] shrink-0">
               3
             </span>
-            <span>Attach the PDF file with your Employee ID: <strong className="text-white font-mono">{result.student.studentId}</strong></span>
+            <span>Manually attach and send the downloaded PDF file with Employee ID: <strong className="text-white font-mono">{result.student.studentId}</strong></span>
           </div>
         </div>
       </div>
@@ -250,7 +237,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-full uppercase tracking-wider font-mono">
             <Award className="w-3.5 h-3.5" />
-            Primary Recommended Fit
+            Primary Recommended Volunteer Fit
           </div>
           <div className="flex items-center gap-2">
             <span className="text-[11px] text-slate-400 uppercase tracking-widest font-mono">Compatibility Score:</span>
@@ -274,7 +261,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         </div>
 
         <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-4 mb-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
-          <strong className="text-white font-semibold">Ideal Profile Fit: </strong>
+          <strong className="text-white font-semibold">Ideal Volunteer Fit: </strong>
           {primaryDef.idealPersonality}
         </div>
 
@@ -283,7 +270,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl p-4">
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
-              Core Tactical Duties
+              Core Volunteer Responsibilities
             </h4>
             <ul className="space-y-2 text-xs text-slate-300">
               {primaryDef.operationalDuties.map((duty, idx) => (
@@ -298,7 +285,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl p-4">
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5 text-amber-400" />
-              Observed Behavioral Strengths
+              Natural Behavioral Strengths
             </h4>
             <ul className="space-y-2 text-xs text-slate-300">
               {primaryDef.keyTraits.map((trait, idx) => (
@@ -319,7 +306,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
             <span className="text-xs uppercase font-mono font-bold text-slate-300 flex items-center gap-1.5">
               <Shield className="w-4 h-4 text-slate-400" />
-              Secondary Role Capability
+              Secondary Volunteer Brigade Fit
             </span>
             <span className="text-xl font-mono font-bold text-slate-200">{result.secondaryRoleScore}%</span>
           </div>
@@ -336,9 +323,9 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           </div>
 
           <div className="space-y-2 text-xs text-slate-300 bg-slate-900/40 p-3 rounded-xl border border-slate-800/60">
-            <div className="font-semibold text-slate-200">Cross-Functional Operational Value:</div>
+            <div className="font-semibold text-slate-200">Cross-Training &amp; Support Value:</div>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              Provides essential operational redundancy when the primary team needs secondary support or rapid rotation during prolonged operations.
+              Provides essential support and backup capacity when your department or floor requires additional volunteer hands during drills or real disruptions.
             </p>
           </div>
         </div>
@@ -348,7 +335,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
             <span className="text-xs uppercase font-mono font-bold text-amber-400/90 flex items-center gap-1.5">
               <Award className="w-4 h-4 text-amber-400" />
-              Third Role Capability
+              Third Volunteer Capability
             </span>
             <span className="text-xl font-mono font-bold text-amber-400/90">{result.tertiaryRoleScore}%</span>
           </div>
@@ -365,9 +352,9 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           </div>
 
           <div className="space-y-2 text-xs text-slate-300 bg-slate-900/40 p-3 rounded-xl border border-slate-800/60">
-            <div className="font-semibold text-slate-200">Auxiliary Deployment Value:</div>
+            <div className="font-semibold text-slate-200">Auxiliary Readiness:</div>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              Ensures versatile crisis coverage across the airport campus, allowing candidate to step in with confidence during multi-sector alerts.
+              Demonstrates broad personal versatility across emergency response functions, ensuring you can step in with confidence when unexpected assistance is needed.
             </p>
           </div>
         </div>
@@ -379,7 +366,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6">
           <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
             <Shield className="w-4 h-4 text-amber-400" />
-            4 Brigade Roles Compatibility Breakdown
+            4 Volunteer Brigades Compatibility Breakdown
           </h3>
           <div className="space-y-4">
             {(Object.keys(result.allRoleScores) as (keyof typeof BRIGADE_ROLES)[]).map((roleKey) => {
@@ -406,7 +393,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
                       )}
                       {isTertiary && (
                         <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded font-mono">
-                          THIRD ROLE
+                          THIRD
                         </span>
                       )}
                     </span>
@@ -436,16 +423,16 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6">
           <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
             <Award className="w-4 h-4 text-emerald-400" />
-            5 Core Crisis Competency Scores
+            5 Core Emergency Aptitudes
           </h3>
           <div className="space-y-3.5">
             {Object.entries(result.competencies).map(([compKey, compObj]) => {
               const compLabels: Record<string, string> = {
-                decisiveness: 'Decisiveness & Tactical Priority',
-                physicalReadiness: 'Physical & Tool Readiness',
-                traumaComposure: 'Trauma Composure & Medical Rigor',
-                crowdControl: 'Crowd Direction & Egress Flow',
-                communicationProtocol: 'Radio Protocol & Comms Discipline',
+                decisiveness: 'Decisiveness & Rapid Action',
+                physicalReadiness: 'Practical & Physical Initiative',
+                traumaComposure: 'Composure Around Injury & Human Care',
+                crowdControl: 'Floor Guidance & Orderly Movement',
+                communicationProtocol: 'Communication Clarity & Reporting',
               };
 
               return (
@@ -472,13 +459,13 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         <div className="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-6">
           <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
-            Key Tactical Strengths
+            Observed Behavioral Strengths
           </h4>
           <ul className="space-y-2 text-xs text-slate-200">
             {(result.strengths && result.strengths.length > 0 ? result.strengths : [
-              `High natural alignment with ${primaryDef.name}`,
-              'Consistent composure and steady performance under operational pressure',
-              'Strong adherence to safety protocols and team communication'
+              `High natural affinity for ${primaryDef.name}`,
+              'Steady composure and readiness to step up during unexpected office disruptions',
+              'Collaborative attitude and clear alignment with safety guidance'
             ]).map((s, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span className="text-emerald-400 font-bold">•</span>
@@ -491,13 +478,13 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         <div className="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-6">
           <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-rose-400 mb-3 flex items-center gap-2">
             <BookOpen className="w-4 h-4" />
-            Development Priorities &amp; Training
+            Recommended Introductory Training
           </h4>
           <ul className="space-y-2 text-xs text-slate-200">
             {(result.developmentAreas && result.developmentAreas.length > 0 ? result.developmentAreas : [
-              'Continue situational awareness drills under simulated conditions',
-              `Target advanced qualification in ${primaryDef.recommendedTrainingPath[0]}`,
-              'Practice cross-role coordination protocols'
+              `Foundational training in ${primaryDef.recommendedTrainingPath[0]}`,
+              'Participation in building floor evacuation walk-throughs',
+              'Basic workplace first-aid and safety orientation'
             ]).map((d, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span className="text-rose-400 font-bold">•</span>
@@ -512,11 +499,11 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
       <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6">
         <button
           onClick={() => setShowDetailedAudit(!showDetailedAudit)}
-          className="w-full flex items-center justify-between text-left text-sm font-bold text-white hover:text-amber-400 transition-colors"
+          className="w-full flex items-center justify-between text-left text-sm font-bold text-white hover:text-amber-400 transition-colors cursor-pointer"
         >
           <span className="flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-amber-400" />
-            25-Item Psychometric Response &amp; Learning Audit
+            25-Item Psychometric Response &amp; Self-Discovery Audit
           </span>
           {showDetailedAudit ? (
             <ChevronUp className="w-5 h-5 text-slate-400" />
@@ -545,7 +532,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
                       <div className="text-emerald-400 font-medium mb-1">Your Selected Response:</div>
                       <div>{optObj.text}</div>
                       <div className="mt-1 text-slate-400 text-[11px] font-mono italic">
-                        Insight: {optObj.learningInsight}
+                        Self-Discovery Insight: {optObj.learningInsight}
                       </div>
                     </div>
                   )}
@@ -562,13 +549,13 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           <div className="flex items-center gap-3">
             <AlertTriangle className="w-5 h-5 text-slate-950 shrink-0" />
             <div className="text-xs sm:text-sm font-bold">
-              Final Step: Download your PDF report to unlock assessment completion and send it to your class WhatsApp group!
+              Final Step: Download your PDF report to unlock assessment completion and manually send it to your class WhatsApp group!
             </div>
           </div>
           <button
             onClick={handleDownloadPdf}
             disabled={downloading}
-            className="px-5 py-2.5 bg-slate-950 text-white font-black text-xs sm:text-sm rounded-xl hover:bg-slate-900 transition-colors shrink-0 shadow-lg"
+            className="px-5 py-2.5 bg-slate-950 text-white font-black text-xs sm:text-sm rounded-xl hover:bg-slate-900 transition-colors shrink-0 shadow-lg cursor-pointer"
           >
             Download PDF Report Now
           </button>

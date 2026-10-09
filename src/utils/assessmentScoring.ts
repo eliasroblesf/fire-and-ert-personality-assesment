@@ -124,19 +124,19 @@ export function calculateAssessmentResult(
   const developmentAreas: string[] = [];
 
   const competencyStrengthMap: Record<keyof CompetencyScores, string> = {
-    decisiveness: 'Decisiveness & Tactical Priority: Clear direction under pressure with fast decision committal.',
-    physicalReadiness: 'Physical & Tool Readiness: Intuitive confidence with SCADA trips, PPE, and suppression mechanics.',
-    traumaComposure: 'Trauma Composure & Rigor: Calm and methodical casualty triage, high-quality CPR, and vital care.',
-    crowdControl: 'Crowd Direction & Egress Flow: Confident vocal direction, bottleneck relief, and calm leadership.',
-    communicationProtocol: 'Radio Protocol & Comms Discipline: Plain-language clear text and accurate operational logging.',
+    decisiveness: 'Decisiveness & Rapid Action: Clear, fast personal commitment to take sensible action during office alerts.',
+    physicalReadiness: 'Practical & Physical Initiative: Hands-on confidence to isolate hazards, clear obstructions, and check physical safety.',
+    traumaComposure: 'Composure Around Injury & Human Care: Calm presence near distress, comforting shocked colleagues, and applying basic first aid.',
+    crowdControl: 'Floor Guidance & Orderly Movement: Confident vocal direction, stairwell guiding, and systematic office sweeps.',
+    communicationProtocol: 'Communication Clarity & Reporting: Concise, accurate information sharing, verifying facts, and keeping attendance logs.',
   };
 
   const competencyDevelopmentMap: Record<keyof CompetencyScores, string> = {
-    decisiveness: 'Decision-Making in Ambiguity: Focus on rapid tactical triage when complete field telemetry is pending.',
-    physicalReadiness: 'Technical & Thermal Hazard Intuition: Additional practice with flashover indicators and SCADA isolation.',
-    traumaComposure: 'Mass-Casualty START Triage Speed: Sharpen rapid 30-second victim categorization under high stress.',
-    crowdControl: 'Panic Mitigation & Rerouting: Practice redirecting high-density passenger flow to secondary exits.',
-    communicationProtocol: 'Radio Transmission Conciseness: Practice minimizing radio airtime during high-traffic emergency periods.',
+    decisiveness: 'Decision-Making Under Pressure: Practice trusting your instincts and taking prompt action without second-guessing.',
+    physicalReadiness: 'Workplace Hazard Familiarity: Practice identifying electrical and fire risks during building safety walk-throughs.',
+    traumaComposure: 'Basic First Aid & CPR Orientation: Build confidence in foundational CPR and personal care techniques.',
+    crowdControl: 'Floor Marshalling Techniques: Practice guiding colleague movement and preventing doorway bottlenecks in drills.',
+    communicationProtocol: 'Structured Reporting Protocols: Practice formulating quick, factual emergency updates to facilities and security.',
   };
 
   // Sort competencies from highest to lowest
@@ -145,20 +145,20 @@ export function calculateAssessmentResult(
   );
 
   // Guarantee 3 complete, rich tactical strengths
-  strengths.push(`Tactical Alignment (${primaryDef.name}): ${primaryDef.keyTraits[0]} with focus on ${primaryDef.tagline.toLowerCase()}.`);
+  strengths.push(`Natural Volunteer Specialty (${primaryDef.name}): ${primaryDef.keyTraits[0]} with focus on ${primaryDef.tagline.toLowerCase()}.`);
   strengths.push(competencyStrengthMap[sortedCompetencies[0]]);
   strengths.push(competencyStrengthMap[sortedCompetencies[1]]);
 
   // Guarantee 3 complete development priorities
   developmentAreas.push(competencyDevelopmentMap[sortedCompetencies[4]]);
   developmentAreas.push(competencyDevelopmentMap[sortedCompetencies[3]]);
-  developmentAreas.push(`Advanced Operational Qualification: Focused competency training in ${primaryDef.recommendedTrainingPath[0]}.`);
+  developmentAreas.push(`Introductory Brigade Foundation: Recommended intro workshop in ${primaryDef.recommendedTrainingPath[0]}.`);
 
-  let synergyAnalysis = `Primary aptitude strongly aligns with ${primaryDef.name} (${primaryRoleScore}%), demonstrating ${primaryDef.tagline.toLowerCase()}.`;
+  let synergyAnalysis = `Primary volunteer aptitude strongly aligns with ${primaryDef.name} (${primaryRoleScore}%), demonstrating ${primaryDef.tagline.toLowerCase()}.`;
 
-  synergyAnalysis += ` As a complementary secondary profile, candidate demonstrates notable capability in ${secondaryDef.name} (${secondaryRoleScore}%), providing crucial operational redundancy.`;
+  synergyAnalysis += ` As a complementary secondary profile, candidate demonstrates notable capability in ${secondaryDef.name} (${secondaryRoleScore}%), providing crucial support and backup during building incidents.`;
 
-  synergyAnalysis += ` Furthermore, candidate demonstrates strong Third Role Capability in ${tertiaryDef.name} (${tertiaryRoleScore}%), ensuring versatile tactical flexibility and cross-functional support during high-demand airport incidents.`;
+  synergyAnalysis += ` Furthermore, candidate demonstrates strong Third Role Capability in ${tertiaryDef.name} (${tertiaryRoleScore}%), ensuring versatile personal flexibility and cross-functional support during workplace emergencies.`;
 
   return {
     student,

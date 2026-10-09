@@ -248,7 +248,7 @@ export default function App() {
             </motion.div>
           )}
 
-          {/* 2. 40-QUESTION ASSESSMENT SCREEN */}
+          {/* 2. 25-QUESTION PSYCHOMETRIC ASSESSMENT SCREEN */}
           {phase === 'ASSESSMENT' && studentProfile && (
             <motion.div
               key="assessment"
@@ -289,7 +289,7 @@ export default function App() {
 
       {/* Footer Branding */}
       <footer className="border-t border-slate-900 bg-[#070b13] py-4 px-6 text-center text-xs text-slate-500 font-mono">
-        King Salman International Airport Emergency Response Directorate | NFPA 1081/1561 &amp; ICAO Doc 9137 Standards | 30-Minute Timed Evaluation
+        King Salman International Airport (KSIA) | Administrative Personnel Volunteer Emergency Response Assessment | 30-Minute Timed Evaluation
       </footer>
     </div>
   );
