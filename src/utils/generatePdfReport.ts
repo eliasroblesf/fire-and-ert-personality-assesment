@@ -18,7 +18,7 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   const secondaryDef = BRIGADE_ROLES[result.secondaryRole];
   const tertiaryDef = BRIGADE_ROLES[result.tertiaryRole];
 
-  // Helper colors
+  // Colors
   const gold = [196, 155, 109]; // #C49B6D
   const darkNavy = [10, 15, 26]; // #0A0F1A
   const slateText = [51, 65, 85];
@@ -43,7 +43,7 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
     doc.setFontSize(7.5);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(200, 210, 225);
-    doc.text('EMERGENCY RESPONSE TEAM (ERT) | TACTICAL PERSONALITY & ROLE FIT DOSSIER', margin, 16);
+    doc.text('EMERGENCY RESPONSE TEAM (ERT) | PSYCHOMETRIC & ROLE FIT DOSSIER', margin, 16);
 
     // Document ID / Ref on right
     doc.setFontSize(7);
@@ -69,28 +69,28 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   // ==========================================
   drawHeader(1, 3);
 
-  let y = 30;
+  let y = 29;
 
   // Title block
-  doc.setFontSize(15);
+  doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
   doc.text('CANDIDATE BRIGADE ROLE ASSESSMENT REPORT', margin, y);
   y += 5;
 
-  doc.setFontSize(8.5);
+  doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Psychometric & Situational Judgment Evaluation based on NFPA 1081/1561 & ICAO Doc 9137 Standards', margin, y);
-  y += 7;
+  doc.text('25-Item Psychometric Aptitude & Behavioral Fit Discovery (NFPA 1081/1561 & ICAO Doc 9137)', margin, y);
+  y += 6;
 
   // Candidate Metadata Box
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
-  doc.roundedRect(margin, y, contentWidth, 24, 2, 2, 'FD');
+  doc.roundedRect(margin, y, contentWidth, 23, 2, 2, 'FD');
 
-  const metaY = y + 6;
-  doc.setFontSize(8);
+  const metaY = y + 5.5;
+  doc.setFontSize(7.8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
   doc.text('CANDIDATE NAME:', margin + 4, metaY);
@@ -102,7 +102,7 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFont('helvetica', 'normal');
   doc.text(result.student.studentId || 'N/A', margin + 136, metaY);
 
-  const metaY2 = y + 13;
+  const metaY2 = y + 12;
   doc.setFont('helvetica', 'bold');
   doc.text('COURSE DATE:', margin + 4, metaY2);
   doc.setFont('helvetica', 'normal');
@@ -113,11 +113,11 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFont('helvetica', 'normal');
   doc.text(new Date(result.completedAt).toLocaleTimeString(), margin + 130, metaY2);
 
-  const metaY3 = y + 19.5;
+  const metaY3 = y + 18;
   doc.setFont('helvetica', 'bold');
-  doc.text('QUESTIONS ANSWERED:', margin + 4, metaY3);
+  doc.text('ITEMS COMPLETED:', margin + 4, metaY3);
   doc.setFont('helvetica', 'normal');
-  doc.text(`${result.totalAnswered} of 40 Standards-Aligned Items`, margin + 45, metaY3);
+  doc.text(`${result.totalAnswered} of 25 Psychometric Items`, margin + 36, metaY3);
 
   doc.setFont('helvetica', 'bold');
   doc.text('CLASSIFICATION STATUS:', margin + 95, metaY3);
@@ -125,13 +125,31 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setTextColor(emerald[0], emerald[1], emerald[2]);
   doc.text('CERTIFIED FOR BRIGADE DEPLOYMENT', margin + 135, metaY3);
 
-  y += 28;
+  y += 26;
+
+  // MANDATORY WHATSAPP SUBMISSION BANNER (Official Callout Box)
+  doc.setFillColor(240, 253, 244); // emerald-50
+  doc.setDrawColor(34, 197, 94); // emerald-500
+  doc.setLineWidth(0.6);
+  doc.roundedRect(margin, y, contentWidth, 12, 1.5, 1.5, 'FD');
+
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(21, 128, 61); // emerald-700
+  doc.text('[MANDATORY ACTION] SUBMIT REPORT TO CLASS WHATSAPP GROUP', margin + 4, y + 4.5);
+
+  doc.setFontSize(6.8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(22, 101, 52); // emerald-800
+  doc.text('You must forward this downloaded official PDF report to your training cohort WhatsApp chat for brigade record.', margin + 4, y + 8.8);
+
+  y += 15;
 
   // PRIMARY ROLE HERO CARD
   doc.setFillColor(254, 252, 246); // Warm gold tint
   doc.setDrawColor(gold[0], gold[1], gold[2]);
-  doc.setLineWidth(1);
-  doc.roundedRect(margin, y, contentWidth, 48, 2, 2, 'FD');
+  doc.setLineWidth(0.8);
+  doc.roundedRect(margin, y, contentWidth, 47, 2, 2, 'FD');
 
   // Badge Tag
   doc.setFillColor(gold[0], gold[1], gold[2]);
@@ -172,21 +190,21 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFontSize(7.2);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text('Core Brigade Responsibilities:', margin + 4, y + 34);
+  doc.text('Core Brigade Responsibilities:', margin + 4, y + 33.5);
   
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(6.8);
   primaryDef.operationalDuties.slice(0, 3).forEach((duty, idx) => {
-    doc.text(`• ${duty}`, margin + 6, y + 38.5 + idx * 3.6);
+    doc.text(`• ${duty}`, margin + 6, y + 38 + idx * 3.5);
   });
 
-  y += 53;
+  y += 51;
 
   // SECONDARY ROLE CARD
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
-  doc.setLineWidth(0.7);
-  doc.roundedRect(margin, y, contentWidth, 34, 2, 2, 'FD');
+  doc.setLineWidth(0.6);
+  doc.roundedRect(margin, y, contentWidth, 33, 2, 2, 'FD');
 
   // Badge Tag
   doc.setFillColor(71, 85, 105);
@@ -208,35 +226,35 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text(secondaryDef.name, margin + 4, y + 15);
+  doc.text(secondaryDef.name, margin + 4, y + 14.5);
 
   // Tagline
   doc.setFontSize(7);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text(secondaryDef.tagline, margin + 4, y + 19.5);
+  doc.text(secondaryDef.tagline, margin + 4, y + 19);
 
   // Secondary summary
   doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
   const secondaryBio = doc.splitTextToSize(secondaryDef.idealPersonality, contentWidth - 8);
-  doc.text(secondaryBio, margin + 4, y + 24.5);
+  doc.text(secondaryBio, margin + 4, y + 23.5);
 
   // Cross functional benefit
   doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
-  doc.text('Operational Redundancy Value:', margin + 4, y + 30.5);
+  doc.text('Operational Redundancy Value:', margin + 4, y + 29.5);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Provides emergency backup coverage when primary ${secondaryDef.name} is deployed in adjacent sectors.`, margin + 46, y + 30.5);
+  doc.text(`Provides emergency backup coverage when primary ${secondaryDef.name} is deployed in adjacent sectors.`, margin + 46, y + 29.5);
 
-  y += 38;
+  y += 37;
 
   // THIRD ROLE CAPABILITY CARD
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
-  doc.setLineWidth(0.7);
-  doc.roundedRect(margin, y, contentWidth, 34, 2, 2, 'FD');
+  doc.setLineWidth(0.6);
+  doc.roundedRect(margin, y, contentWidth, 33, 2, 2, 'FD');
 
   // Badge Tag
   doc.setFillColor(30, 58, 138); // Blue
@@ -258,75 +276,60 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text(tertiaryDef.name, margin + 4, y + 15);
+  doc.text(tertiaryDef.name, margin + 4, y + 14.5);
 
   // Tagline
   doc.setFontSize(7);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text(tertiaryDef.tagline, margin + 4, y + 19.5);
+  doc.text(tertiaryDef.tagline, margin + 4, y + 19);
 
   // Tertiary summary
   doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
   const tertiaryBio = doc.splitTextToSize(tertiaryDef.idealPersonality, contentWidth - 8);
-  doc.text(tertiaryBio, margin + 4, y + 24.5);
+  doc.text(tertiaryBio, margin + 4, y + 23.5);
 
   // Reserve adaptability benefit
   doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
-  doc.text('Reserve Adaptability:', margin + 4, y + 30.5);
+  doc.text('Reserve Adaptability:', margin + 4, y + 29.5);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Ready to reinforce ${tertiaryDef.name} operations during surge rotations or prolonged airport incident response.`, margin + 37, y + 30.5);
-
-  y += 38;
-
-  // SYNERGY & BRIGADE INTEGRATION ANALYSIS
-  doc.setFillColor(241, 245, 249);
-  doc.roundedRect(margin, y, contentWidth, 22, 2, 2, 'F');
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text('SYNERGY & SQUAD DEPLOYMENT RECOMMENDATION', margin + 4, y + 5);
-
-  doc.setFontSize(7);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(slateText[0], slateText[1], slateText[2]);
-  const synergyLines = doc.splitTextToSize(result.synergyAnalysis, contentWidth - 8);
-  doc.text(synergyLines, margin + 4, y + 9.5);
+  doc.text(`Equips recruit with valuable auxiliary skills for campus-wide emergency surges.`, margin + 35, y + 29.5);
 
   // ==========================================
-  // PAGE 2: Dimensional Breakdown & Competencies
+  // PAGE 2: Tactical Matrix & Core Competencies
   // ==========================================
   doc.addPage();
   drawHeader(2, 3);
   y = 30;
 
+  // Title: 4 Brigade Roles
   doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text('FULL 4-ROLE BRIGADE COMPATIBILITY MATRIX', margin, y);
+  doc.text('4-ROLE BRIGADE COMPATIBILITY MATRIX', margin, y);
   y += 5;
 
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Comparative percentage scores across all 4 operational King Salman International Airport ERT positions:', margin, y);
-  y += 8;
+  doc.text('Normalized compatibility distribution across the 4 specialized King Salman International Airport emergency branches:', margin, y);
+  y += 7;
 
-  // 4 Roles Bar Chart
-  const roleKeys: (keyof typeof BRIGADE_ROLES)[] = [
+  // 4 Roles Bar Charts
+  const rolesList: (keyof typeof BRIGADE_ROLES)[] = [
     'suppressionLead',
     'casualtyCareLead',
     'evacuationSupportLead',
-    'externalLiaison'
+    'externalLiaison',
   ];
 
-  roleKeys.forEach((key) => {
+  rolesList.forEach((key) => {
     const roleDef = BRIGADE_ROLES[key];
-    const scoreData = result.allRoleScores[key];
-    const pct = scoreData.percentage;
+    const scoreObj = result.allRoleScores[key];
+    const pct = scoreObj ? scoreObj.percentage : 0;
     const isPrimary = key === result.primaryRole;
     const isSecondary = key === result.secondaryRole;
     const isTertiary = key === result.tertiaryRole;
@@ -408,20 +411,20 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Evaluation of behavioral capabilities tested under simulated high-stakes emergency conditions:', margin, y);
+  doc.text('Evaluation of behavioral capabilities tested across 25 situational discovery dilemmas:', margin, y);
   y += 8;
 
   const competenciesList = [
     { key: 'decisiveness', label: 'Situational Decisiveness & Command Priority', desc: 'Ability to establish rapid tactical focus without cognitive hesitation' },
-    { key: 'physicalReadiness', label: 'Thermal & Physical Hazard Intuition', desc: 'Awareness of SCADA electrical paths, flashover risks, and PASS technique' },
-    { key: 'traumaComposure', label: 'Trauma Composure & Resuscitation Rigor', desc: 'Composure in severe injuries, CPR fidelity, and ATMIST handovers' },
+    { key: 'physicalReadiness', label: 'Thermal & Physical Hazard Intuition', desc: 'Awareness of mechanical hazards, tools, PPE, and isolation technique' },
+    { key: 'traumaComposure', label: 'Trauma Composure & Resuscitation Rigor', desc: 'Composure in severe injuries, patient triage, and steady first-aid care' },
     { key: 'crowdControl', label: 'Crowd Leadership & Spatial Egress Flow', desc: 'Directing panic-free evacuation and systematic sector searches' },
-    { key: 'communicationProtocol', label: 'Inter-Agency Comms & Clear-Text Protocol', desc: 'Plain-language radio discipline, L-N-N-H clarity, and incident logging' },
+    { key: 'communicationProtocol', label: 'Inter-Agency Comms & Clear-Text Protocol', desc: 'Plain-language radio discipline, structured reporting, and logging' },
   ] as const;
 
   competenciesList.forEach((comp) => {
     const compScore = result.competencies[comp.key];
-    const pct = compScore.percentage;
+    const pct = compScore ? compScore.percentage : 0;
 
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
@@ -450,7 +453,7 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
 
     doc.roundedRect(barX, y + 3.5, (barWidth * pct) / 100, 4, 1, 1, 'F');
 
-    // Score
+    // Percentage
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
@@ -459,16 +462,9 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
     y += 13;
   });
 
-  y += 4;
+  y += 5;
 
-  // STRENGTHS & DEVELOPMENT AREAS
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text('OPERATIONAL PROFILE ANALYSIS', margin, y);
-  y += 6;
-
-  // Two column box for Strengths & Growth Areas
+  // TWO COLUMN BOXES: Tactical Strengths & Growth Areas
   const colWidth = (contentWidth - 6) / 2;
 
   // Left: Key Strengths
@@ -478,19 +474,19 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
 
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(16, 120, 80);
+  doc.setTextColor(16, 120, 75);
   doc.text('Key Tactical Strengths:', margin + 4, y + 6);
 
   doc.setFontSize(6.8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
   let strY = y + 11;
-  const strengthsToPrint = result.strengths && result.strengths.length > 0 
-    ? result.strengths.slice(0, 3) 
+  const strengthsToPrint = result.strengths && result.strengths.length > 0
+    ? result.strengths.slice(0, 3)
     : [
-        `Tactical Role Specialty: Aligned with ${primaryDef.name} (${primaryDef.tagline})`,
-        `Crisis Composure & Focus: ${primaryDef.keyTraits[0]}`,
-        `Safety & Standard Protocol: Aligned with ${primaryDef.standards[0]}`
+        `Tactical Specialty: High intrinsic alignment with ${primaryDef.name}.`,
+        'Operational Composure: Demonstrates steady judgment under pressure.',
+        'Teamwork & Execution: Clear communication and safety adherence.'
       ];
 
   strengthsToPrint.forEach((str) => {
@@ -517,9 +513,9 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   const devToPrint = result.developmentAreas && result.developmentAreas.length > 0
     ? result.developmentAreas.slice(0, 3)
     : [
-        'Decision-Making in Ambiguity: Focus on rapid tactical triage when complete field telemetry is pending.',
-        'Thermal & SCADA Hazard Intuition: Additional practice with flashover indicators and SCADA isolation.',
-        `Advanced Operational Qualification: Focused competency training in ${primaryDef.recommendedTrainingPath[0]}.`
+        'Decision-Making in Ambiguity: Focus on rapid tactical triage when complete field data is pending.',
+        'Thermal & Hazardous Materials Protocol: Additional practice with isolation procedures.',
+        `Advanced Qualification: Focused competency training in ${primaryDef.recommendedTrainingPath[0]}.`
       ];
 
   devToPrint.forEach((dev) => {
@@ -529,7 +525,7 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   });
 
   // ==========================================
-  // PAGE 3: Response Audit & Official Sign-Off
+  // PAGE 3: 25-Question Audit & Official Sign-Off
   // ==========================================
   doc.addPage();
   drawHeader(3, 3);
@@ -538,102 +534,113 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text('40-QUESTION SITUATIONAL AUDIT SUMMARY', margin, y);
+  doc.text('25-ITEM PSYCHOMETRIC AUDIT & VERIFICATION', margin, y);
   y += 5;
 
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Candidate personality and preference responses across 4 emergency response areas:', margin, y);
+  doc.text('Candidate situational selections recorded during unprompted assessment flow:', margin, y);
   y += 8;
 
-  // 4 Module Summary Grid
-  const modules = [
-    { title: 'Section 1: Work Style & Stress Reaction (Q1 - Q10)', qRange: [1, 10] },
-    { title: 'Section 2: Equipment & Physical Action (Q11 - Q20)', qRange: [11, 20] },
-    { title: 'Section 3: First Aid & Patient Care (Q21 - Q30)', qRange: [21, 30] },
-    { title: 'Section 4: Crowd Dynamics & Comms (Q31 - Q40)', qRange: [31, 40] }
-  ];
+  // 25 Questions Response Grid (5 rows of 5 items)
+  doc.setFillColor(248, 250, 252);
+  doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
+  doc.roundedRect(margin, y, contentWidth, 54, 2, 2, 'FD');
 
-  modules.forEach((mod) => {
-    doc.setFillColor(241, 245, 249);
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+  doc.text('PSYCHOMETRIC SITUATIONAL RESPONSE AUDIT MATRIX (Q1 - Q25)', margin + 4, y + 5);
+
+  const cellW = (contentWidth - 12) / 5;
+  const cellH = 8.5;
+  const startGridY = y + 8;
+
+  for (let i = 0; i < 25; i++) {
+    const qNum = i + 1;
+    const row = Math.floor(i / 5);
+    const col = i % 5;
+    const cX = margin + 4 + col * (cellW + 1);
+    const cY = startGridY + row * (cellH + 0.8);
+
+    const chosen = result.answers[qNum];
+
+    doc.setFillColor(chosen ? 255 : 241, chosen ? 255 : 245, chosen ? 255 : 249);
     doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
-    doc.roundedRect(margin, y, contentWidth, 23, 1, 1, 'FD');
+    doc.roundedRect(cX, cY, cellW, cellH, 1, 1, 'FD');
+
+    doc.setFontSize(6.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
+    doc.text(`Item ${qNum}:`, cX + 2, cY + 5.5);
 
     doc.setFontSize(7.5);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-    doc.text(mod.title, margin + 4, y + 4.5);
-
-    // Mini pill boxes for the 10 questions in this module
-    const [startQ, endQ] = mod.qRange;
-    const startX = margin + 4;
-    const cellWidth = 16.5;
-
-    for (let qNum = startQ; qNum <= endQ; qNum++) {
-      const colIdx = qNum - startQ;
-      const cellX = startX + colIdx * (cellWidth + 1);
-      const chosen = result.answers[qNum];
-
-      doc.setFillColor(chosen ? 255 : 241, chosen ? 255 : 245, chosen ? 255 : 249);
-      doc.setDrawColor(borderGrey[0], borderGrey[1], borderGrey[2]);
-      doc.roundedRect(cellX, y + 7, cellWidth, 12, 1, 1, 'FD');
-
-      doc.setFontSize(6);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-      doc.text(`Q${qNum}`, cellX + 2, y + 10.5);
-
-      doc.setFontSize(8.5);
-      doc.setFont('helvetica', 'bold');
-      if (chosen) {
-        doc.setTextColor(gold[0], gold[1], gold[2]);
-        doc.text(chosen, cellX + 6, y + 16.5);
-      } else {
-        doc.setTextColor(200, 200, 200);
-        doc.text('-', cellX + 6, y + 16.5);
-      }
+    if (chosen) {
+      doc.setTextColor(gold[0], gold[1], gold[2]);
+      doc.text(`Opt ${chosen}`, cX + cellW - 12, cY + 5.5);
+    } else {
+      doc.setTextColor(180, 180, 180);
+      doc.text('-', cX + cellW - 6, cY + 5.5);
     }
+  }
 
-    y += 26;
-  });
+  y += 60;
 
-  y += 5;
-
-  // RECOMMENDED ADVANCED KSIA TRAINING PATHWAY
-  doc.setFillColor(254, 252, 246);
-  doc.setDrawColor(gold[0], gold[1], gold[2]);
-  doc.roundedRect(margin, y, contentWidth, 24, 2, 2, 'FD');
+  // WHATSAPP SUBMISSION CERTIFICATION CALLOUT BOX
+  doc.setFillColor(240, 253, 244); // light emerald
+  doc.setDrawColor(34, 197, 94);
+  doc.setLineWidth(0.7);
+  doc.roundedRect(margin, y, contentWidth, 17, 2, 2, 'FD');
 
   doc.setFontSize(8);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(21, 128, 61);
+  doc.text('OFFICIAL WHATSAPP GROUP SUBMISSION REQUIREMENT:', margin + 4, y + 5.5);
+
+  doc.setFontSize(6.8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(22, 101, 52);
+  doc.text('The candidate is required to transmit this completed PDF document directly to their course WhatsApp group.', margin + 4, y + 10);
+  doc.text('Submission timestamp and Employee ID verification will be logged into the KSIA ERT brigade roster.', margin + 4, y + 14);
+
+  y += 22;
+
+  // RECOMMENDED ADVANCED TRAINING PATHWAY
+  doc.setFillColor(254, 252, 246);
+  doc.setDrawColor(gold[0], gold[1], gold[2]);
+  doc.roundedRect(margin, y, contentWidth, 23, 2, 2, 'FD');
+
+  doc.setFontSize(7.8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(gold[0], gold[1], gold[2]);
   doc.text('OFFICIAL KSIA ACCREDITATION TRAINING RECOMMENDATIONS', margin + 4, y + 5);
 
-  doc.setFontSize(7.2);
+  doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
   primaryDef.recommendedTrainingPath.forEach((path, i) => {
-    doc.text(`[Course ${i + 1}]  ${path}`, margin + 6, y + 10.5 + i * 4);
+    doc.text(`[Course ${i + 1}]  ${path}`, margin + 6, y + 10 + i * 4);
   });
 
-  y += 32;
+  y += 28;
 
   // OFFICIAL CERTIFICATION & SIGN-OFF BLOCK
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(darkNavy[0], darkNavy[1], darkNavy[2]);
   doc.setLineWidth(0.8);
-  doc.roundedRect(margin, y, contentWidth, 42, 2, 2, 'FD');
+  doc.roundedRect(margin, y, contentWidth, 40, 2, 2, 'FD');
 
   doc.setFontSize(8.5);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
   doc.text('OFFICIAL BRIGADE READINESS CERTIFICATION & SIGN-OFF', margin + 4, y + 6);
 
-  doc.setFontSize(7);
+  doc.setFontSize(6.8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('The evaluation results contained herein have been verified according to King Salman International Airport emergency management standards.', margin + 4, y + 11);
+  doc.text('The evaluation results contained herein have been verified according to King Salman International Airport emergency management standards.', margin + 4, y + 10.5);
 
   // 3 Signature Lines
   const sigColWidth = (contentWidth - 12) / 3;
@@ -641,39 +648,39 @@ export function generateAssessmentPdf(result: AssessmentResult): void {
   // 1: Candidate
   const sig1X = margin + 4;
   doc.setDrawColor(slateText[0], slateText[1], slateText[2]);
-  doc.line(sig1X, y + 27, sig1X + sigColWidth, y + 27);
+  doc.line(sig1X, y + 25, sig1X + sigColWidth, y + 25);
   doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text(result.student.name || 'Candidate Recruit', sig1X, y + 31);
-  doc.setFontSize(6.5);
+  doc.text(result.student.name || 'Candidate Recruit', sig1X, y + 29);
+  doc.setFontSize(6.2);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Candidate Signature & Date', sig1X, y + 35);
+  doc.text('Candidate Signature & Date', sig1X, y + 33);
 
   // 2: Lead Evaluator
   const sig2X = sig1X + sigColWidth + 4;
-  doc.line(sig2X, y + 27, sig2X + sigColWidth, y + 27);
+  doc.line(sig2X, y + 25, sig2X + sigColWidth, y + 25);
   doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.text(result.student.assessorName || 'Lead Tactical Evaluator', sig2X, y + 31);
-  doc.setFontSize(6.5);
+  doc.text(result.student.assessorName || 'Lead Tactical Evaluator', sig2X, y + 29);
+  doc.setFontSize(6.2);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Lead Evaluator Certification', sig2X, y + 35);
+  doc.text('Lead Evaluator Certification', sig2X, y + 33);
 
   // 3: ERT Chief
   const sig3X = sig2X + sigColWidth + 4;
-  doc.line(sig3X, y + 27, sig3X + sigColWidth, y + 27);
+  doc.line(sig3X, y + 25, sig3X + sigColWidth, y + 25);
   doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(gold[0], gold[1], gold[2]);
-  doc.text('KSIA Fire & ERT Directorate', sig3X, y + 31);
-  doc.setFontSize(6.5);
+  doc.text('KSIA Fire & ERT Directorate', sig3X, y + 29);
+  doc.setFontSize(6.2);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedText[0], mutedText[1], mutedText[2]);
-  doc.text('Chief Incident Commander Seal', sig3X, y + 35);
+  doc.text('Chief Incident Commander Seal', sig3X, y + 33);
 
   // Trigger download
   const cleanName = (result.student.name || 'Candidate').replace(/[^a-zA-Z0-9]/g, '_');

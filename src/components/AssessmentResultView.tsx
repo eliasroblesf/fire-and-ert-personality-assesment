@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Download, 
-  ShieldAlert, 
   Flame, 
   Stethoscope, 
   DoorOpen, 
@@ -11,14 +10,17 @@ import {
   ChevronDown, 
   ChevronUp, 
   Award, 
-  ArrowRight,
-  UserCheck,
-  Shield,
-  BookOpen,
-  FileCheck,
-  Clock
+  UserCheck, 
+  Shield, 
+  BookOpen, 
+  Clock,
+  Lock,
+  MessageCircle,
+  Share2,
+  ExternalLink,
+  AlertTriangle,
+  FileCheck2
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { AssessmentResult } from '../types/assessment';
 import { BRIGADE_ROLES, ASSESSMENT_QUESTIONS } from '../data/assessmentQuestions';
 import { generateAssessmentPdf } from '../utils/generatePdfReport';
@@ -36,6 +38,7 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
 }) => {
   const [showDetailedAudit, setShowDetailedAudit] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [hasDownloadedPdf, setHasDownloadedPdf] = useState(false);
 
   const primaryDef = BRIGADE_ROLES[result.primaryRole];
   const secondaryDef = BRIGADE_ROLES[result.secondaryRole];
@@ -60,12 +63,26 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
     setDownloading(true);
     try {
       generateAssessmentPdf(result);
+      setHasDownloadedPdf(true);
     } catch (err) {
       console.error('Failed to generate PDF:', err);
     } finally {
       setDownloading(false);
     }
   };
+
+  // WhatsApp share helper link
+  const whatsAppShareText = encodeURIComponent(
+    `*King Salman International Airport (KSIA) - ERT Assessment Report*\n` +
+    `👤 *Student Name:* ${result.student.name}\n` +
+    `🆔 *Employee ID:* ${result.student.studentId}\n` +
+    `📅 *Course Date:* ${result.student.courseDate || result.student.cohort || 'DD/MM/YY'}\n` +
+    `🥇 *Primary Role:* ${primaryDef.name} (${result.primaryRoleScore}%)\n` +
+    `🥈 *Secondary Role:* ${secondaryDef.name} (${result.secondaryRoleScore}%)\n` +
+    `🥉 *Third Role:* ${tertiaryDef.name} (${result.tertiaryRoleScore}%)\n\n` +
+    `Attached is my official assessment PDF report for brigade assignment.`
+  );
+  const whatsAppLink = `https://wa.me/?text=${whatsAppShareText}`;
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto pb-20">
@@ -74,12 +91,12 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         {result.timedOut ? (
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-rose-500/15 border border-rose-500/40 rounded-full text-rose-300 text-xs font-mono font-bold uppercase tracking-wider mb-4">
             <Clock className="w-4 h-4 text-rose-400" />
-            30-Minute Time Limit Reached ({result.totalAnswered} of 40 Questions Answered)
+            30-Minute Time Limit Reached ({result.totalAnswered} of 25 Questions Answered)
           </div>
         ) : (
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-xs font-mono font-bold uppercase tracking-wider mb-4">
             <Award className="w-4 h-4" />
-            {result.totalAnswered} of 40 Questions Completed
+            {result.totalAnswered} of 25 Psychometric Items Completed
           </div>
         )}
 
@@ -90,32 +107,141 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           Official psychometric and tactical placement for candidate <strong className="text-white">{result.student.name}</strong> (Employee ID: <span className="font-mono text-amber-400">{result.student.studentId}</span> | Course Date: <span className="font-mono text-slate-300">{result.student.courseDate || result.student.cohort}</span>), certified for King Salman International Airport emergency response brigade deployment.
         </p>
 
-        {/* Action Buttons */}
+        {/* Primary Download & Finish Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={handleDownloadPdf}
             disabled={downloading}
-            className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-sm flex items-center gap-2.5 shadow-lg shadow-amber-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className={`px-7 py-3.5 font-black rounded-xl text-sm flex items-center gap-2.5 shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
+              hasDownloadedPdf
+                ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/25 ring-2 ring-emerald-400/40'
+                : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/30 ring-2 ring-amber-400/60 animate-bounce'
+            }`}
           >
-            <Download className="w-4 h-4" />
-            {downloading ? 'Compiling Dossier...' : 'Download Official PDF Report'}
+            {hasDownloadedPdf ? (
+              <>
+                <FileCheck2 className="w-4 h-4" />
+                {downloading ? 'Compiling Dossier...' : 'Dossier Downloaded (Click to Re-download)'}
+              </>
+            ) : (
+              <>
+                <Download className="w-4 h-4" />
+                {downloading ? 'Compiling Dossier...' : '1. Download Official PDF Report (Required)'}
+              </>
+            )}
           </button>
 
-          <button
-            onClick={onReturnToSplash}
-            className="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-sm flex items-center gap-2 border border-slate-700 transition-colors"
-          >
-            <UserCheck className="w-4 h-4 text-emerald-400" />
-            Assess Next Student
-          </button>
+          {/* Locked Finish Button: Cannot finish until PDF downloaded */}
+          {hasDownloadedPdf ? (
+            <button
+              onClick={onReturnToSplash}
+              className="px-6 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold rounded-xl text-sm flex items-center gap-2 border border-slate-700 shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              Complete &amp; Assess Next Student
+            </button>
+          ) : (
+            <div className="relative group">
+              <button
+                disabled
+                className="px-6 py-3.5 bg-slate-900/80 text-slate-500 font-semibold rounded-xl text-sm flex items-center gap-2 border border-slate-800 cursor-not-allowed opacity-60"
+              >
+                <Lock className="w-4 h-4 text-amber-500/70" />
+                Complete Assessment (Locked)
+              </button>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-2 bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded-lg text-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
+                You must download the official PDF report before finishing the assessment.
+              </div>
+            </div>
+          )}
 
           <button
             onClick={onRetake}
-            className="px-4 py-3 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-semibold rounded-xl text-sm flex items-center gap-2 border border-slate-800 transition-colors"
+            className="px-4 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-semibold rounded-xl text-sm flex items-center gap-2 border border-slate-800 transition-colors"
           >
             <RotateCcw className="w-4 h-4" />
             Retake Assessment
           </button>
+        </div>
+      </div>
+
+      {/* MANDATORY WHATSAPP SUBMISSION BANNER */}
+      <div className="bg-gradient-to-r from-emerald-950/70 via-[#075e54]/30 to-emerald-950/70 border-2 border-emerald-500/60 rounded-3xl p-6 sm:p-8 shadow-[0_0_35px_rgba(16,185,129,0.15)] relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-600" />
+
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex items-start gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-[#25D366]/20 border-2 border-[#25D366]/60 flex items-center justify-center shrink-0 shadow-lg shadow-[#25D366]/10">
+              <MessageCircle className="w-8 h-8 text-[#25D366]" />
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#25D366]/15 border border-[#25D366]/30 rounded-full text-[#25D366] text-xs font-mono font-bold uppercase tracking-wider">
+                <Share2 className="w-3.5 h-3.5" />
+                Mandatory Class Requirement
+              </div>
+
+              <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                Send Your Downloaded PDF to the Class WhatsApp Group
+              </h3>
+
+              <p className="text-emerald-200/90 text-sm font-arabic font-semibold" dir="rtl">
+                تنبيه إلزامي: يجب إرسال تقرير الـ PDF المُحمّل إلى مجموعة واتساب الخاصة بالدورة التدريبية لتوثيق نتائجك وتوزيع الأدوار الميدانية.
+              </p>
+
+              <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed pt-1">
+                To complete your evaluation and receive your official brigade assignment badge, you must share the downloaded PDF report file directly in your cohort WhatsApp group.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 w-full md:w-auto shrink-0">
+            {!hasDownloadedPdf && (
+              <button
+                onClick={handleDownloadPdf}
+                disabled={downloading}
+                className="w-full sm:w-auto px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-all"
+              >
+                <Download className="w-4 h-4" />
+                Step 1: Download PDF
+              </button>
+            )}
+
+            <a
+              href={whatsAppLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-5 py-3 bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Open Class WhatsApp
+              <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+            </a>
+          </div>
+        </div>
+
+        {/* Instructions Steps */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-5 border-t border-emerald-500/20 text-xs text-slate-300">
+          <div className="flex items-center gap-2 bg-slate-950/40 p-2.5 rounded-xl border border-emerald-500/20">
+            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-bold flex items-center justify-center text-[11px] shrink-0">
+              1
+            </span>
+            <span>Download your official PDF report onto your device</span>
+          </div>
+
+          <div className="flex items-center gap-2 bg-slate-950/40 p-2.5 rounded-xl border border-emerald-500/20">
+            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-bold flex items-center justify-center text-[11px] shrink-0">
+              2
+            </span>
+            <span>Open your training cohort WhatsApp chat group</span>
+          </div>
+
+          <div className="flex items-center gap-2 bg-slate-950/40 p-2.5 rounded-xl border border-emerald-500/20">
+            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-bold flex items-center justify-center text-[11px] shrink-0">
+              3
+            </span>
+            <span>Attach the PDF file with your Employee ID: <strong className="text-white font-mono">{result.student.studentId}</strong></span>
+          </div>
         </div>
       </div>
 
@@ -133,216 +259,171 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         </div>
 
         <div className="flex items-start gap-4 mb-5">
-          <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+          <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl shrink-0">
             {getRoleIcon(result.primaryRole)}
           </div>
           <div className="flex-1">
             <h2 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
               {primaryDef.name}
             </h2>
-            <div className="text-sm font-arabic text-amber-300 font-medium mt-0.5">
+            <div className="text-base text-amber-400 font-arabic font-medium mb-1" dir="rtl">
               {primaryDef.arabicName}
             </div>
-            <div className="text-xs sm:text-sm text-amber-400/90 font-medium italic mt-1">
-              {primaryDef.tagline}
-            </div>
+            <p className="text-sm text-slate-300 font-medium">{primaryDef.tagline}</p>
           </div>
         </div>
 
-        <p className="text-slate-300 text-sm leading-relaxed mb-6">
+        <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-4 mb-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
+          <strong className="text-white font-semibold">Ideal Profile Fit: </strong>
           {primaryDef.idealPersonality}
-        </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="bg-slate-900/80 rounded-xl p-4 border border-slate-800">
-            <span className="text-xs uppercase font-mono font-bold tracking-wider text-slate-400 block mb-2.5">
-              Core Operational Duties:
-            </span>
-            <div className="space-y-2">
-              {primaryDef.operationalDuties.slice(0, 4).map((duty, idx) => (
-                <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
+        {/* Duties & Key Traits Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl p-4">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+              Core Tactical Duties
+            </h4>
+            <ul className="space-y-2 text-xs text-slate-300">
+              {primaryDef.operationalDuties.map((duty, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-amber-400 font-mono text-[10px] mt-0.5">•</span>
                   <span>{duty}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          <div className="bg-slate-900/80 rounded-xl p-4 border border-slate-800 flex flex-col justify-between">
+          <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl p-4">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+              <Award className="w-3.5 h-3.5 text-amber-400" />
+              Observed Behavioral Strengths
+            </h4>
+            <ul className="space-y-2 text-xs text-slate-300">
+              {primaryDef.keyTraits.map((trait, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-emerald-400 font-mono text-[10px] mt-0.5">•</span>
+                  <span>{trait}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Secondary & Third Role Capabilities (Two-Column Grid) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Secondary Role */}
+        <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6 relative">
+          <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+            <span className="text-xs uppercase font-mono font-bold text-slate-300 flex items-center gap-1.5">
+              <Shield className="w-4 h-4 text-slate-400" />
+              Secondary Role Capability
+            </span>
+            <span className="text-xl font-mono font-bold text-slate-200">{result.secondaryRoleScore}%</span>
+          </div>
+
+          <div className="flex items-start gap-3 mb-4">
+            <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 shrink-0">
+              {getRoleIcon(result.secondaryRole)}
+            </div>
             <div>
-              <span className="text-xs uppercase font-mono font-bold tracking-wider text-slate-400 block mb-2.5">
-                Key Behavioral Attributes:
-              </span>
-              <div className="space-y-1.5">
-                {primaryDef.keyTraits.slice(0, 3).map((trait, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                    <span className="text-amber-400 font-bold">•</span>
-                    <span>{trait}</span>
-                  </div>
-                ))}
-              </div>
+              <h3 className="text-lg font-bold text-white">{secondaryDef.name}</h3>
+              <div className="text-xs text-slate-400 font-arabic" dir="rtl">{secondaryDef.arabicName}</div>
+              <p className="text-xs text-slate-400 mt-0.5">{secondaryDef.tagline}</p>
             </div>
-            <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-400 font-mono mt-3">
-              Standards: <span className="text-slate-300">{primaryDef.standards.join(' | ')}</span>
+          </div>
+
+          <div className="space-y-2 text-xs text-slate-300 bg-slate-900/40 p-3 rounded-xl border border-slate-800/60">
+            <div className="font-semibold text-slate-200">Cross-Functional Operational Value:</div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Provides essential operational redundancy when the primary team needs secondary support or rapid rotation during prolonged operations.
+            </p>
+          </div>
+        </div>
+
+        {/* Third Role Capability */}
+        <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6 relative">
+          <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+            <span className="text-xs uppercase font-mono font-bold text-amber-400/90 flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-amber-400" />
+              Third Role Capability
+            </span>
+            <span className="text-xl font-mono font-bold text-amber-400/90">{result.tertiaryRoleScore}%</span>
+          </div>
+
+          <div className="flex items-start gap-3 mb-4">
+            <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 shrink-0">
+              {getRoleIcon(result.tertiaryRole)}
             </div>
+            <div>
+              <h3 className="text-lg font-bold text-white">{tertiaryDef.name}</h3>
+              <div className="text-xs text-slate-400 font-arabic" dir="rtl">{tertiaryDef.arabicName}</div>
+              <p className="text-xs text-slate-400 mt-0.5">{tertiaryDef.tagline}</p>
+            </div>
+          </div>
+
+          <div className="space-y-2 text-xs text-slate-300 bg-slate-900/40 p-3 rounded-xl border border-slate-800/60">
+            <div className="font-semibold text-slate-200">Auxiliary Deployment Value:</div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Ensures versatile crisis coverage across the airport campus, allowing candidate to step in with confidence during multi-sector alerts.
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Secondary Role and Third Role Capability (2-Column Grid) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* SECONDARY ROLE CARD */}
-        <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-lg">
-          <div>
-            <div className="flex items-center justify-between gap-3 mb-4">
-              <span className="px-3 py-1 bg-slate-800 text-slate-300 font-bold text-xs rounded-full uppercase tracking-wider font-mono border border-slate-700">
-                Secondary / Cross-Train Role
-              </span>
-              <div className="text-right">
-                <span className="text-2xl font-mono font-extrabold text-slate-200">
-                  {result.secondaryRoleScore}%
-                </span>
-                <span className="text-[10px] text-slate-500 uppercase tracking-widest block font-mono">
-                  Secondary Fit
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 mb-4">
-              <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl">
-                {getRoleIcon(result.secondaryRole)}
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white tracking-tight">
-                  {secondaryDef.name}
-                </h3>
-                <div className="text-xs font-arabic text-slate-400">
-                  {secondaryDef.arabicName}
-                </div>
-                <div className="text-[11px] text-slate-400 italic">
-                  {secondaryDef.tagline}
-                </div>
-              </div>
-            </div>
-
-            <p className="text-slate-400 text-xs leading-relaxed mb-4">
-              {secondaryDef.idealPersonality}
-            </p>
-
-            <div className="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed mb-4">
-              <strong className="text-white block mb-1">Squad Redundancy Value:</strong>
-              Provides high-fidelity cross-functional backup for {secondaryDef.name}, preventing single-point team bottlenecks during multi-sector alerts.
-            </div>
-          </div>
-
-          <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
-            Secondary Standard: {secondaryDef.standards[0]}
-          </div>
-        </div>
-
-        {/* THIRD ROLE CAPABILITY CARD */}
-        <div className="bg-[#0a0f1a] border border-slate-800/90 rounded-2xl p-6 flex flex-col justify-between shadow-lg">
-          <div>
-            <div className="flex items-center justify-between gap-3 mb-4">
-              <span className="px-3 py-1 bg-blue-950/50 text-blue-300 font-bold text-xs rounded-full uppercase tracking-wider font-mono border border-blue-800/50">
-                Third Role Capability
-              </span>
-              <div className="text-right">
-                <span className="text-2xl font-mono font-extrabold text-blue-200">
-                  {result.tertiaryRoleScore}%
-                </span>
-                <span className="text-[10px] text-slate-500 uppercase tracking-widest block font-mono">
-                  3rd Capability
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 mb-4">
-              <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl">
-                {getRoleIcon(result.tertiaryRole)}
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white tracking-tight">
-                  {tertiaryDef.name}
-                </h3>
-                <div className="text-xs font-arabic text-slate-400">
-                  {tertiaryDef.arabicName}
-                </div>
-                <div className="text-[11px] text-slate-400 italic">
-                  {tertiaryDef.tagline}
-                </div>
-              </div>
-            </div>
-
-            <p className="text-slate-400 text-xs leading-relaxed mb-4">
-              {tertiaryDef.idealPersonality}
-            </p>
-
-            <div className="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed mb-4">
-              <strong className="text-white block mb-1">Reserve Adaptability:</strong>
-              Candidate displays practical readiness to support {tertiaryDef.name} operations during surge rotations or prolonged airfield containment.
-            </div>
-          </div>
-
-          <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-500 font-mono">
-            Reserve Standard: {tertiaryDef.standards[0]}
-          </div>
-        </div>
-      </div>
-
-      {/* 4-Role Compatibility Bars & 5-Competency Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* 4 Roles Breakdown */}
+      {/* 4-Role Compatibility Matrix & 5 Competencies */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* 4 Brigade Roles Bar Charts */}
         <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6">
-          <h3 className="text-sm font-bold uppercase tracking-wider font-mono text-slate-300 mb-4 flex items-center gap-2">
+          <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
             <Shield className="w-4 h-4 text-amber-400" />
-            Complete 4-Role Brigade Compatibility
+            4 Brigade Roles Compatibility Breakdown
           </h3>
-
           <div className="space-y-4">
-            {(Object.keys(BRIGADE_ROLES) as (keyof typeof BRIGADE_ROLES)[]).map((key) => {
-              const roleDef = BRIGADE_ROLES[key];
-              const score = result.allRoleScores[key];
-              const isPrimary = key === result.primaryRole;
-              const isSecondary = key === result.secondaryRole;
-              const isTertiary = key === result.tertiaryRole;
+            {(Object.keys(result.allRoleScores) as (keyof typeof BRIGADE_ROLES)[]).map((roleKey) => {
+              const def = BRIGADE_ROLES[roleKey];
+              const scoreObj = result.allRoleScores[roleKey];
+              const isPrimary = roleKey === result.primaryRole;
+              const isSecondary = roleKey === result.secondaryRole;
+              const isTertiary = roleKey === result.tertiaryRole;
 
               return (
-                <div key={key} className="space-y-1">
-                  <div className="flex justify-between text-xs">
+                <div key={roleKey} className="space-y-1.5">
+                  <div className="flex items-center justify-between text-xs">
                     <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-                      {roleDef.name}
+                      {def.name}
                       {isPrimary && (
-                        <span className="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded border border-amber-500/30">
-                          Primary
+                        <span className="text-[10px] bg-amber-500 text-slate-950 font-bold px-1.5 py-0.2 rounded font-mono">
+                          PRIMARY
                         </span>
                       )}
                       {isSecondary && (
-                        <span className="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.2 rounded border border-slate-700">
-                          Secondary
+                        <span className="text-[10px] bg-slate-700 text-slate-200 px-1.5 py-0.2 rounded font-mono">
+                          SECONDARY
                         </span>
                       )}
                       {isTertiary && (
-                        <span className="text-[9px] bg-blue-950/60 text-blue-300 px-1.5 py-0.2 rounded border border-blue-800/60">
-                          3rd Capability
+                        <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded font-mono">
+                          THIRD ROLE
                         </span>
                       )}
                     </span>
-                    <span className="font-mono font-bold text-slate-300">{score.percentage}%</span>
+                    <span className="font-mono font-bold text-white">{scoreObj.percentage}%</span>
                   </div>
-
-                  <div className="h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                  <div className="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
                     <div
-                      className={`h-full rounded-full transition-all duration-500 ${
+                      className={`h-full transition-all duration-500 ${
                         isPrimary
-                          ? 'bg-amber-500'
+                          ? 'bg-amber-400'
                           : isSecondary
-                          ? 'bg-slate-400'
-                          : isTertiary
                           ? 'bg-blue-400'
-                          : 'bg-slate-700'
+                          : isTertiary
+                          ? 'bg-purple-400'
+                          : 'bg-slate-600'
                       }`}
-                      style={{ width: `${score.percentage}%` }}
+                      style={{ width: `${scoreObj.percentage}%` }}
                     />
                   </div>
                 </div>
@@ -351,38 +432,32 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
           </div>
         </div>
 
-        {/* 5 Behavioral Competencies */}
+        {/* 5 Core Competencies */}
         <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6">
-          <h3 className="text-sm font-bold uppercase tracking-wider font-mono text-slate-300 mb-4 flex items-center gap-2">
+          <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
             <Award className="w-4 h-4 text-emerald-400" />
-            Crisis Competency & Behavioral Profile
+            5 Core Crisis Competency Scores
           </h3>
-
-          <div className="space-y-4">
-            {[
-              { key: 'decisiveness', label: 'Situational Decisiveness & Priority' },
-              { key: 'physicalReadiness', label: 'Thermal & Physical Hazard Intuition' },
-              { key: 'traumaComposure', label: 'Trauma Composure & Resuscitation' },
-              { key: 'crowdControl', label: 'Crowd Leadership & Egress Flow' },
-              { key: 'communicationProtocol', label: 'Inter-Agency Clear-Text Protocol' },
-            ].map((comp) => {
-              const score = result.competencies[comp.key as keyof typeof result.competencies];
-              const pct = score.percentage;
-
-              let barColor = 'bg-emerald-500';
-              if (pct < 50) barColor = 'bg-rose-500';
-              else if (pct < 70) barColor = 'bg-amber-500';
+          <div className="space-y-3.5">
+            {Object.entries(result.competencies).map(([compKey, compObj]) => {
+              const compLabels: Record<string, string> = {
+                decisiveness: 'Decisiveness & Tactical Priority',
+                physicalReadiness: 'Physical & Tool Readiness',
+                traumaComposure: 'Trauma Composure & Medical Rigor',
+                crowdControl: 'Crowd Direction & Egress Flow',
+                communicationProtocol: 'Radio Protocol & Comms Discipline',
+              };
 
               return (
-                <div key={comp.key} className="space-y-1">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-slate-300">{comp.label}</span>
-                    <span className="font-mono font-bold text-slate-200">{pct}%</span>
+                <div key={compKey} className="space-y-1">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-300">{compLabels[compKey] || compKey}</span>
+                    <span className="font-mono font-bold text-amber-400">{compObj.percentage}%</span>
                   </div>
-                  <div className="h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                  <div className="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
                     <div
-                      className={`h-full rounded-full transition-all duration-500 ${barColor}`}
-                      style={{ width: `${pct}%` }}
+                      className="bg-gradient-to-r from-emerald-500 to-amber-400 h-full transition-all duration-500"
+                      style={{ width: `${compObj.percentage}%` }}
                     />
                   </div>
                 </div>
@@ -392,22 +467,22 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         </div>
       </div>
 
-      {/* Strengths & Development Areas */}
+      {/* Key Tactical Strengths & Development Areas */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-6">
           <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             Key Tactical Strengths
           </h4>
-          <ul className="space-y-2.5 text-xs text-slate-300">
+          <ul className="space-y-2 text-xs text-slate-200">
             {(result.strengths && result.strengths.length > 0 ? result.strengths : [
-              `Tactical Role Specialty: Aligned with ${primaryDef.name} (${primaryDef.tagline})`,
-              `Operational Composure: ${primaryDef.keyTraits[0]}`,
-              `Safety & Standard Protocol: Aligned with ${primaryDef.standards[0]}`
-            ]).map((str, idx) => (
+              `High natural alignment with ${primaryDef.name}`,
+              'Consistent composure and steady performance under operational pressure',
+              'Strong adherence to safety protocols and team communication'
+            ]).map((s, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span className="text-emerald-400 font-bold">•</span>
-                <span>{str}</span>
+                <span>{s}</span>
               </li>
             ))}
           </ul>
@@ -415,75 +490,62 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
 
         <div className="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-6">
           <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-rose-400 mb-3 flex items-center gap-2">
-            <FileCheck className="w-4 h-4" />
-            Development Priorities & Training Pathways
+            <BookOpen className="w-4 h-4" />
+            Development Priorities &amp; Training
           </h4>
-          <ul className="space-y-2.5 text-xs text-slate-300">
+          <ul className="space-y-2 text-xs text-slate-200">
             {(result.developmentAreas && result.developmentAreas.length > 0 ? result.developmentAreas : [
-              'Decision-Making in Ambiguity: Focus on rapid tactical triage when complete field telemetry is pending.',
-              'Thermal & SCADA Hazard Intuition: Additional practice with flashover indicators and SCADA isolation.',
-              `Advanced Operational Qualification: Focused competency training in ${primaryDef.recommendedTrainingPath[0]}.`
-            ]).map((dev, idx) => (
+              'Continue situational awareness drills under simulated conditions',
+              `Target advanced qualification in ${primaryDef.recommendedTrainingPath[0]}`,
+              'Practice cross-role coordination protocols'
+            ]).map((d, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span className="text-rose-400 font-bold">•</span>
-                <span>{dev}</span>
+                <span>{d}</span>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      {/* Collapsible 40-Question Review Accordion */}
-      <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl overflow-hidden">
+      {/* Situational Audit Toggle (25 Items) */}
+      <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6">
         <button
           onClick={() => setShowDetailedAudit(!showDetailedAudit)}
-          className="w-full p-5 text-left flex items-center justify-between hover:bg-slate-900/60 transition-colors"
+          className="w-full flex items-center justify-between text-left text-sm font-bold text-white hover:text-amber-400 transition-colors"
         >
-          <div className="flex items-center gap-2.5">
+          <span className="flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-amber-400" />
-            <div>
-              <span className="text-sm font-bold text-white block">
-                Review All 40 Tactical Responses & Learning Insights
-              </span>
-              <span className="text-xs text-slate-400">
-                Detailed situational audit of all answered questions and standard operating doctrine
-              </span>
-            </div>
-          </div>
-          <div className="text-slate-400">
-            {showDetailedAudit ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-          </div>
+            25-Item Psychometric Response &amp; Learning Audit
+          </span>
+          {showDetailedAudit ? (
+            <ChevronUp className="w-5 h-5 text-slate-400" />
+          ) : (
+            <ChevronDown className="w-5 h-5 text-slate-400" />
+          )}
         </button>
 
         {showDetailedAudit && (
-          <div className="p-6 border-t border-slate-800 space-y-4 divide-y divide-slate-800/80">
+          <div className="mt-6 pt-6 border-t border-slate-800 space-y-4">
             {ASSESSMENT_QUESTIONS.map((q) => {
               const chosen = result.answers[q.id];
-              const chosenOpt = q.options.find((o) => o.id === chosen);
+              const optObj = q.options.find((o) => o.id === chosen);
 
               return (
-                <div key={q.id} className="pt-4 first:pt-0 space-y-2">
-                  <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-                    <span className="text-amber-400 font-bold">Question {q.id} ({q.module})</span>
-                    <span>Selected Option: <strong className="text-white bg-slate-800 px-2 py-0.5 rounded">{chosen || 'None'}</strong></span>
+                <div key={q.id} className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-2 text-xs">
+                  <div className="flex items-center justify-between text-slate-400">
+                    <span className="font-mono font-bold text-amber-400">Question {q.id}</span>
+                    <span className="font-mono bg-slate-800 px-2 py-0.5 rounded text-white">
+                      Selected: Option {chosen || 'Unanswered'}
+                    </span>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-xs text-slate-200 font-semibold">
-                      {q.question}
-                    </p>
-                    {q.arabicQuestion && (
-                      <p className="text-xs text-amber-300/80 font-arabic" dir="rtl">
-                        {q.arabicQuestion}
-                      </p>
-                    )}
-                  </div>
-                  {chosenOpt && (
-                    <div className="bg-slate-900/80 border border-slate-800 rounded-lg p-3 text-xs space-y-1.5">
-                      <div className="text-slate-200">
-                        <strong className="text-amber-400 font-mono">[{chosenOpt.id}]</strong> {chosenOpt.text}
-                      </div>
-                      <div className="text-slate-400 text-[11px] italic border-t border-slate-800/60 pt-1">
-                        <strong className="text-blue-400 not-italic">Tactical Doctrine:</strong> {chosenOpt.learningInsight}
+                  <div className="font-medium text-slate-200">{q.question}</div>
+                  {optObj && (
+                    <div className="text-slate-300 bg-slate-950/50 p-2.5 rounded-lg border border-slate-800/80">
+                      <div className="text-emerald-400 font-medium mb-1">Your Selected Response:</div>
+                      <div>{optObj.text}</div>
+                      <div className="mt-1 text-slate-400 text-[11px] font-mono italic">
+                        Insight: {optObj.learningInsight}
                       </div>
                     </div>
                   )}
@@ -494,29 +556,24 @@ export const AssessmentResultView: React.FC<AssessmentResultViewProps> = ({
         )}
       </div>
 
-      {/* Bottom Sticky Action Bar */}
-      <div className="bg-[#0a0f1a] border border-amber-500/30 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-4 shadow-2xl backdrop-blur-md">
-        <div className="text-xs text-slate-300 text-center sm:text-left">
-          Official Dossier ready for <strong className="text-white">{result.student.name}</strong> ({result.student.studentId}). Assigned fit: <strong className="text-amber-400">{primaryDef.name}</strong>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onReturnToSplash}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs rounded-lg flex items-center gap-2 border border-slate-700 transition-colors"
-          >
-            <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
-            Assess Next Student
-          </button>
+      {/* Bottom Sticky Completion Bar if not yet downloaded */}
+      {!hasDownloadedPdf && (
+        <div className="sticky bottom-4 bg-amber-500/95 text-slate-950 p-4 rounded-2xl shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 border border-amber-300 z-30">
+          <div className="flex items-center gap-3">
+            <AlertTriangle className="w-5 h-5 text-slate-950 shrink-0" />
+            <div className="text-xs sm:text-sm font-bold">
+              Final Step: Download your PDF report to unlock assessment completion and send it to your class WhatsApp group!
+            </div>
+          </div>
           <button
             onClick={handleDownloadPdf}
             disabled={downloading}
-            className="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg flex items-center gap-2 transition-all shadow-md shadow-amber-500/20"
+            className="px-5 py-2.5 bg-slate-950 text-white font-black text-xs sm:text-sm rounded-xl hover:bg-slate-900 transition-colors shrink-0 shadow-lg"
           >
-            <Download className="w-3.5 h-3.5" />
-            {downloading ? 'Compiling...' : 'Download Official PDF Report'}
+            Download PDF Report Now
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

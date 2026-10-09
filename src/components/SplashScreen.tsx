@@ -112,11 +112,11 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
             Brigade Personality &amp; Role Assessment
           </h1>
           <div className="text-sm sm:text-base text-amber-400 font-arabic mb-4" dir="rtl">
-            تقييم الميول والشخصية والخبرة لتحديد دورك الأمثل في فريق الطوارئ (أقل من 30 دقيقة)
+            تقييم سيكومتري مكون من 25 سؤالاً لاكتشاف قدراتك الطبيعية وميولك السلوكية لتحديد دورك الأمثل في فريق الطوارئ (10–15 دقيقة)
           </div>
 
           <p className="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed mb-8">
-            A 40-question personality, experience, and preference test designed for fast, intuitive completion (estimated time: 15–20 minutes). Discover whether your natural strengths match <strong className="text-white">Fire Fighting</strong>, <strong className="text-white">Casualty Care</strong>, <strong className="text-white">Crowd Evacuation</strong>, or <strong className="text-white">Radio Communications</strong>. You will receive your Primary Role, Secondary Role, and Third Role Capability.
+            A 25-question psychometric assessment designed for self-discovery (estimated time: 10–15 minutes). Discover how your natural instincts, stress responses, and personal strengths match <strong className="text-white">Fire Fighting</strong>, <strong className="text-white">Casualty Care</strong>, <strong className="text-white">Crowd Evacuation</strong>, or <strong className="text-white">Radio Communications</strong>. You will receive your Primary Role, Secondary Role, and Third Role Capability.
           </p>
 
           {/* 4 Roles Showcase Pills (Team Leader removed) */}
@@ -248,7 +248,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
                   disabled={!isFormValid}
                   className="w-full py-4 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed text-slate-950 font-black text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-lg shadow-amber-500/25 hover:scale-[1.01] active:scale-[0.99]"
                 >
-                  Start 40-Question Assessment
+                  Start 25-Question Assessment
                   <ArrowRight className="w-5 h-5" />
                 </button>
 
@@ -276,11 +276,11 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
           <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-5">
             <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3 font-mono font-bold text-sm">
-              40Q
+              25Q
             </div>
-            <h4 className="text-sm font-bold text-white mb-1">Learn by Doing</h4>
+            <h4 className="text-sm font-bold text-white mb-1">Psychometric Discovery</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Every scenario delivers real-time tactical doctrine explaining international airport emergency SOPs.
+              Carefully calibrated situational dilemmas measuring natural instincts, stress response, and personal abilities without giveaway cues.
             </p>
           </div>
 
@@ -288,9 +288,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
             <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-3">
               <Award className="w-5 h-5" />
             </div>
-            <h4 className="text-sm font-bold text-white mb-1">Dual-Role Placement</h4>
+            <h4 className="text-sm font-bold text-white mb-1">Triple-Role Placement</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Calculates primary tactical appointment and secondary cross-functional backup role with compatibility percentages.
+              Accurately determines your Primary Role, Secondary Role, and Third Role Capability for maximum airport crisis flexibility.
             </p>
           </div>
 
@@ -300,7 +300,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onStart, onQuickFill
             </div>
             <h4 className="text-sm font-bold text-white mb-1">Official PDF Dossier</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Instantly downloads an accredited 3-page evaluation report with competency analysis and official sign-off lines.
+              Mandatory downloadable evaluation dossier for submission to your training cohort WhatsApp group.
             </p>
           </div>
         </div>

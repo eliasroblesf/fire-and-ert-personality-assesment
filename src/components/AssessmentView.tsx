@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  ShieldAlert, 
   ChevronLeft, 
   ChevronRight, 
   Flag, 
-  BookOpen, 
   CheckCircle2, 
   Clock, 
-  Flame, 
-  Stethoscope, 
-  DoorOpen, 
-  Radio, 
-  Info, 
   Check, 
-  Lock, 
   Languages,
   Circle,
-  KeyRound
+  KeyRound,
+  ShieldCheck,
+  Compass
 } from 'lucide-react';
 import { ASSESSMENT_QUESTIONS, AssessmentQuestion } from '../data/assessmentQuestions';
 import { StudentProfile } from '../types/assessment';
@@ -31,6 +25,16 @@ interface AssessmentViewProps {
   timeRemaining: number;
 }
 
+// Fisher-Yates array shuffler
+function shuffleArray<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export const AssessmentView: React.FC<AssessmentViewProps> = ({
   student,
   answers,
@@ -39,9 +43,16 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
   onEditProfile,
   timeRemaining,
 }) => {
+  // Always shuffle question order and the options within each question on initialization
+  const [shuffledQuestions] = useState<AssessmentQuestion[]>(() => {
+    return shuffleArray(ASSESSMENT_QUESTIONS).map((q) => ({
+      ...q,
+      options: shuffleArray(q.options),
+    }));
+  });
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flaggedQuestions, setFlaggedQuestions] = useState<Record<number, boolean>>({});
-  const [showLearningInsight, setShowLearningInsight] = useState(false);
   const [showArabic, setShowArabic] = useState(true);
   const [isPasscodeOpen, setIsPasscodeOpen] = useState(false);
 
@@ -53,27 +64,10 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
 
   const isLowTime = timeRemaining <= 300; // Under 5 minutes remaining
 
-  const currentQ: AssessmentQuestion = ASSESSMENT_QUESTIONS[currentIndex];
-  const totalQuestions = ASSESSMENT_QUESTIONS.length;
+  const currentQ: AssessmentQuestion = shuffledQuestions[currentIndex] || shuffledQuestions[0];
+  const totalQuestions = shuffledQuestions.length;
   const answeredCount = Object.keys(answers).length;
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'command':
-        return <ShieldAlert className="w-4 h-4 text-amber-400" />;
-      case 'suppression':
-        return <Flame className="w-4 h-4 text-rose-400" />;
-      case 'medical':
-        return <Stethoscope className="w-4 h-4 text-emerald-400" />;
-      case 'evacuation':
-        return <DoorOpen className="w-4 h-4 text-blue-400" />;
-      case 'liaison':
-        return <Radio className="w-4 h-4 text-purple-400" />;
-      default:
-        return <Info className="w-4 h-4 text-slate-400" />;
-    }
-  };
 
   const toggleFlag = (id: number) => {
     setFlaggedQuestions((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -92,13 +86,13 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
   };
 
   const jumpToNextUnanswered = () => {
-    const nextUnanswered = ASSESSMENT_QUESTIONS.findIndex((q) => !answers[q.id]);
+    const nextUnanswered = shuffledQuestions.findIndex((q) => !answers[q.id]);
     if (nextUnanswered !== -1) {
       setCurrentIndex(nextUnanswered);
     }
   };
 
-  // Select Option: DOES NOT auto-advance. Changes color, allows changing mind freely.
+  // Select Option: DOES NOT auto-advance; candidate can freely change mind
   const handleSelectOption = (optionId: 'A' | 'B' | 'C' | 'D') => {
     onAnswerChange(currentQ.id, optionId);
   };
@@ -109,25 +103,24 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (e.key === 'ArrowRight') handleNext();
       if (e.key === 'ArrowLeft') handlePrev();
-      if (['1', 'a', 'A'].includes(e.key)) handleSelectOption('A');
-      if (['2', 'b', 'B'].includes(e.key)) handleSelectOption('B');
-      if (['3', 'c', 'C'].includes(e.key)) handleSelectOption('C');
-      if (['4', 'd', 'D'].includes(e.key)) handleSelectOption('D');
+      if (['1', 'a', 'A'].includes(e.key) && currentQ.options[0]) handleSelectOption(currentQ.options[0].id);
+      if (['2', 'b', 'B'].includes(e.key) && currentQ.options[1]) handleSelectOption(currentQ.options[1].id);
+      if (['3', 'c', 'C'].includes(e.key) && currentQ.options[2]) handleSelectOption(currentQ.options[2].id);
+      if (['4', 'd', 'D'].includes(e.key) && currentQ.options[3]) handleSelectOption(currentQ.options[3].id);
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, currentQ.id]);
+  }, [currentIndex, currentQ]);
 
-  // Demo auto-fill helper (requires code 2809)
+  // Demo auto-fill helper (requires passcode 2809)
   const handleQuickDemoFill = () => {
-    const samplePattern: ('A' | 'B' | 'C' | 'D')[] = ['A', 'C', 'D', 'A', 'C', 'B'];
-    ASSESSMENT_QUESTIONS.forEach((q, idx) => {
+    const samplePattern: ('A' | 'B' | 'C' | 'D')[] = ['A', 'C', 'D', 'B', 'A'];
+    shuffledQuestions.forEach((q, idx) => {
       onAnswerChange(q.id, samplePattern[idx % samplePattern.length]);
     });
   };
 
   const currentAnswer = answers[currentQ.id];
-  const chosenOption = currentQ.options.find((o) => o.id === currentAnswer);
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-16">
@@ -145,7 +138,7 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold font-mono">
-              40Q
+              25Q
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -217,7 +210,7 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
               Answered: <strong className="text-white">{answeredCount}</strong> of {totalQuestions}
             </span>
             <span className="text-[11px] text-slate-400 hidden sm:inline">
-              Select your choice, then push <strong>Next</strong> to continue
+              Select your natural reaction, then click <strong>Next</strong> to continue
             </span>
             <span className="font-bold text-amber-400">{progressPercent}%</span>
           </div>
@@ -230,11 +223,12 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
         </div>
       </div>
 
-      {/* Navigation Bar (1 - 40 Grid) */}
+      {/* Navigation Bar (1 - 25 Grid) */}
       <div className="bg-[#0a0f1a] border border-slate-800 rounded-xl p-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-          <span className="text-xs uppercase font-mono font-bold tracking-wider text-slate-400">
-            Question Navigator (1 to 40)
+          <span className="text-xs uppercase font-mono font-bold tracking-wider text-slate-400 flex items-center gap-2">
+            <Compass className="w-4 h-4 text-amber-400" />
+            Psychometric Question Navigator (1 to 25)
           </span>
           <div className="flex items-center gap-3 text-[11px] text-slate-400">
             <span className="flex items-center gap-1">
@@ -257,9 +251,9 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
           </div>
         </div>
 
-        {/* 40 Grid Pills */}
-        <div className="grid grid-cols-10 sm:grid-cols-20 gap-1.5">
-          {ASSESSMENT_QUESTIONS.map((q, idx) => {
+        {/* 25 Grid Pills */}
+        <div className="grid grid-cols-5 sm:grid-cols-13 md:grid-cols-25 gap-1.5">
+          {shuffledQuestions.map((q, idx) => {
             const isAnswered = !!answers[q.id];
             const isCurrent = idx === currentIndex;
             const isFlagged = !!flaggedQuestions[q.id];
@@ -273,29 +267,30 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
               <button
                 key={q.id}
                 onClick={() => setCurrentIndex(idx)}
-                className={`h-7 rounded text-[11px] font-mono font-medium border flex items-center justify-center transition-all ${cellBg} hover:opacity-90`}
+                className={`h-8 rounded-lg text-xs font-mono font-medium border flex items-center justify-center transition-all ${cellBg} hover:opacity-90`}
+                title={`Question ${idx + 1}`}
               >
-                {q.id}
+                {idx + 1}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Main Question Card */}
+      {/* Main Question Card (Psychometric & Non-Obvious) */}
       <div className="bg-[#0a0f1a] border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl relative">
         {/* Module Header & Toggles */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4 mb-6">
           <div className="flex items-center gap-2.5">
             <div className="p-2 bg-slate-900 rounded-lg border border-slate-800">
-              {getCategoryIcon(currentQ.category)}
+              <ShieldCheck className="w-4 h-4 text-amber-400" />
             </div>
             <div>
               <span className="text-[11px] font-mono uppercase tracking-widest text-amber-500 font-bold block">
                 {currentQ.module}
               </span>
               <span className="text-xs text-slate-400">
-                Question <strong className="text-white">{currentQ.id}</strong> of {totalQuestions}
+                Question <strong className="text-white">{currentIndex + 1}</strong> of {totalQuestions}
               </span>
             </div>
           </div>
@@ -323,19 +318,7 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
               }`}
             >
               <Flag className="w-3.5 h-3.5" />
-              {flaggedQuestions[currentQ.id] ? 'Flagged' : 'Flag'}
-            </button>
-
-            <button
-              onClick={() => setShowLearningInsight(!showLearningInsight)}
-              className={`text-xs px-3 py-1.5 rounded-lg border flex items-center gap-1.5 transition-colors ${
-                showLearningInsight
-                  ? 'bg-blue-500/10 text-blue-300 border-blue-500/30'
-                  : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-slate-200'
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              Insight: {showLearningInsight ? 'ON' : 'OFF'}
+              {flaggedQuestions[currentQ.id] ? 'Flagged' : 'Flag for Review'}
             </button>
           </div>
         </div>
@@ -351,17 +334,14 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
               {currentQ.arabicQuestion}
             </div>
           )}
-
-          <div className="text-[11px] text-slate-400 pt-1 flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5 text-amber-400/80" />
-            <span>Select the choice that best matches your personality. You can change your selection at any time before clicking Next.</span>
-          </div>
         </div>
 
-        {/* 4 Options (Color changes on select, no auto-advance) */}
+        {/* 4 Shuffled Options (No obvious category signs, color changes on select, no auto-advance) */}
         <div className="space-y-3.5 mb-6">
-          {currentQ.options.map((opt) => {
+          {currentQ.options.map((opt, optIndex) => {
             const isSelected = currentAnswer === opt.id;
+            const displayLetter = String.fromCharCode(65 + optIndex); // A, B, C, D
+
             return (
               <button
                 key={opt.id}
@@ -381,7 +361,7 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
                       : 'bg-slate-800 text-slate-400 border-slate-700'
                   }`}
                 >
-                  {opt.id}
+                  {displayLetter}
                 </div>
 
                 {/* Option Text & Arabic Subtitle */}
@@ -416,20 +396,7 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
           })}
         </div>
 
-        {/* Optional Tactical Rationale Debrief Panel */}
-        {showLearningInsight && chosenOption && (
-          <div className="bg-gradient-to-r from-blue-950/40 to-slate-900/80 border border-blue-500/30 rounded-xl p-4 sm:p-5 mt-4 transition-all">
-            <div className="flex items-center gap-2 mb-1.5 text-blue-400 text-xs font-mono font-bold uppercase tracking-wider">
-              <BookOpen className="w-4 h-4" />
-              Tactical Learning Insight:
-            </div>
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-              {chosenOption.learningInsight}
-            </p>
-          </div>
-        )}
-
-        {/* Navigation Toolbar — ONLY pushing "Next" moves forward */}
+        {/* Navigation Toolbar — ONLY clicking "Next" moves forward */}
         <div className="flex items-center justify-between border-t border-slate-800 pt-6 mt-6">
           <button
             onClick={handlePrev}
@@ -446,14 +413,14 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
           {currentIndex < totalQuestions - 1 ? (
             <button
               onClick={handleNext}
-              className="px-8 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-sm flex items-center gap-2 transition-all shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98]"
+              className="px-8 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-sm flex items-center gap-2 transition-all shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.99]"
             >
               Next <ChevronRight className="w-4 h-4" />
             </button>
           ) : (
             <button
               onClick={onSubmit}
-              className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-xl text-sm flex items-center gap-2 transition-all shadow-lg shadow-emerald-600/30 animate-pulse hover:scale-[1.02] active:scale-[0.98]"
+              className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-xl text-sm flex items-center gap-2 transition-all shadow-lg shadow-emerald-600/30 animate-pulse hover:scale-[1.02] active:scale-[0.99]"
             >
               Submit &amp; View Report <Check className="w-4 h-4" />
             </button>

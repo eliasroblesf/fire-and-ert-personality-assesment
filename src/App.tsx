@@ -104,7 +104,7 @@ export default function App() {
   const handleQuickFillDemo = (profile: StudentProfile) => {
     setStudentProfile(profile);
     const demoAnswers: Record<number, 'A' | 'B' | 'C' | 'D'> = {};
-    const samplePattern: ('A' | 'B' | 'C' | 'D')[] = ['A', 'C', 'D', 'A', 'C', 'B'];
+    const samplePattern: ('A' | 'B' | 'C' | 'D')[] = ['A', 'C', 'D', 'B', 'A'];
 
     ASSESSMENT_QUESTIONS.forEach((q, idx) => {
       demoAnswers[q.id] = samplePattern[idx % samplePattern.length];
